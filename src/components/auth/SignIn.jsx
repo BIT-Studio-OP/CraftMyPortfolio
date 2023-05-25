@@ -15,7 +15,7 @@ const SignIn = ({ toggleForm }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
-  const loggedIn = useContext(AuthContext);
+  const [user, setUser] = useState(null);
 
   const auth = getAuth();
   const Navigate = useNavigate();
