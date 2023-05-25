@@ -1,4 +1,3 @@
-import { signOut } from "@firebase/auth"
 import React from "react"
 import { getAuth } from "firebase/auth"
 
@@ -10,7 +9,7 @@ const Body = () => {
     return (
         <div className="body">
             <h1>Body</h1>
-            <button onClick={signOutUser}>Click Me</button>
+            <button onClick={signOutUser} className="text-red-500">Sign Out</button>
         </div>
     )
 }

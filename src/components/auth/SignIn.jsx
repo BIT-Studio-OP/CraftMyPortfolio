@@ -8,7 +8,10 @@ import {
 } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
 import { auth } from "../../utils/Firestore.jsx";
-import { useCurrentUser, AuthContext } from "../../utils/context/AuthContext.jsx";
+import {
+  useCurrentUser,
+  AuthContext,
+} from "../../utils/context/AuthContext.jsx";
 
 // eslint-disable-next-line react/prop-types
 const SignIn = ({ toggleForm }) => {
@@ -22,20 +25,18 @@ const SignIn = ({ toggleForm }) => {
 
   const goToSignUp = () => {
     Navigate("/signup");
-  }
+  };
 
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
-      await signInWithEmailAndPassword(auth, email, password)
-      .then((userCredential) => {
-        const user = userCredential.user;
-        setUser(user);
-      })
-
-      console.log("successlogin");
+      await signInWithEmailAndPassword(auth, email, password).then(
+        (userCredential) => {
+          const user = userCredential.user;
+          setUser(user);
+        }
+      );
     } catch (error) {
-      console.log("failedlogin");
       console.error(error);
       switch (error.code) {
         case "auth/invalid-email":
