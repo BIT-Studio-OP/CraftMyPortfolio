@@ -1,54 +1,51 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import "./App.css";
 import { auth } from "./utils/Firestore";
-import { getAuth } from "firebase/auth";
+import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import SignIn from "./components/auth/SignIn";
 import SignUp from "./components/auth/SignUp";
-import { useCurrentUser } from "./utils/context/AuthContext";
+import { useCurrentUser, AuthContext } from "./utils/context/AuthContext";
+import Spinner from "./utils/Spinner";
+import Body from "./components/content/Body";
 
 function App() {
-  const [showSignIn, setShowSignIn] = useState(true);
+  const [isLoading, setIsLoading] = useState(true) // Set initial state to true
+  const loggedIn = useContext(AuthContext)
+  const auth = getAuth()
+  const user = useCurrentUser()
 
-  const auth = getAuth;
+  useEffect(() => {
+    
+    try{
+      const unsubscribe = onAuthStateChanged(auth, (user) => {
+        setIsLoading(false);
+      });
 
-  const user = useCurrentUser();
-  console.log(user);
+      return unsubscribe;
+     
+    }
+    catch(err){
+      console.log("unable to connect to firebase. Error Received: " + err);
+    }
 
-  const SignOut = () => {
-    auth.signOut();
-  };
+  }, [auth]);
 
-  const toggleForm = () => {
-    setShowSignIn(!showSignIn);
-  };
+  if (isLoading) {
+    // Render spinner while checking authentication
+    return <Spinner />;
+  } 
 
   return (
     <Router>
-      {user ? <div>Welcome, {user.displayName}</div> : null}
+      {loggedIn ? <div>Welcome, {user.displayName}</div> : null}
       <div className="background">
         <Routes>
           <Route
             path="/"
-            element={
-              <>
-                {user ? (
-                  <>
-                    <div>Hello I am Home Page </div>
-                    <div>
-                      <button className="text-red-500" onClick={SignOut}>
-                        Sign Out
-                      </button>
-                    </div>
-                  </>
-                ) : showSignIn ? (
-                  <SignIn toggleForm={toggleForm} />
-                ) : (
-                  <SignUp toggleForm={toggleForm} />
-                )}
-              </>
-            }
+            element={loggedIn ? <Body /> : <SignIn />}
           />
+          <Route path="/signup" element={<SignUp />} />
         </Routes>
       </div>
     </Router>

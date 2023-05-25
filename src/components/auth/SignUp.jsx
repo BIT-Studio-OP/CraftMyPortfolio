@@ -8,6 +8,7 @@ import {
   signInWithPopup,
   updateProfile,
 } from "firebase/auth";
+import { useNavigate } from "react-router-dom";
 import { auth, firestore } from "../../utils/Firestore.jsx";
 import { setDoc, doc } from "firebase/firestore";
 
@@ -17,6 +18,12 @@ const SignUp = ({ toggleForm }) => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
+
+  const Navigate = useNavigate();
+
+  const goToSignIn = () => {
+    Navigate("/");
+  }
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -118,7 +125,7 @@ const SignUp = ({ toggleForm }) => {
 
       <p className="font-bold text-white w-80 m-7">
         Already have an account? 
-        <a onClick={toggleForm}> Sign In</a>
+        <a onClick={goToSignIn}> Sign In</a>
       </p>
     </div>
   );

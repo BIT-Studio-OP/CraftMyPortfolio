@@ -6,6 +6,7 @@ import {
   GoogleAuthProvider,
   signInWithPopup,
 } from "firebase/auth";
+import { useNavigate } from "react-router-dom";
 import { auth } from "../../utils/Firestore.jsx";
 import { useCurrentUser, AuthContext } from "../../utils/context/AuthContext.jsx";
 
@@ -17,6 +18,11 @@ const SignIn = ({ toggleForm }) => {
   const loggedIn = useContext(AuthContext);
 
   const auth = getAuth();
+  const Navigate = useNavigate();
+
+  const goToSignUp = () => {
+    Navigate("/signup");
+  }
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -102,7 +108,7 @@ const SignIn = ({ toggleForm }) => {
       </button> */}
       <p className="font-bold text-white w-60 m-7">
         Don't have an account?
-        <a onClick={toggleForm}> Sign Up</a>
+        <a onClick={goToSignUp}> Sign Up</a>
       </p>
     </div>
   );
