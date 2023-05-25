@@ -1,5 +1,3 @@
-//context to store user data
-
 import React, { useState, useEffect, createContext, useContext } from 'react';
 import { getAuth } from 'firebase/auth';
 

@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import {
   getAuth,
   signInWithEmailAndPassword,
@@ -7,19 +7,26 @@ import {
   signInWithPopup,
 } from "firebase/auth";
 import { auth } from "../../utils/Firestore.jsx";
+import { useCurrentUser, AuthContext } from "../../utils/context/AuthContext.jsx";
 
 // eslint-disable-next-line react/prop-types
 const SignIn = ({ toggleForm }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
+  const loggedIn = useContext(AuthContext);
 
   const auth = getAuth();
 
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
-      await signInWithEmailAndPassword(auth, email, password);
+      await signInWithEmailAndPassword(auth, email, password)
+      .then((userCredential) => {
+        const user = userCredential.user;
+        setUser(user);
+      })
+
       console.log("successlogin");
     } catch (error) {
       console.log("failedlogin");

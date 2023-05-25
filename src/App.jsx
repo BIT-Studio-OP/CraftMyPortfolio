@@ -1,53 +1,58 @@
 import React, { useState, useEffect } from "react";
 import "./App.css";
 import { auth } from "./utils/Firestore";
-import { onAuthStateChanged } from "firebase/auth";
+import { getAuth } from "firebase/auth";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import SignIn from "./components/auth/SignIn";
 import SignUp from "./components/auth/SignUp";
-import SignOut from "./components/auth/SignOut";
+import { useCurrentUser } from "./utils/context/AuthContext";
 
 function App() {
   const [showSignIn, setShowSignIn] = useState(true);
-  const [currentUser, setCurrentUser] = useState(null);
 
-  useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (user) => {
-      setCurrentUser(user);
-    });
-    return () => unsubscribe();
-  }, []);
+  const auth = getAuth;
+
+  const user = useCurrentUser();
+  console.log(user);
+
+  const SignOut = () => {
+    auth.signOut();
+  };
 
   const toggleForm = () => {
     setShowSignIn(!showSignIn);
   };
 
-    return (
-      <Router>
-        {currentUser ? <div>Welcome, {currentUser.displayName}</div> : null}
-        <div className="background">
-          <Routes>
-            <Route
-              path="/"
-              element={
-                <>
-                  {currentUser ? (
-                    <>
+  return (
+    <Router>
+      {user ? <div>Welcome, {user.displayName}</div> : null}
+      <div className="background">
+        <Routes>
+          <Route
+            path="/"
+            element={
+              <>
+                {user ? (
+                  <>
                     <div>Hello I am Home Page </div>
-                      <SignOut setCurrentUser={setCurrentUser} />
-                    </>
-                  ) : showSignIn ? (
-                    <SignIn toggleForm={toggleForm} />
-                  ) : (
-                    <SignUp toggleForm={toggleForm} />
-                  )}
-                </>
-              }
-            />
-          </Routes>
-        </div>
-      </Router>
-    );
+                    <div>
+                      <button className="text-red-500" onClick={SignOut}>
+                        Sign Out
+                      </button>
+                    </div>
+                  </>
+                ) : showSignIn ? (
+                  <SignIn toggleForm={toggleForm} />
+                ) : (
+                  <SignUp toggleForm={toggleForm} />
+                )}
+              </>
+            }
+          />
+        </Routes>
+      </div>
+    </Router>
+  );
 }
 
 export default App;
