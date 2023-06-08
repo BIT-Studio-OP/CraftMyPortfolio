@@ -18,6 +18,15 @@ const useStyles = createUseStyles({
     "@media (max-width: 500px)": {
       flexDirection: "column",
     },
+    "@media (max-width: 1500px)": {
+      background: "linear-gradient(45deg, #161925 10%, #161925 25%, #FCFCEE 5%, #FCFCEE 100%)",
+    },
+    "@media (max-width: 800px)": {
+      background: "linear-gradient(45deg, #161925 10%, #161925 29%, #FCFCEE 1%, #FCFCEE 100%)",
+    },
+    "@media (max-width: 750px)": {
+      background: "#FCFCEE",
+    },
   },
   leftContent: {
     display: "flex",
@@ -25,11 +34,21 @@ const useStyles = createUseStyles({
     flexDirection: "column",
     "& p": {
       margin: "0 1rem",
+      "@media (max-width: 750px)": {
+        color: "#161925",
+      },
     },
     "& > a": {
       textDecoration: "none",
       color: "#FCFCEE",
+      "@media (max-width: 750px)": {
+        color: "#161925",
+      },
     },
+    "@media (max-width: 500px)": {
+      paddingBottom: "1rem",
+    },
+    
   },
   rightContent: {
     display: "flex",
@@ -43,6 +62,9 @@ const useStyles = createUseStyles({
       textDecoration: "none",
       color: "#161925",
     },
+    "@media (max-width: 500px)": {
+      paddingBottom: "1rem",
+    },
   },
   middleContent: {
     display: "flex",
@@ -55,6 +77,9 @@ const useStyles = createUseStyles({
     "& > a": {
       textDecoration: "none",
       color: "#161925",
+    },
+    "@media (max-width: 500px)": {
+      paddingBottom: "1rem",
     },
   },
 });
