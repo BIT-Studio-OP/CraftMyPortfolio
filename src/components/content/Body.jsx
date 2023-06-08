@@ -1,15 +1,17 @@
 import React from "react"
 import { getAuth } from "firebase/auth"
+import Header from "../header/Header"
+import Footer from "../footer/Footer"
+import Home from "../home/Home"
+
 
 const Body = () => {
-    const auth = getAuth()
-    const signOutUser = () => {
-        auth.signOut()
-    }
+    
     return (
         <div className="body">
-            <h1>Body</h1>
-            <button onClick={signOutUser} className="text-red-500">Sign Out</button>
+            <Header />
+            <Home />
+            <Footer />
         </div>
     )
 }

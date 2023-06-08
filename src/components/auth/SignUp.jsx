@@ -38,6 +38,7 @@ const SignUp = ({ toggleForm }) => {
         email: userCredential.user.email,
         username,
       });
+      Navigate("/");
     } catch (error) {
       console.error(error);
       switch (error.code) {

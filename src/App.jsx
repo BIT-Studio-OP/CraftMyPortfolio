@@ -38,7 +38,6 @@ function App() {
 
   return (
     <Router>
-      {loggedIn ? <div>Welcome, {user.displayName}</div> : null}
       <div className="background">
         <Routes>
           {loggedIn ? (
@@ -50,8 +49,7 @@ function App() {
             </>
           )}
         </Routes>
-        <Home />
-        <Footer />
+
       </div>
     </Router>
   );

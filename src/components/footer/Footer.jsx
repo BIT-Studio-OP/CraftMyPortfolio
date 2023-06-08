@@ -9,7 +9,7 @@ const useStyles = createUseStyles({
     fontWeight: "500",
     padding: "1rem 2rem 1rem 2rem",
     position: "absolute",
-    bottom: "0",
+    bottom: "-1",
     left: "0",
     width: "100%",
     display: "flex",

@@ -1,6 +1,7 @@
 import React, {useState} from 'react'
 import "./nav.css";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { getAuth } from "firebase/auth"
 import { faBars } from '@fortawesome/free-solid-svg-icons'
 
 function Header() {
@@ -10,6 +11,10 @@ function Header() {
   const handleIconClick = () => {
     setShowMenu(!showMenu);
   };
+const auth = getAuth()
+    const signOutUser = () => {
+        auth.signOut()
+    }
 
   return (
     <>
@@ -20,6 +25,7 @@ function Header() {
                 <li><a>Templates</a></li>
                 <li><a>Account</a></li>
                 <li className="projects-button"><a>My Projects</a></li>
+                <li onClick={signOutUser}><a>Log Out</a></li>
             </ul>
             {/* Responsive menu for smaller screens */}
             <div className='res-menu-parent'>
@@ -29,6 +35,7 @@ function Header() {
                   <li><a>Templates</a></li>
                   <li><a>Account</a></li>
                   <li className="projects-button"><a>My Projects</a></li>
+                  <li onClick={signOutUser}><a>Log Out</a></li>
               </ul>
             </div>
         </nav>
