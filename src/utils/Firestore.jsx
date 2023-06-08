@@ -18,8 +18,8 @@ const firebaseConfig = {
 };
 
 const firebaseApp = initializeApp(firebaseConfig);
-const firestore = getFirestore(firebaseApp);
-const auth = getAuth(firebaseApp);
+export const firestore = getFirestore(firebaseApp);
+export const auth = getAuth(firebaseApp);
 
 if (process.env.NODE_ENV != "production") {
   console.log("using emulator");
