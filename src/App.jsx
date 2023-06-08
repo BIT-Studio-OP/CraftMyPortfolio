@@ -8,6 +8,7 @@ import SignUp from "./components/auth/SignUp";
 import { useCurrentUser, AuthContext } from "./utils/context/AuthContext";
 import Spinner from "./utils/Spinner";
 import Body from "./components/content/Body";
+import Header from "./components/header/Header";
 import Footer from "./components/footer/Footer";
 
 

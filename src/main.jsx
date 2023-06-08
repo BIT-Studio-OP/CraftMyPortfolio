@@ -4,6 +4,8 @@ import App from './App.jsx'
 import './index.css'
 import AuthProvider from './utils/context/AuthContext.jsx'
 
+
+
 ReactDOM.createRoot(document.getElementById('root')).render(
   <AuthProvider>
   <React.StrictMode>
