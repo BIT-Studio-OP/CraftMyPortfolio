@@ -1,6 +1,9 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;900&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
 
 :root {
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
@@ -16,6 +19,11 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   -webkit-text-size-adjust: 100%;
+
+  --primary-colour: #161925;
+  --accent-colour: #FE938C;
+  --secondary-colour: #95B8D1;
+  --text-colour: #FCFCEE;
 }
 
 a {
