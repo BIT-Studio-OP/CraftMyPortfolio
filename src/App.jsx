@@ -8,6 +8,8 @@ import SignUp from "./components/auth/SignUp";
 import { useCurrentUser, AuthContext } from "./utils/context/AuthContext";
 import Spinner from "./utils/Spinner";
 import Body from "./components/content/Body";
+import Footer from "./components/footer/Footer";
+
 
 function App() {
   const [isLoading, setIsLoading] = useState(true); // Set initial state to true
@@ -46,6 +48,7 @@ function App() {
             </>
           )}
         </Routes>
+        <Footer />
       </div>
     </Router>
   );
