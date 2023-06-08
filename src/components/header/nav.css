@@ -6,6 +6,12 @@
     padding: 1rem;
 
 }
+    h1{
+        font-size: 2rem;
+        font-weight: 600;
+        color: var(--white);
+    }
+
 ul{
     display: flex;
     justify-content: space-between;
@@ -68,6 +74,10 @@ a:hover{
   
   /* Media queries */
   @media screen and (orientation: portrait) {
+    h1{
+        font-size: 20px;
+    }
+
     .menu {
       display: none;
     }
