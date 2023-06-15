@@ -106,11 +106,13 @@ function Footer() {
       </div>
       <div className={classes.rightContent}>
         <p>The Team:</p>
+        <a href="https://www.mctimebank.nz/">
         <p>Caleb</p>
-        <a href="https:/www.dani-op.com">
+        </a>
+        <a href="https://www.dani-op.com">
           <p>Dani</p>
         </a>
-        <a href="https:/www.jakeclearwater.com">
+        <a href="https://www.jakeclearwater.com">
           <p>Jake</p>
         </a>
       </div>
