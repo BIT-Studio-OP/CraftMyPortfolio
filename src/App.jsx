@@ -8,7 +8,6 @@ import SignIn from "./components/auth/SignIn";
 import SignUp from "./components/auth/SignUp";
 import { useCurrentUser, AuthContext } from "./utils/context/AuthContext";
 import Spinner from "./utils/Spinner";
-import Body from "./components/content/Body";
 import Header from "./components/header/Header";
 import Footer from "./components/footer/Footer";
 import Templates from "./components/templates/Templates";
@@ -42,7 +41,7 @@ function App() {
         <Routes>
           {loggedIn ? (
             <>
-              <Route path="/" element={<Body />} />
+              <Route path="/" element={<Home />} />
               <Route path="/templates" element={<Templates />} />
             </>
           ) : (
