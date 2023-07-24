@@ -23,7 +23,7 @@ const auth = getAuth()
         <nav className="nav-parent">
             <h1>Craft My Portfolio</h1>
             <ul className="menu">
-                <li><a>Home</a></li>
+                <li><a href="/">Home</a></li>
                 <li><a href="/templates">Templates</a></li>
                 <li><a>Account</a></li>
                 <li className="projects-button"><a>My Projects</a></li>
