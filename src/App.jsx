@@ -11,7 +11,7 @@ import Spinner from "./utils/Spinner";
 import Body from "./components/content/Body";
 import Header from "./components/header/Header";
 import Footer from "./components/footer/Footer";
-
+import Templates from "./components/templates/Templates";
 
 function App() {
   const [isLoading, setIsLoading] = useState(true); // Set initial state to true
@@ -41,7 +41,10 @@ function App() {
       <div className="background">
         <Routes>
           {loggedIn ? (
-            <Route path="/" element={<Body />} />
+            <>
+              <Route path="/" element={<Body />} />
+              <Route path="/templates" element={<Templates />} />
+            </>
           ) : (
             <>
               <Route path="/" element={<SignIn />} />
@@ -49,7 +52,6 @@ function App() {
             </>
           )}
         </Routes>
-
       </div>
     </Router>
   );
