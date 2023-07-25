@@ -88,7 +88,8 @@ const useStyles = createUseStyles({
 function TemplateFooterOne() {
   const classes = useStyles();
 
-  // Define state variables for the content of each section
+  const [isEditing, setEditing] = useState(false);
+
   const [leftContent, setLeftContent] = useState({
     instagram: "Instagram",
     facebook: "Facebook",
@@ -132,64 +133,119 @@ function TemplateFooterOne() {
     <footer className={classes.footer}>
       <div className={classes.leftContent}>
         <p>Follow us:</p>
-        <input
-          type="text"
-          name="instagram"
-          value={leftContent.instagram}
-          onChange={handleLeftContentChange}
-        />
-        <input
-          type="text"
-          name="facebook"
-          value={leftContent.facebook}
-          onChange={handleLeftContentChange}
-        />
-        <input
-          type="text"
-          name="linkedIn"
-          value={leftContent.linkedIn}
-          onChange={handleLeftContentChange}
-        />
+        {isEditing ? (
+          <input
+            type="text"
+            name="instagram"
+            value={leftContent.instagram}
+            onChange={handleLeftContentChange}
+            style={{
+              background: isEditing ? "#cccccc" : "transparent",
+            }}
+          />
+        ) : (
+          <p>{leftContent.instagram}</p>
+        )}
+        {isEditing ? (
+          <input
+            type="text"
+            name="facebook"
+            value={leftContent.facebook}
+            onChange={handleLeftContentChange}
+            style={{
+              background: isEditing ? "#cccccc" : "transparent",
+            }}
+          />
+        ) : (
+          <p>{leftContent.facebook}</p>
+        )}
+        {isEditing ? (
+          <input
+            type="text"
+            name="linkedIn"
+            value={leftContent.linkedIn}
+            onChange={handleLeftContentChange}
+            style={{
+              background: isEditing ? "#cccccc" : "transparent",
+            }}
+          />
+        ) : (
+          <p>{leftContent.linkedIn}</p>
+        )}
       </div>
       <div className={classes.middleContent}>
-        <p>
+        {isEditing ? (
           <input
             type="text"
             name="copyright"
             value={middleContent.copyright}
             onChange={handleMiddleContentChange}
+            style={{
+              background: isEditing ? "#cccccc" : "transparent",
+            }}
           />
-        </p>
-        <p>
+        ) : (
+          <p>{middleContent.copyright}</p>
+        )}
+        {isEditing ? (
           <input
             type="text"
             name="contactEmail"
             value={middleContent.contactEmail}
             onChange={handleMiddleContentChange}
+            style={{
+              background: isEditing ? "#cccccc" : "transparent",
+            }}
           />
-        </p>
+        ) : (
+          <p>{middleContent.contactEmail}</p>
+        )}
       </div>
       <div className={classes.rightContent}>
         <p>The Team:</p>
-        <input
-          type="text"
-          name="userOne"
-          value={rightContent.userOne}
-          onChange={handleRightContentChange}
-        />
-        <input
-          type="text"
-          name="userTwo"
-          value={rightContent.userTwo}
-          onChange={handleRightContentChange}
-        />
-        <input
-          type="text"
-          name="userThree"
-          value={rightContent.userThree}
-          onChange={handleRightContentChange}
-        />
+        {isEditing ? (
+          <input
+            type="text"
+            name="userOne"
+            value={rightContent.userOne}
+            onChange={handleRightContentChange}
+            style={{
+              background: isEditing ? "#cccccc" : "transparent",
+            }}
+          />
+        ) : (
+          <p>{rightContent.userOne}</p>
+        )}
+        {isEditing ? (
+          <input
+            type="text"
+            name="userTwo"
+            value={rightContent.userTwo}
+            onChange={handleRightContentChange}
+            style={{
+              background: isEditing ? "#cccccc" : "transparent",
+            }}
+          />
+        ) : (
+          <p>{rightContent.userTwo}</p>
+        )}
+        {isEditing ? (
+          <input
+            type="text"
+            name="userThree"
+            value={rightContent.userThree}
+            onChange={handleRightContentChange}
+            style={{
+              background: isEditing ? "#cccccc" : "transparent",
+            }}
+          />
+        ) : (
+          <p>{rightContent.userThree}</p>
+        )}
       </div>
+      <button onClick={() => setEditing(!isEditing)}>
+        {isEditing ? "Save" : "Edit"}
+      </button>
     </footer>
   );
 }
