@@ -3,6 +3,7 @@ import { createUseStyles } from "react-jss";
 
 const useStyles = createUseStyles({
   footer: {
+    border: "3px solid gray",
     background:
       "linear-gradient(45deg, #161925 10%, #161925 15%, #FCFCEE 15%, #FCFCEE 100%)",
     color: "#FCFCEE",
@@ -11,13 +12,23 @@ const useStyles = createUseStyles({
     padding: "1rem 2rem 1rem 2rem",
     position: "absolute",
     bottom: "-1",
-    left: "0",
-    width: "100%",
+    left: "5vw",
+    width: "90%",
     display: "flex",
     justifyContent: "space-between",
     alignItems: "center",
+    fontSize: "1vw",
     "@media (max-width: 500px)": {
       flexDirection: "column",
+      fontSize: "4vw",
+      fontFamily: "Arial, sans-serif",
+      fontWeight: "400",
+    },
+    "@media (max-width: 680px)": {
+      flexDirection: "column",
+      fontSize: "2vw",
+      fontFamily: "Arial, sans-serif",
+      fontWeight: "400",
     },
     "@media (max-width: 1500px)": {
       background:
@@ -97,7 +108,7 @@ function TemplateFooterOne() {
   });
 
   const [middleContent, setMiddleContent] = useState({
-    copyright: "&copy; 2023 CraftMyPortfolio",
+    copyright: "@2023 CraftMyPortfolio",
     contactEmail: "CraftMyPortfolio@gmail.com",
   });
 
@@ -140,7 +151,7 @@ function TemplateFooterOne() {
             value={leftContent.instagram}
             onChange={handleLeftContentChange}
             style={{
-              background: isEditing ? "#cccccc" : "transparent",
+              background: isEditing ? "rgba(182,130,148)" : "transparent",
             }}
           />
         ) : (
@@ -153,7 +164,7 @@ function TemplateFooterOne() {
             value={leftContent.facebook}
             onChange={handleLeftContentChange}
             style={{
-              background: isEditing ? "#cccccc" : "transparent",
+              background: isEditing ? "rgba(182,130,148)" : "transparent",
             }}
           />
         ) : (
@@ -166,7 +177,7 @@ function TemplateFooterOne() {
             value={leftContent.linkedIn}
             onChange={handleLeftContentChange}
             style={{
-              background: isEditing ? "#cccccc" : "transparent",
+              background: isEditing ? "rgba(182,130,148)" : "transparent",
             }}
           />
         ) : (
@@ -181,7 +192,7 @@ function TemplateFooterOne() {
             value={middleContent.copyright}
             onChange={handleMiddleContentChange}
             style={{
-              background: isEditing ? "#cccccc" : "transparent",
+              background: isEditing ? "rgba(182,130,148)" : "transparent",
             }}
           />
         ) : (
@@ -194,7 +205,7 @@ function TemplateFooterOne() {
             value={middleContent.contactEmail}
             onChange={handleMiddleContentChange}
             style={{
-              background: isEditing ? "#cccccc" : "transparent",
+              background: isEditing ? "rgba(182,130,148)" : "transparent",
             }}
           />
         ) : (
@@ -210,7 +221,7 @@ function TemplateFooterOne() {
             value={rightContent.userOne}
             onChange={handleRightContentChange}
             style={{
-              background: isEditing ? "#cccccc" : "transparent",
+              background: isEditing ? "rgba(182,130,148)" : "transparent",
             }}
           />
         ) : (
@@ -223,7 +234,7 @@ function TemplateFooterOne() {
             value={rightContent.userTwo}
             onChange={handleRightContentChange}
             style={{
-              background: isEditing ? "#cccccc" : "transparent",
+              background: isEditing ? "rgba(182,130,148)" : "transparent",
             }}
           />
         ) : (
@@ -236,7 +247,7 @@ function TemplateFooterOne() {
             value={rightContent.userThree}
             onChange={handleRightContentChange}
             style={{
-              background: isEditing ? "#cccccc" : "transparent",
+              background: isEditing ? "rgba(182,130,148)" : "transparent",
             }}
           />
         ) : (
