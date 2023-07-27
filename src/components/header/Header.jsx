@@ -27,6 +27,7 @@ const auth = getAuth()
                 <li><a href="/templates">Templates</a></li>
                 <li><a>Account</a></li>
                 <li className="projects-button"><a>My Projects</a></li>
+                <li className="projects-button"><a href='/form'>Details Form</a></li>
                 <li onClick={signOutUser}><a>Log Out</a></li>
             </ul>
             {/* Responsive menu for smaller screens */}
