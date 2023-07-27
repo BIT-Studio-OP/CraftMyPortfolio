@@ -11,6 +11,8 @@ import Spinner from "./utils/Spinner";
 import Header from "./components/header/Header";
 import Footer from "./components/footer/Footer";
 import Templates from "./components/templates/Templates";
+import Projects from "./components/projects/Projects";
+import Account from "./components/account/Account";
 
 function App() {
   const [isLoading, setIsLoading] = useState(true); // Set initial state to true
@@ -43,6 +45,8 @@ function App() {
             <>
               <Route path="/" element={<Home />} />
               <Route path="/templates" element={<Templates />} />
+              <Route path="/account" element={<Account />} />
+              <Route path="/projects" element={<Projects />} />
             </>
           ) : (
             <>
