@@ -2,6 +2,7 @@ import React from "react"
 import { getAuth } from "firebase/auth"
 import Header from "../header/Header"
 import Footer from "../footer/Footer"
+import BoilerFooter from "../BoilerPlateComponents/Footer/BoilerFooter"
 import Body from "../content/Body"
 
 
@@ -11,7 +12,7 @@ const Home = () => {
         <div className="body">
             <Header />
             <Body />
-            <Footer />
+            <BoilerFooter />
         </div>
     )
 }
