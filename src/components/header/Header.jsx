@@ -78,7 +78,7 @@ const useStyles = createUseStyles({
   h1: {
     fontSize: "48px !important",
     fontWeight: 600,
-    color: "var(--white)",
+    color: "white",
     fontFamily: "Delicious Handrawn, cursive",
   },
   ul: {
@@ -120,7 +120,7 @@ const useStyles = createUseStyles({
   },
   a: {
     textDecoration: "none",
-    color: "var(--white)",
+    color: "white",
     fontSize: "1.2rem",
     fontWeight: 600,
     transition: "all 0.1s ease-in-out",
