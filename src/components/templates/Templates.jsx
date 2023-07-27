@@ -1,13 +1,13 @@
 import React from "react";
 import Header from "../header/Header";
-import Footer from "../footer/Footer"
+import TemplateFooterOne from "./footers/templateFooterOne";
 
 function Templates() {
   return (
     <div>
       <Header />
       <h1>Templates</h1>
-      <Footer/>
+      <TemplateFooterOne/>
     </div>
   );
 }
