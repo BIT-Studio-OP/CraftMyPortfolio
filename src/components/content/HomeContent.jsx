@@ -91,7 +91,7 @@ const useStyles = createUseStyles({
   },
 });
 
-const Body = () => {
+const HomeContent = () => {
   const classes = useStyles();
 
   return (
@@ -124,4 +124,4 @@ const Body = () => {
   );
 };
 
-export default Body;
+export default HomeContent;

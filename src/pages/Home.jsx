@@ -1,8 +1,8 @@
 import React from "react"
 import { getAuth } from "firebase/auth"
-import Header from "../header/Header"
-import Footer from "../footer/Footer"
-import Body from "../content/Body"
+import Header from "../components/header/Header"
+import Footer from "../components/footer/Footer"
+import HomeContent from "../components/content/HomeContent"
 
 
 const Home = () => {
@@ -10,7 +10,7 @@ const Home = () => {
     return (
         <div className="body">
             <Header />
-            <Body />
+            <HomeContent />
             <Footer />
         </div>
     )
