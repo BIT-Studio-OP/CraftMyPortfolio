@@ -1,7 +1,10 @@
 import React, { useState } from "react";
 import { createUseStyles } from "react-jss";
-import { collection, addDoc, doc } from "firebase/firestore";
+import { collection, getDoc, doc, addDoc } from "firebase/firestore";
 import { firestore } from "../../utils/Firestore";
+import { getAuth } from "firebase/auth";
+
+const auth = getAuth();
 
 const useStyles = createUseStyles({
   form: {
@@ -44,26 +47,31 @@ function DetailsForm() {
     }
   };
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
-    const userId = "dummyUserId";
-    const userRef = doc(firestore, "users", userId);
-    const detailsRef = collection(userRef, "details");
 
-    addDoc(detailsRef, {
-      name,
-      email,
-      portfolio,
-    })
-      .then((docRef) => {
-        console.log("User details added with ID: ", docRef.id);
-        setName("");
-        setEmail("");
-        setPortfolio("");
-      })
-      .catch((error) => {
-        console.error("Error adding user details: ", error);
-      });
+    const userRef = doc(firestore, "users", auth.currentUser.uid);
+
+    try {
+      const userDoc = await getDoc(userRef);
+      if (userDoc.exists()) {
+        const userDetailsRef = collection(userRef, "userDetails");
+        await addDoc(userDetailsRef, {
+          name: name,
+          email: email,
+          portfolio: portfolio,
+        });
+        console.log("User details added");
+      } else {
+        console.error("User document does not exist");
+      }
+
+      setName("");
+      setEmail("");
+      setPortfolio("");
+    } catch (error) {
+      console.error("Error adding user details: ", error);
+    }
   };
 
   return (
@@ -75,6 +83,7 @@ function DetailsForm() {
         name="name"
         value={name}
         onChange={handleInputChange}
+        required
       />
       Email{" "}
       <input
@@ -83,6 +92,7 @@ function DetailsForm() {
         name="email"
         value={email}
         onChange={handleInputChange}
+        required
       />
       Portfolio Name{" "}
       <input
@@ -91,6 +101,7 @@ function DetailsForm() {
         name="portfolio"
         value={portfolio}
         onChange={handleInputChange}
+        required
       />
       <input type="submit" className={classes.submitButton} value="Submit" />
     </form>
