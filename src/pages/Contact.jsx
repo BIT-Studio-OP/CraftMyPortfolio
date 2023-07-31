@@ -14,7 +14,7 @@ const useStyles = createUseStyles({
     padding: "2rem",
     "& h1": {
         color: "#161925",
-        fontFamily: "Raleway, sans-serif",
+        fontFamily: "Delicious Handrawn, cursive",
         fontSize: "3rem",
     },
     "& h2": {
@@ -34,9 +34,10 @@ const useStyles = createUseStyles({
     boxShadow: "0 2px 5px rgba(0, 0, 0, 0.3)",
   },
   label: {
-    fontWeight: "bold",
     marginBottom: "0.5rem",
     color: "#161925",
+    fontFamily: "Raleway, sans-serif",
+    fontWeight: "400",
   },
   input: {
     width: "100%",
