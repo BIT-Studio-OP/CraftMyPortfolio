@@ -6,33 +6,11 @@ const BoilerFooter = () => {
     <footer className="footer">
       <div className="container">
         <div className="content">
-          <p className="footer-text">Your footer content here</p>
-          <p className="footer-text">Your footer content here</p>
-          <p className="footer-text">Your footer content here</p>
-          <p className="footer-text">Your footer content here</p>
-          <p className="footer-text">Your footer content here</p>
-          <p className="footer-text">Your footer content here</p>
-          <p className="footer-text">Your footer content here</p>
         </div>
         <div className="content">
-          <p className="footer-text">Your footer content here</p>
-          <p className="footer-text">Your footer content here</p>
-          <p className="footer-text">Your footer content here</p>
-          <p className="footer-text">Your footer content here</p>
-          <p className="footer-text">Your footer content here</p>
-          <p className="footer-text">Your footer content here</p>
-          <p className="footer-text">Your footer content here</p>
         </div>
         <div className="content">
-          <p className="footer-text">Your footer content here</p>
-          <p className="footer-text">Your footer content here</p>
-          <p className="footer-text">Your footer content here</p>
-          <p className="footer-text">Your footer content here</p>
-          <p className="footer-text">Your footer content here</p>
-          <p className="footer-text">Your footer content here</p>
-          <p className="footer-text">Your footer content here</p>
         </div>
-
       </div>
     </footer>
   );
