@@ -102,6 +102,7 @@ const useStyles = createUseStyles({
     "& li": {
       "& a": {
         fontFamily: "Raleway, sans-serif !important",
+        fontWeight: 200,
         "&:hover": {
           textDecoration: "underline !important",
           transition: "all 0.3s ease-in-out",

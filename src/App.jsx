@@ -11,6 +11,7 @@ import Home from "./pages/Home";
 import Contact from "./pages/Contact";
 import Templates from "./components/templates/Templates";
 
+
 function App() {
   const [isLoading, setIsLoading] = useState(true); // Set initial state to true
   const loggedIn = useContext(AuthContext);

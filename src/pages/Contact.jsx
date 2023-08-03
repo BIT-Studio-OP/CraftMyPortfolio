@@ -45,10 +45,12 @@ const useStyles = createUseStyles({
     marginBottom: "1rem",
     border: "1px solid #ccc",
     background: "#f5f5f5",
+    color: "#161925",
     borderRadius: "10px",
   },
   textarea: {
     width: "100%",
+    color: "#161925",
     padding: "0.5rem",
     marginBottom: "1rem",
     border: "1px solid #ccc",
@@ -90,10 +92,10 @@ const Contact = () => {
 
   emailjs
     .send(
-      "service_zwj4s46",
-      "template_au6br5e",
+      import.meta.env.VITE_EMAILJS_SERVICE_ID,
+      import.meta.env.VITE_EMAILJS_TEMPLATE_ID,
       messageBody,
-      "UX-Cw1EUvjb_NGAeQ"
+      import.meta.env.VITE_EMAILJS_USER_ID
     )
     .then(
       (result) => {
