@@ -1,9 +1,10 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { createUseStyles } from "react-jss";
 import { doc, setDoc } from "firebase/firestore";
 import { firestore } from "../../utils/Firestore";
 import { getAuth } from "firebase/auth";
 import Header from "../header/Header";
+import { useUserDetails } from "../getDetails/getDetails";
 
 const auth = getAuth();
 
@@ -62,7 +63,8 @@ function Details() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [portfolio, setPortfolio] = useState("");
-  const [collectionType, setCollectionType] = useState("private");
+  const [collectionType, setCollectionType] = useState("personal");
+  const details = useUserDetails(collectionType); // Fetch details based on collection type
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -70,7 +72,7 @@ function Details() {
 
     // Determine the collection to use based on the dropdown selection
     const detailsCollection =
-      collectionType === "private" ? "DetailsPersonal" : "DetailsWork";
+      collectionType === "personal" ? "DetailsPersonal" : "DetailsWork";
 
     const userDetailsDocRef = doc(
       userRef,
@@ -102,8 +104,19 @@ function Details() {
     }
   };
 
+  useEffect(() => {
+    if (details) {
+      setName(details.name);
+      setEmail(details.email);
+      setPortfolio(details.portfolio);
+    }
+  }, [details]);
+
   const handleCollectionTypeChange = (event) => {
     setCollectionType(event.target.value);
+    setName("");
+    setEmail("");
+    setPortfolio("");
   };
 
   return (
@@ -153,8 +166,8 @@ function Details() {
               required
               className={classes.input}
             >
-              <option value="private">Private</option>
               <option value="work">Work</option>
+              <option value="personal">Personal</option>
             </select>
           </label>
           <br />

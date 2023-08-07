@@ -14,7 +14,7 @@ export function useUserDetails(collectionType) {
 
       // Determine the collection to use based on the collectionType parameter
       const detailsCollection =
-        collectionType === "private" ? "DetailsPersonal" : "DetailsWork";
+        collectionType === "personal" ? "DetailsPersonal" : "DetailsWork";
 
       const userDetailsDocRef = doc(
         userRef,
