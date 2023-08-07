@@ -23,7 +23,7 @@ function Header() {
       <h1 className={classes.h1}>CraftMyPortfolio</h1>
       <ul className={classes.menu}>
         <li className={classes.MenuItem}>
-          <a className={classes.a}>Home</a>
+          <a href="/" className={classes.a}>Home</a>
         </li>
         <li className={classes.MenuItem}>
           <a className={classes.a}>Templates</a>
@@ -47,7 +47,7 @@ function Header() {
         />
         <ul className={showMenu ? classes.resMenu : classes.resMenuHide}>
           <li className={classes.MenuItem}>
-            <a className={classes.a}>Home</a>
+            <a href="/" className={classes.a}>Home</a>
           </li>
           <li className={classes.MenuItem}>
             <a className={classes.a}>Templates</a>
@@ -102,6 +102,7 @@ const useStyles = createUseStyles({
     "& li": {
       "& a": {
         fontFamily: "Raleway, sans-serif !important",
+        fontWeight: 200,
         "&:hover": {
           textDecoration: "underline !important",
           transition: "all 0.3s ease-in-out",
