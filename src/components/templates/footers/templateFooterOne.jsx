@@ -97,11 +97,10 @@ const useStyles = createUseStyles({
     },
   },
 });
-function TemplateFooterOne() {
+function TemplateFooterOne({ detailsType }) {
   const classes = useStyles();
   const [isEditing, setEditing] = useState(false);
-  const detailsPersonal = useUserDetails("personal");
-  const detailsWork = useUserDetails("work");
+  const details = useUserDetails(detailsType);
 
   const [leftContent, setLeftContent] = useState({
     instagram: "Instagram",
@@ -141,24 +140,21 @@ function TemplateFooterOne() {
       [e.target.name]: e.target.value,
     });
   };
-
   useEffect(() => {
-    if (detailsPersonal) {
+    if (details) {
       setLeftContent({
-        instagram: detailsPersonal.instagram,
-        facebook: detailsPersonal.facebook,
-        linkedIn: detailsPersonal.linkedIn,
+        instagram: details.name,
+        facebook: details.facebook,
+        linkedIn: details.linkedIn,
       });
-    }
 
-    if (detailsWork) {
       setRightContent({
-        userOne: detailsWork.name,
-        userTwo: detailsWork.email,
-        userThree: detailsWork.portfolio,
+        userOne: details.name,
+        userTwo: details.email,
+        userThree: details.portfolio,
       });
     }
-  }, [detailsPersonal, detailsWork]);
+  }, [details]);
 
   return (
     <footer className={classes.footer}>
