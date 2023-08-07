@@ -45,7 +45,9 @@ function App() {
               <Route path="/templates" element={<Templates />} />
               <Route path="/details" element={<Details />} />
               <Route path="/contact" element={<Contact />} />
-  
+
+              <Route path="/account" element={<Account />} />
+              <Route path="/projects" element={<Projects />} />
             </>
           ) : (
             <>
