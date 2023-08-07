@@ -8,7 +8,6 @@ export function useUserDetails(collectionType) {
   const auth = getAuth();
 
   useEffect(() => {
-    console.log(" auth.currentUser.uid", auth.currentUser.uid);
     const fetchDetails = async () => {
       const userRef = doc(firestore, "users", auth.currentUser.uid);
 
