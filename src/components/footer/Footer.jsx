@@ -3,120 +3,68 @@ import { createUseStyles } from "react-jss";
 
 const useStyles = createUseStyles({
   footer: {
-    background: "linear-gradient(45deg, #161925 10%, #161925 15%, #FCFCEE 15%, #FCFCEE 100%)",
-    color: "#FCFCEE",
-    fontFamily: "Montserrat, sans-serif",
-    fontWeight: "500",
-    padding: "1rem 2rem 1rem 2rem",
-    position: "absolute",
-    bottom: "-1",
-    left: "0",
-    width: "100%",
-    display: "flex",
-    justifyContent: "space-between",
-    alignItems: "center",
-    "@media (max-width: 500px)": {
-      flexDirection: "column",
+    backgroundColor: "#161925",
+    color: "#fff",
+    paddingTop: "0rem",
+    paddingBottom: "2rem",
+    textAlign: "center",
+    height: "100%",
+    "& h1": {
+      fontSize: "2rem !important",
+      fontWeight: 600,
+      color: "white",
+      fontFamily: "Delicious Handrawn, cursive",
     },
-    "@media (max-width: 1500px)": {
-      background: "linear-gradient(45deg, #161925 10%, #161925 25%, #FCFCEE 5%, #FCFCEE 100%)",
-    },
-    "@media (max-width: 800px)": {
-      background: "linear-gradient(45deg, #161925 10%, #161925 29%, #FCFCEE 1%, #FCFCEE 100%)",
-    },
-    "@media (max-width: 750px)": {
-      background: "#FCFCEE",
-    },
-  },
-  leftContent: {
-    display: "flex",
-    alignItems: "center",
-    flexDirection: "column",
     "& p": {
-      margin: "0 1rem",
-      "@media (max-width: 750px)": {
-        color: "#161925",
-      },
+      fontSize: "1.2rem",
+      fontWeight: 300,
+      color: "white",
+      fontFamily: "Raleway, sans-serif !important",
+      "& a": {
+      transition: "all 0.3s ease-in-out",
+          "&:hover": {
+            textDecoration: "underline !important",
+            transition: "all 0.3s ease-in-out",
+          }
+      }
     },
-    "& > a": {
-      textDecoration: "none",
-      color: "#FCFCEE",
-      "@media (max-width: 750px)": {
-        color: "#161925",
-      },
-    },
-    "@media (max-width: 500px)": {
-      paddingBottom: "1rem",
-    },
-    
+    "& ul": {
+      "& li": {
+        "& a": {
+          fontFamily: "Raleway, sans-serif !important",
+          transition: "all 0.3s ease-in-out",
+          "&:hover": {
+            textDecoration: "underline !important",
+            transition: "all 0.3s ease-in-out",
+          }
+        }
+      }
+    }
   },
-  rightContent: {
-    display: "flex",
-    alignItems: "center",
-    flexDirection: "column",
-    color: "#161925",
-    "& p": {
-      margin: "0 1rem",
-    },
-    "& > a": {
-      textDecoration: "none",
-      color: "#161925",
-    },
-    "@media (max-width: 500px)": {
-      paddingBottom: "1rem",
-    },
-  },
-  middleContent: {
-    display: "flex",
-    color: "#161925",
-    alignItems: "center",
-    flexDirection: "column",
-    "& p": {
-      margin: "0 1rem",
-    },
-    "& > a": {
-      textDecoration: "none",
-      color: "#161925",
-    },
-    "@media (max-width: 500px)": {
-      paddingBottom: "1rem",
-    },
-  },
+
 });
 
 function Footer() {
   const classes = useStyles();
   return (
-    <footer className={classes.footer}>
-      <div className={classes.leftContent}>
-        <p>Follow us:</p>
-        <a href="https://www.instagram.com/craftmyportfolio/">
-          <p>Instagram</p>
-        </a>
-        <a href="https://www.facebook.com/CraftMyPortfolio">
-          <p>Facebook</p>
-        </a>
-        <a href="https://www.linkedin.com/company/craftmyportfolio">
-          <p>LinkedIn</p>
-        </a>
-      </div>
-      <div className={classes.middleContent}>
-        <p>&copy; 2023 CraftMyPortfolio</p>
-        <p>Contact us: CraftMyPortfolio@gmail.com</p>
-      </div>
-      <div className={classes.rightContent}>
-        <p>The Team:</p>
-        <a href="https://www.mctimebank.nz/">
-        <p>Caleb</p>
-        </a>
-        <a href="https://www.dani-op.com">
-          <p>Dani</p>
-        </a>
-        <a href="https://www.jakeclearwater.com">
-          <p>Jake</p>
-        </a>
-      </div>
-    </footer>
+    <>
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="#161925" fill-opacity="1" d="M0,224L40,197.3C80,171,160,117,240,117.3C320,117,400,171,480,197.3C560,224,640,224,720,208C800,192,880,160,960,160C1040,160,1120,192,1200,213.3C1280,235,1360,245,1400,250.7L1440,256L1440,320L1400,320C1360,320,1280,320,1200,320C1120,320,1040,320,960,320C880,320,800,320,720,320C640,320,560,320,480,320C400,320,320,320,240,320C160,320,80,320,40,320L0,320Z"></path></svg>
+    <div className={classes.footer}>
+      <h1>CraftMyPortfolio</h1>
+      <p>Contact us via email or through our contact form:</p>
+      <ul>
+      <li>
+        <a href="mailto:craftmyportfolio@gmail.com">craftmyportfolio@gmail.com</a>
+      </li>
+      <li>
+        <a href="/contact">Contact Form</a>
+      </li>
+      </ul>
+      <p>We're open source! <a href="https://github.com/BIT-Studio-OP/CraftMyPortfolio">Checkout our repo here</a></p>
+    <br />
+      <p>&copy; 2023 CraftMyPortfolio All rights reserved.</p>
+    </div>
+    </>
   );
 }
 
