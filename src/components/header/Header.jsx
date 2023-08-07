@@ -74,6 +74,11 @@ function Header() {
             <a className={classes.a}>Account</a>
           </li>
           <li className={`${classes.MenuItem} projects-button`}>
+            <a href="/details" className={classes.a}>
+              Details
+            </a>
+          </li>
+          <li className={`${classes.MenuItem} projects-button`}>
             <a className={classes.a}>My Projects</a>
           </li>
           <li className={classes.MenuItem} onClick={signOutUser}>
