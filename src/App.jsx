@@ -10,7 +10,7 @@ import Spinner from "./utils/Spinner";
 import Home from "./pages/Home";
 import Contact from "./pages/Contact";
 import Templates from "./components/templates/Templates";
-import DetailsForm from "./components/detailsForm/DetailsForm";
+import Details from "./components/details/details";
 import Projects from "./components/projects/Projects";
 import Account from "./components/account/Account";
 
@@ -46,7 +46,7 @@ function App() {
             <>
               <Route path="/" element={<Home />} />
               <Route path="/templates" element={<Templates />} />
-              <Route path="/details" element={<DetailsForm />} />
+              <Route path="/details" element={<Details />} />
               <Route path="/contact" element={<Contact />} />
 
               <Route path="/account" element={<Account />} />

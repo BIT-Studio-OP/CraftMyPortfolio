@@ -12,18 +12,27 @@ const useStyles = createUseStyles({
     flexDirection: "column",
     alignItems: "center",
     justifyContent: "center",
+    color: "black",
   },
   input: {
-    /* specify your input field styles here */
+    color: "white",
   },
   submitButton: {
     border: "none",
     background: "none",
     cursor: "pointer",
+    backgroundColor: "var(--primary-colour)",
+    color: "white",
+    padding: "0.5rem 1rem",
+    borderRadius: "0.5rem",
+    marginTop: "1rem",
+    "&:hover": {
+      backgroundColor: "var(--secondary-colour)",
+    },
   },
 });
 
-function DetailsForm() {
+function Details() {
   const classes = useStyles();
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -108,4 +117,4 @@ function DetailsForm() {
   );
 }
 
-export default DetailsForm;
+export default Details;
