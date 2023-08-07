@@ -1,5 +1,6 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { createUseStyles } from "react-jss";
+import { useUserDetails } from "../../getDetails/getDetails";
 
 const useStyles = createUseStyles({
   footer: {
@@ -98,8 +99,9 @@ const useStyles = createUseStyles({
 });
 function TemplateFooterOne() {
   const classes = useStyles();
-
   const [isEditing, setEditing] = useState(false);
+  const detailsPersonal = useUserDetails("personal");
+  const detailsWork = useUserDetails("work");
 
   const [leftContent, setLeftContent] = useState({
     instagram: "Instagram",
@@ -139,6 +141,24 @@ function TemplateFooterOne() {
       [e.target.name]: e.target.value,
     });
   };
+
+  useEffect(() => {
+    if (detailsPersonal) {
+      setLeftContent({
+        instagram: detailsPersonal.instagram,
+        facebook: detailsPersonal.facebook,
+        linkedIn: detailsPersonal.linkedIn,
+      });
+    }
+
+    if (detailsWork) {
+      setRightContent({
+        userOne: detailsWork.name,
+        userTwo: detailsWork.email,
+        userThree: detailsWork.portfolio,
+      });
+    }
+  }, [detailsPersonal, detailsWork]);
 
   return (
     <footer className={classes.footer}>
