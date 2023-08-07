@@ -115,6 +115,9 @@ function Footer() {
         <a href="https://www.jakeclearwater.com">
           <p>Jake</p>
         </a>
+        <a href="https://www.kierenblack.com">
+          <p>Kieren</p>
+        </a>
       </div>
     </footer>
   );
