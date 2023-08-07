@@ -14,7 +14,6 @@ import Details from "./components/details/details";
 import Projects from "./components/projects/Projects";
 import Account from "./components/account/Account";
 
-
 function App() {
   const [isLoading, setIsLoading] = useState(true); // Set initial state to true
   const loggedIn = useContext(AuthContext);

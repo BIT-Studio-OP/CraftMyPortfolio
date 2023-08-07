@@ -1,15 +1,9 @@
 import React, { useState } from "react";
 import { createUseStyles } from "react-jss";
-import {
-  doc,
-  collection,
-  addDoc,
-  updateDoc,
-  getDoc,
-  setDoc,
-} from "firebase/firestore";
+import { doc, setDoc } from "firebase/firestore";
 import { firestore } from "../../utils/Firestore";
 import { getAuth } from "firebase/auth";
+import Header from "../header/Header";
 
 const auth = getAuth();
 
@@ -113,60 +107,63 @@ function Details() {
   };
 
   return (
-    <div className={classes.main}>
-      <h2>User Details</h2>
-      <form onSubmit={handleSubmit} className={classes.form}>
-        <label>
-          Name:
-          <input
-            type="text"
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-            required
-            className={classes.input}
-          />
-        </label>
-        <br />
-        <label>
-          Email:
-          <input
-            type="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            required
-            className={classes.input}
-          />
-        </label>
-        <br />
-        <label>
-          Portfolio:
-          <input
-            type="text"
-            value={portfolio}
-            onChange={(e) => setPortfolio(e.target.value)}
-            required
-            className={classes.input}
-          />
-        </label>
-        <br />
-        <label>
-          Collection Type:
-          <select
-            value={collectionType}
-            onChange={handleCollectionTypeChange}
-            required
-            className={classes.input}
-          >
-            <option value="private">Private</option>
-            <option value="work">Work</option>
-          </select>
-        </label>
-        <br />
-        <button type="submit" className={classes.submitButton}>
-          Submit
-        </button>
-      </form>
-    </div>
+    <>
+      <Header />
+      <div className={classes.main}>
+        <h2>User Details</h2>
+        <form onSubmit={handleSubmit} className={classes.form}>
+          <label>
+            Name:
+            <input
+              type="text"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+              required
+              className={classes.input}
+            />
+          </label>
+          <br />
+          <label>
+            Email:
+            <input
+              type="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              required
+              className={classes.input}
+            />
+          </label>
+          <br />
+          <label>
+            Portfolio:
+            <input
+              type="text"
+              value={portfolio}
+              onChange={(e) => setPortfolio(e.target.value)}
+              required
+              className={classes.input}
+            />
+          </label>
+          <br />
+          <label>
+            Collection Type:
+            <select
+              value={collectionType}
+              onChange={handleCollectionTypeChange}
+              required
+              className={classes.input}
+            >
+              <option value="private">Private</option>
+              <option value="work">Work</option>
+            </select>
+          </label>
+          <br />
+          <button type="submit" className={classes.submitButton}>
+            Submit
+          </button>
+        </form>
+      </div>
+    </>
   );
 }
 
