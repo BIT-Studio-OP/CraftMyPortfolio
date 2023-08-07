@@ -10,8 +10,7 @@ import Spinner from "./utils/Spinner";
 import Home from "./pages/Home";
 import Contact from "./pages/Contact";
 import Templates from "./components/templates/Templates";
-import DetailsForm from "./components/detailsForm/DetailsForm";
-
+import Details from "./components/details/details";
 
 function App() {
   const [isLoading, setIsLoading] = useState(true); // Set initial state to true
@@ -44,7 +43,7 @@ function App() {
             <>
               <Route path="/" element={<Home />} />
               <Route path="/templates" element={<Templates />} />
-              <Route path="/details" element={<DetailsForm />} />
+              <Route path="/details" element={<Details />} />
               <Route path="/contact" element={<Contact />} />
   
             </>

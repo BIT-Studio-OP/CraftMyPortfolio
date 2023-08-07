@@ -32,7 +32,9 @@ function Header() {
           <a className={classes.a}>Account</a>
         </li>
         <li className={classes.MenuItem}>
-          <a href="/details" className={classes.a}>Details</a>
+          <a href="/details" className={classes.a}>
+            Details
+          </a>
         </li>
         <li className={`${classes.MenuItem} projects-button`}>
           <a className={classes.a}>My Projects</a>
@@ -57,6 +59,11 @@ function Header() {
           </li>
           <li className={classes.MenuItem}>
             <a className={classes.a}>Account</a>
+          </li>
+          <li className={`${classes.MenuItem} projects-button`}>
+            <a href="/details" className={classes.a}>
+              Details
+            </a>
           </li>
           <li className={`${classes.MenuItem} projects-button`}>
             <a className={classes.a}>My Projects</a>
@@ -108,9 +115,9 @@ const useStyles = createUseStyles({
         "&:hover": {
           textDecoration: "underline !important",
           transition: "all 0.3s ease-in-out",
-        }
-      }
-    }
+        },
+      },
+    },
   },
   resMenuParent: {
     display: "none",

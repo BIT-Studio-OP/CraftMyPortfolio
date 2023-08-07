@@ -12,6 +12,7 @@ const useStyles = createUseStyles({
     flexDirection: "column",
     alignItems: "center",
     justifyContent: "center",
+    color: "black",
   },
   input: {
     /* specify your input field styles here */
@@ -23,7 +24,7 @@ const useStyles = createUseStyles({
   },
 });
 
-function DetailsForm() {
+function Details() {
   const classes = useStyles();
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -108,4 +109,4 @@ function DetailsForm() {
   );
 }
 
-export default DetailsForm;
+export default Details;
