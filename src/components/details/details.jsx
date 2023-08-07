@@ -1,31 +1,62 @@
 import React, { useState } from "react";
 import { createUseStyles } from "react-jss";
-import { collection, getDoc, doc, addDoc } from "firebase/firestore";
+import {
+  doc,
+  collection,
+  addDoc,
+  updateDoc,
+  getDoc,
+  setDoc,
+} from "firebase/firestore";
 import { firestore } from "../../utils/Firestore";
 import { getAuth } from "firebase/auth";
 
 const auth = getAuth();
 
 const useStyles = createUseStyles({
+  main: {
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+    justifyContent: "center",
+    backgroundColor: "var(--primary-colour)",
+  },
   form: {
     display: "flex",
     flexDirection: "column",
     alignItems: "center",
     justifyContent: "center",
     color: "black",
+    maxWidth: "600px",
+    margin: "0 auto",
+    padding: "1rem",
+    backgroundColor: "#f9f9f9",
+    borderRadius: "4px",
+    boxShadow: "0px 0px 10px rgba(0,0,0,0.1)",
   },
   input: {
-    color: "white",
+    color: "black",
+    backgroundColor: "#f0f0f0",
+    borderColor: "#666",
+    borderRadius: "10px",
+    width: "100%",
+    padding: "0.5rem",
+    margin: "0.5rem 0",
+    border: "1px solid #ddd",
   },
+
   submitButton: {
     border: "none",
     background: "none",
     cursor: "pointer",
     backgroundColor: "var(--primary-colour)",
     color: "white",
-    padding: "0.5rem 1rem",
     borderRadius: "0.5rem",
     marginTop: "1rem",
+    width: "100%",
+    padding: "1rem",
+    fontSize: "1.2rem",
+    fontWeight: "bold",
     "&:hover": {
       backgroundColor: "var(--secondary-colour)",
     },
@@ -37,83 +68,105 @@ function Details() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [portfolio, setPortfolio] = useState("");
-
-  const handleInputChange = (event) => {
-    const { name, value } = event.target;
-
-    switch (name) {
-      case "name":
-        setName(value);
-        break;
-      case "email":
-        setEmail(value);
-        break;
-      case "portfolio":
-        setPortfolio(value);
-        break;
-      default:
-        break;
-    }
-  };
+  const [collectionType, setCollectionType] = useState("private");
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-
     const userRef = doc(firestore, "users", auth.currentUser.uid);
 
+    // Determine the collection to use based on the dropdown selection
+    const detailsCollection =
+      collectionType === "private" ? "DetailsPersonal" : "DetailsWork";
+
+    const userDetailsDocRef = doc(
+      userRef,
+      detailsCollection,
+      auth.currentUser.uid
+    );
+
     try {
-      const userDoc = await getDoc(userRef);
-      if (userDoc.exists()) {
-        const userDetailsRef = collection(userRef, "userDetails");
-        await addDoc(userDetailsRef, {
+      await setDoc(
+        userDetailsDocRef,
+        {
           name: name,
-          email: email,
+          email: email.toString(),
           portfolio: portfolio,
-        });
-        console.log("User details added");
-      } else {
-        console.error("User document does not exist");
-      }
+        },
+        { merge: true }
+      );
+
+      console.log("User details added or updated");
 
       setName("");
       setEmail("");
       setPortfolio("");
     } catch (error) {
-      console.error("Error adding user details: ", error);
+      console.error("Error adding or updating user details: ", error);
+      console.error("Error code: ", error.code);
+      console.error("Error message: ", error.message);
+      console.error("Error stack: ", error.stack);
     }
   };
 
+  const handleCollectionTypeChange = (event) => {
+    setCollectionType(event.target.value);
+  };
+
   return (
-    <form className={classes.form} onSubmit={handleSubmit}>
-      Name{" "}
-      <input
-        type="text"
-        className={classes.input}
-        name="name"
-        value={name}
-        onChange={handleInputChange}
-        required
-      />
-      Email{" "}
-      <input
-        type="email"
-        className={classes.input}
-        name="email"
-        value={email}
-        onChange={handleInputChange}
-        required
-      />
-      Portfolio Name{" "}
-      <input
-        type="text"
-        className={classes.input}
-        name="portfolio"
-        value={portfolio}
-        onChange={handleInputChange}
-        required
-      />
-      <input type="submit" className={classes.submitButton} value="Submit" />
-    </form>
+    <div className={classes.main}>
+      <h2>User Details</h2>
+      <form onSubmit={handleSubmit} className={classes.form}>
+        <label>
+          Name:
+          <input
+            type="text"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+            required
+            className={classes.input}
+          />
+        </label>
+        <br />
+        <label>
+          Email:
+          <input
+            type="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            required
+            className={classes.input}
+          />
+        </label>
+        <br />
+        <label>
+          Portfolio:
+          <input
+            type="text"
+            value={portfolio}
+            onChange={(e) => setPortfolio(e.target.value)}
+            required
+            className={classes.input}
+          />
+        </label>
+        <br />
+        <label>
+          Collection Type:
+          <select
+            value={collectionType}
+            onChange={handleCollectionTypeChange}
+            required
+            className={classes.input}
+          >
+            <option value="private">Private</option>
+            <option value="work">Work</option>
+          </select>
+        </label>
+        <br />
+        <button type="submit" className={classes.submitButton}>
+          Submit
+        </button>
+      </form>
+    </div>
   );
 }
 

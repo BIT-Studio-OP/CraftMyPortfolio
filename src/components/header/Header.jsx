@@ -26,7 +26,7 @@ function Header() {
           <a className={classes.a}>Home</a>
         </li>
         <li className={classes.MenuItem}>
-          <a className={classes.a}>Templates</a>
+          <a href="/templates" className={classes.a}>Templates</a>
         </li>
         <li className={classes.MenuItem}>
           <a className={classes.a}>Account</a>
