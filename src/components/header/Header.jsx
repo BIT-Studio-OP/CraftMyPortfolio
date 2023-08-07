@@ -19,31 +19,55 @@ function Header() {
   };
 
   return (
-    <>
-        <nav className="nav-parent">
-            <h1>Craft My Portfolio</h1>
-            <ul className="menu">
-                <li><a href="/">Home</a></li>
-                <li><a href="/templates">Templates</a></li>
-                <li><a>Account</a></li>
-                <li className="projects-button"><a>My Projects</a></li>
-                <li className="projects-button"><a href='/form'>Details Form</a></li>
-                <li onClick={signOutUser}><a>Log Out</a></li>
-            </ul>
-            {/* Responsive menu for smaller screens */}
-            <div className='res-menu-parent'>
-              <FontAwesomeIcon className='bars' icon={faBars} onClick={handleIconClick} />
-              <ul className={ showMenu ? 'res-menu' : 'res-menu-hide'}>
-                  <li><a>Home</a></li>
-                  <li><a>Templates</a></li>
-                  <li><a>Account</a></li>
-                  <li className="projects-button"><a>My Projects</a></li>
-                  <li onClick={signOutUser}><a>Log Out</a></li>
-              </ul>
-            </div>
-        </nav>
-    </>
-  )
+    <nav className={classes.navParent}>
+      <h1 className={classes.h1}>CraftMyPortfolio</h1>
+      <ul className={classes.menu}>
+        <li className={classes.MenuItem}>
+          <a className={classes.a}>Home</a>
+        </li>
+        <li className={classes.MenuItem}>
+          <a className={classes.a}>Templates</a>
+        </li>
+        <li className={classes.MenuItem}>
+          <a className={classes.a}>Account</a>
+        </li>
+        <li className={classes.MenuItem}>
+          <a href="/details" className={classes.a}>Details</a>
+        </li>
+        <li className={`${classes.MenuItem} projects-button`}>
+          <a className={classes.a}>My Projects</a>
+        </li>
+        <li className={classes.MenuItem} onClick={signOutUser}>
+          <a className={classes.a}>Log Out</a>
+        </li>
+      </ul>
+      {/* Responsive menu for smaller screens */}
+      <div className={classes.resMenuParent}>
+        <FontAwesomeIcon
+          className={classes.bars}
+          icon={faBars}
+          onClick={handleIconClick}
+        />
+        <ul className={showMenu ? classes.resMenu : classes.resMenuHide}>
+          <li className={classes.MenuItem}>
+            <a className={classes.a}>Home</a>
+          </li>
+          <li className={classes.MenuItem}>
+            <a className={classes.a}>Templates</a>
+          </li>
+          <li className={classes.MenuItem}>
+            <a className={classes.a}>Account</a>
+          </li>
+          <li className={`${classes.MenuItem} projects-button`}>
+            <a className={classes.a}>My Projects</a>
+          </li>
+          <li className={classes.MenuItem} onClick={signOutUser}>
+            <a className={classes.a}>Log Out</a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+  );
 }
 
 const useStyles = createUseStyles({
@@ -81,7 +105,6 @@ const useStyles = createUseStyles({
     "& li": {
       "& a": {
         fontFamily: "Raleway, sans-serif !important",
-        fontWeight: 200,
         "&:hover": {
           textDecoration: "underline !important",
           transition: "all 0.3s ease-in-out",

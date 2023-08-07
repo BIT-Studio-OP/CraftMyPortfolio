@@ -44,8 +44,9 @@ function App() {
             <>
               <Route path="/" element={<Home />} />
               <Route path="/templates" element={<Templates />} />
-              <Route path="/form" element={<DetailsForm />} />
+              <Route path="/details" element={<DetailsForm />} />
               <Route path="/contact" element={<Contact />} />
+  
             </>
           ) : (
             <>
