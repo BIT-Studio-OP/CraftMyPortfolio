@@ -65,6 +65,7 @@ function Footer() {
       <p>&copy; 2023 CraftMyPortfolio All rights reserved.</p>
     </div>
     </>
+
   );
 }
 

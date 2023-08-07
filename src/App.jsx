@@ -11,6 +11,8 @@ import Home from "./pages/Home";
 import Contact from "./pages/Contact";
 import Templates from "./components/templates/Templates";
 import DetailsForm from "./components/detailsForm/DetailsForm";
+import Projects from "./components/projects/Projects";
+import Account from "./components/account/Account";
 
 
 function App() {
@@ -46,7 +48,9 @@ function App() {
               <Route path="/templates" element={<Templates />} />
               <Route path="/details" element={<DetailsForm />} />
               <Route path="/contact" element={<Contact />} />
-  
+
+              <Route path="/account" element={<Account />} />
+              <Route path="/projects" element={<Projects />} />
             </>
           ) : (
             <>
