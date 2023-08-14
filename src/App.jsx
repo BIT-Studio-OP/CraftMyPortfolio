@@ -11,6 +11,8 @@ import Home from "./pages/Home";
 import Contact from "./pages/Contact";
 import Templates from "./components/templates/Templates";
 import Details from "./components/details/details";
+import Projects from "./components/projects/Projects";
+import Account from "./components/account/Account";
 
 function App() {
   const [isLoading, setIsLoading] = useState(true); // Set initial state to true
