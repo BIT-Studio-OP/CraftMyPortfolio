@@ -15,13 +15,38 @@ const useStyles = createUseStyles({
   main: {
     display: "flex",
     flexDirection: "row",
-    flexWrap: "wrap",
     alignItems: "center",
     justifyContent: "center",
     backgroundColor: "#f5f5f5",
-    height: "80vh",
-    width: "90%",
+    color: "black",
+    height: "auto",
+    width: "60%",
     margin: "0 auto",
+    "& h2": {
+      fontFamily: "Delicious Handrawn, cursive",
+      fontSize: "2rem",
+      color: "black",
+    },
+    "& h3": {
+      fontFamily: "Raleway, sans-serif",
+    },
+    "& p": {
+      fontFamily: "Raleway, sans-serif",
+    },
+  },
+  body: {
+    color: "black",
+    "& h2": {
+      fontFamily: "Delicious Handrawn, cursive",
+      fontSize: "2rem",
+      color: "black",
+    },
+    "& h3": {
+      fontFamily: "Raleway, sans-serif",
+    },
+    "& p": {
+      fontFamily: "Raleway, sans-serif",
+    },
   },
   form: {
     display: "flex",
@@ -32,9 +57,6 @@ const useStyles = createUseStyles({
     maxWidth: "600px",
     margin: "0 auto",
     padding: "1rem",
-    backgroundColor: "#f9f9f9",
-    borderRadius: "15px",
-    boxShadow: "0px 0px 10px rgba(0,0,0,0.1)",
     "& h2": {
       fontFamily: "Delicious Handrawn, cursive",
       fontSize: "2rem",
@@ -54,6 +76,7 @@ const useStyles = createUseStyles({
     width: "60%",
     "& img": {
       maxWidth: "70px",
+      paddingLeft: "1rem",
     }
   },
   input: {
@@ -66,7 +89,16 @@ const useStyles = createUseStyles({
     margin: "0.5rem 0",
     border: "1px solid #ddd",
   },
-
+  skillinput: {
+    color: "black",
+    backgroundColor: "#f0f0f0",
+    borderColor: "#666",
+    borderRadius: "10px",
+    width: "60%",
+    padding: "0.5rem",
+    margin: "0.5rem 0",
+    border: "1px solid #ddd",
+  },
   submitButton: {
     border: "none",
     background: "none",
@@ -91,6 +123,17 @@ const useStyles = createUseStyles({
       width: "48%",
     },
   },
+  closebutton: {
+    border: "none",
+    background: "none",
+    cursor: "pointer",
+    transition: "0.5s all ease-in-out",
+    "&:hover": {
+      color: "red",
+      transition: "0.5s all ease-in-out",
+      transform: "scale(1.1)",
+    }
+  }
 });
 
 function DetailsContent() {
@@ -101,7 +144,16 @@ function DetailsContent() {
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
   const [about, setAbout] = useState("");
+  const [age, setAge] = useState("");
+  const [hometown , setHometown] = useState("");
+  const [skills, setSkills] = useState([]); // Array of strings
+  const [skill, setSkill] = useState(""); // String
+  const [jobs, setJobs] = useState([]); // Array of strings
+  const [job, setJob] = useState(""); // String
+  const [jobname, setJobName] = useState(""); // String
   const [collectionType, setCollectionType] = useState("personal");
+  const [linkedin, setLinkedin] = useState("");
+  const [github, setGithub] = useState("");
   const details = useUserDetails(collectionType); // Fetch details based on collection type
 
   const handleSubmit = async (event) => {
@@ -124,7 +176,6 @@ function DetailsContent() {
         {
           name: name,
           email: email.toString(),
-          portfolio: portfolio,
         },
         { merge: true }
       );
@@ -133,7 +184,6 @@ function DetailsContent() {
 
       setName("");
       setEmail("");
-      setPortfolio("");
     } catch (error) {
       console.error("Error adding or updating user details: ", error);
       console.error("Error code: ", error.code);
@@ -146,7 +196,6 @@ function DetailsContent() {
     if (details) {
       setName(details.name);
       setEmail(details.email);
-      setPortfolio(details.portfolio);
     }
   }, [details]);
 
@@ -154,15 +203,48 @@ function DetailsContent() {
     setCollectionType(event.target.value);
     setName("");
     setEmail("");
-    setPortfolio("");
   };
 
+  const handleAddSkill = (event) => {
+    event.preventDefault();
+    if (skill.trim() !== "") {
+      setSkills((prevSkills) => [...prevSkills, skill.trim()]);
+      setSkill("");
+    }
+  };
+
+  const handleDeleteSkill = (skill) => {
+    setSkills(skills.filter((s) => s !== skill));
+  };
+
+  const handleAddJob = (job) => {
+    if (job.trim() !== "") {
+      setJobs((prevJobs) => [...prevJobs, job.trim()]);
+      setJob("");
+    }
+  };
+
+  const handleDeleteJob = (job) => {
+    setJobs(jobs.filter((s) => s !== job));
+  };
+
+  const addJob = (event) => {
+    //send title to handleAddJob for list
+    console.log(event)
+    handleAddJob(event);
+
+    //create job object in backend
+  }
   return (
-    <>
+    <div className={classes.body}>
+    <h2>Your Details</h2>
+    <h3>Fill in your details here to build your profile to be loaded straight into your templates</h3>
       <div className={classes.main}>
+        
+        
         <form onSubmit={handleSubmit} className={classes.form}>
           <div className={classes.titleimg}>
-            <h2>Your Details</h2>
+            <h2>Personal Details </h2>
             <img src={businessCard} alt="business card" />
           </div>
           <label>Name:</label>
@@ -196,7 +278,7 @@ function DetailsContent() {
               className={classes.input}
             />
             <input
-              type="phone"
+              type="tel"
               placeholder="Phone Number"
               value={phone}
               onChange={(e) => setPhone(e.target.value)}
@@ -206,6 +288,8 @@ function DetailsContent() {
           </div>
           <br />
           <h3>About you:</h3>
+          <input type="date" placeholder="Age" value={age} onChange={(e) => setAge(e.target.value)} required className={classes.input} />
+          <input type="text" placeholder="Hometown" value={hometown} onChange={(e) => setHometown(e.target.value)} required className={classes.input} />
           <textarea
             type="text"
             placeholder="A little about yourself"
@@ -215,8 +299,45 @@ function DetailsContent() {
             className={classes.input}
           />
           <br />
+          <div>
+            <h3>Skills:</h3>
+              <input
+                type="text"
+                placeholder="Type a skill"
+                value={skill}
+                onChange={(event) => setSkill(event.target.value)}
+                className={classes.skillinput}
+              />
+              <button type="submit" onClick={handleAddSkill}>
+                Add
+              </button>
+            </div>
+          <div className={classes.skills}>
+            {skills.map((skill) => (
+              <span key={skill}>
+                {skill}
+                <button className={classes.closebutton} onClick={() => handleDeleteSkill(skill)}>x</button>
+              </span>
+            ))}
+          </div>
+          <br />
+          <h3>Links:</h3>
+            <input
+              type="url"
+              placeholder="LinkedIn"
+              value={linkedin}
+              onChange={(e) => setLinkedin(e.target.value)}
+              className={classes.input}
+            />
+            <input
+              type="url"
+              placeholder="Github"
+              value={github}
+              onChange={(e) => setGithub(e.target.value)}
+              className={classes.input}
+            />
           <button type="submit" className={classes.submitButton}>
-            Submit
+            Update
           </button>
         </form>
 
@@ -226,16 +347,16 @@ function DetailsContent() {
             <img src={resume} alt="resume" />
           </div>
           <label>Job Details:</label>
-          <div className={classes.namesdiv}>
+          {/* <div className={classes.namesdiv}> */}
             <input
               className={`${classes.names} ${classes.input}`}
               type="text"
               placeholder="Job Title"
-              value={firstName}
-              onChange={(e) => setFirstName(e.target.value)}
+              value={jobname}
+              onChange={(e) => setJobName(e.target.value)}
               required
             />
-            <input
+            {/* <input
               className={`${classes.names} ${classes.input}`}
               type="text"
               placeholder="Company Name"
@@ -274,13 +395,21 @@ function DetailsContent() {
             required
             className={classes.input}
           />
-          <br />
-          <button type="submit" className={classes.submitButton}>
+          <br /> */}
+          <button type="submit" onClick={(e) => addJob(jobname)} className={classes.submitButton}>
             Submit
           </button>
+          <div className={classes.jobs}>
+            {jobs.map((job) => (
+              <span key={job}>
+                {job}
+                <button className={classes.closebutton} onClick={() => handleDeleteJob(job)}>x</button>
+              </span>
+            ))}
+          </div>
         </form>
       </div>
-    </>
+    </div>
   );
 }
 
