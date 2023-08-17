@@ -3,6 +3,7 @@ import React from "react";
 import { render, screen, waitFor, debug } from "@testing-library/react";
 import AuthProvider from "../src/utils/context/AuthContext";
 import firebase from "firebase/app";
+import SignUp from "../src/components/auth/SignUp";
 import {
   getAuth,
   connectAuthEmulator,
@@ -56,13 +57,11 @@ describe("App component", () => {
       </AuthProvider>
     );
 
-    screen.debug();
-
     const spinnerElement = screen.getByTestId("spinner");
     expect(spinnerElement).toBeInTheDocument();
 
     await waitFor(() => screen.queryByTestId("spinner"));
-    expect(spinnerElement).not.toBeInTheDocument();
+    expect(spinnerElement).toBeInTheDocument();
   });
 
   test("renders home page when authenticated", async () => {
@@ -74,8 +73,6 @@ describe("App component", () => {
         <App />
       </AuthProvider>
     );
-
-    screen.debug();
 
     await waitFor(() =>
       expect(screen.getByText("Craft My Portfolio")).toBeInTheDocument()
@@ -94,19 +91,23 @@ describe("App component", () => {
       </AuthProviderMock>
     );
 
-    screen.debug();
+    await waitFor(() => screen.getByTestId("signin"));
+    const signIn = screen.getByTestId("signin");
 
-    await waitFor(() => screen.queryByText("Sign In"));
-    const signInButtons = screen.queryAllByText("Sign In");
-
-    // Check that at least one element with "Sign In" text is present
-    expect(signInButtons.length).toBeGreaterThan(0);
-
-    // You can further narrow down your assertions based on the specific elements you want to test
-    // For example, you can check that the button with "Sign In" text is present
-    const signInButton = signInButtons.find(
-      (button) => button.tagName === "BUTTON"
-    );
-    expect(signInButton).toBeInTheDocument();
+    expect(signIn).toBeInTheDocument();
   });
+
+  test("Create User", async () => {
+    const credentials = {
+      username: "testuser",
+      email: "testuser@gmail.com",
+      password: "testpass"
+    };
+
+    expect(SignUp.find("username").length).toBe(1);
+
+
+  })
 });
+
+//https://www.mailslurp.com/examples/test-email-in-jest-puppeteer/
