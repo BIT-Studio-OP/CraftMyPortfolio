@@ -151,9 +151,14 @@ function DetailsContent() {
   const [jobs, setJobs] = useState([]); // Array of strings
   const [job, setJob] = useState(""); // String
   const [jobname, setJobName] = useState(""); // String
+  const [company , setCompany] = useState(""); // String
+  const [startDate , setStartDate] = useState(""); // String
+  const [endDate , setEndDate] = useState(""); // String
+  const [jobDescription , setJobDescription] = useState(""); // String
   const [collectionType, setCollectionType] = useState("personal");
   const [linkedin, setLinkedin] = useState("");
   const [github, setGithub] = useState("");
+  const [ageFocused, setAgeFocused] = useState(false);
   const details = useUserDetails(collectionType); // Fetch details based on collection type
 
   const handleSubmit = async (event) => {
@@ -231,8 +236,13 @@ function DetailsContent() {
   const addJob = (event) => {
     //send title to handleAddJob for list
     console.log(event)
-    handleAddJob(event);
 
+    handleAddJob(event);
+    setJobName("");
+    setCompany("");
+    setStartDate("");
+    setEndDate("");
+    setJobDescription("");
     //create job object in backend
   }
   return (
@@ -288,7 +298,16 @@ function DetailsContent() {
           </div>
           <br />
           <h3>About you:</h3>
-          <input type="date" placeholder="Age" value={age} onChange={(e) => setAge(e.target.value)} required className={classes.input} />
+          <input
+  type={ageFocused ? "date" : "text"}
+  placeholder="Age"
+  value={age}
+  onChange={(e) => setAge(e.target.value)}
+  onFocus={() => setAgeFocused(true)}
+  onBlur={() => setAgeFocused(false)}
+  required
+  className={classes.input}
+/>
           <input type="text" placeholder="Hometown" value={hometown} onChange={(e) => setHometown(e.target.value)} required className={classes.input} />
           <textarea
             type="text"
@@ -347,7 +366,7 @@ function DetailsContent() {
             <img src={resume} alt="resume" />
           </div>
           <label>Job Details:</label>
-          {/* <div className={classes.namesdiv}> */}
+          <div className={classes.namesdiv}>
             <input
               className={`${classes.names} ${classes.input}`}
               type="text"
@@ -356,12 +375,12 @@ function DetailsContent() {
               onChange={(e) => setJobName(e.target.value)}
               required
             />
-            {/* <input
+            <input
               className={`${classes.names} ${classes.input}`}
               type="text"
               placeholder="Company Name"
-              value={lastName}
-              onChange={(e) => setLastName(e.target.value)}
+              value={company}
+              onChange={(e) => setCompany(e.target.value)}
               required
             />
           </div>
@@ -370,17 +389,17 @@ function DetailsContent() {
           <div className={classes.namesdiv}>
             <input
               type="date"
-              value={email}
+              value={startDate}
               placeholder="Start Date"
-              onChange={(e) => setEmail(e.target.value)}
+              onChange={(e) => setStartDate(e.target.value)}
               required
               className={classes.input}
             />
             <input
               type="date"
               placeholder="End Date"
-              value={phone}
-              onChange={(e) => setPhone(e.target.value)}
+              value={endDate}
+              onChange={(e) => setEndDate(e.target.value)}
               required
               className={classes.input}
             />
@@ -390,14 +409,14 @@ function DetailsContent() {
           <textarea
             type="text"
             placeholder="A little about the Job, your responsibilities, and what skills you learned"
-            value={about}
-            onChange={(e) => setAbout(e.target.value)}
+            value={jobDescription}
+            onChange={(e) => setJobDescription(e.target.value)}
             required
             className={classes.input}
           />
-          <br /> */}
+          <br />
           <button type="submit" onClick={(e) => addJob(jobname)} className={classes.submitButton}>
-            Submit
+            Add Job
           </button>
           <div className={classes.jobs}>
             {jobs.map((job) => (
