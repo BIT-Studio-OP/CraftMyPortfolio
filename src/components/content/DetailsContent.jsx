@@ -134,6 +134,29 @@ const useStyles = createUseStyles({
       transform: "scale(1.1)",
     },
   },
+  checkboxLabel: {
+    display: "flex",
+    alignItems: "center",
+    fontFamily: "Raleway, sans-serif",
+    fontSize: "1rem",
+    marginTop: "0.5rem",
+    marginBottom: "0.5rem",
+    marginLeft: "1rem",
+    color: "black",
+
+    "& input": {
+      marginRight: "0.5rem",
+    },
+  },
+  disableEndDate: {
+    backgroundColor: "f0f0f0",
+    color: "black",
+    width: "50%",
+    padding: "0.5rem",
+    margin: "0.5rem 0",
+    border: "1px solid #ddd",
+    borderRadius: "10px",
+  },
 });
 
 function DetailsContent() {
@@ -160,6 +183,7 @@ function DetailsContent() {
   const [github, setGithub] = useState("");
   const [ageFocused, setAgeFocused] = useState(false);
   const details = useUserDetails(collectionType); // Fetch details based on collection type
+  const [currentlyEmployed, setCurrentlyEmployed] = useState(false);
 
   const handlePersonalDetailsSubmit = async (event) => {
     event.preventDefault();
@@ -191,6 +215,7 @@ function DetailsContent() {
         github: github,
         jobs: jobs,
       };
+      console.log("jobs", jobs);
 
       await setDoc(userDetailsDocRef, details, { merge: true });
 
@@ -207,12 +232,42 @@ function DetailsContent() {
       setSkills([]);
       setLinkedin("");
       setGithub("");
-      // Do not clear jobs[] here
+      window.location.reload();
     } catch (error) {
       console.error("Error adding or updating user details: ", error);
       console.error("Error code: ", error.code);
       console.error("Error message: ", error.message);
       console.error("Error stack: ", error.stack);
+    }
+  };
+
+  const handleWorkHistorySubmit = (event) => {
+    event.preventDefault();
+
+    if (jobname.trim() !== "" && company.trim() !== "") {
+      const newJob = {
+        job: jobname,
+        company: company,
+        startDate: startDate,
+        endDate: endDate,
+        jobDescription: jobDescription,
+      };
+
+      // Check if the job already exists before adding
+      if (
+        !jobs.some(
+          (job) => job.job === newJob.job && job.company === newJob.company
+        )
+      ) {
+        setJobs((prevJobs) => [...prevJobs, newJob]);
+      }
+
+      // Clear job-related fields after adding a job
+      setJobName("");
+      setCompany("");
+      setStartDate("");
+      setEndDate("");
+      setJobDescription("");
     }
   };
 
@@ -253,29 +308,27 @@ function DetailsContent() {
 
   const handleAddJob = () => {
     if (jobname.trim() !== "" && company.trim() !== "") {
-      const newJob = `${jobname} at ${company}`;
-      setJobs((prevJobs) => [...prevJobs, newJob]);
-      setJobName("");
-      setCompany("");
-      setStartDate("");
-      setEndDate("");
-      setJobDescription("");
+      const newJob = {
+        job: jobname,
+        company: company,
+        startDate: startDate,
+        endDate: endDate,
+        jobDescription: jobDescription,
+      };
+      setJobs((prevJobs) => [...(prevJobs ?? []), newJob]);
     }
   };
 
-  const handleDeleteJob = (job) => {
-    setJobs(jobs.filter((s) => s !== job));
+  const handleDeleteJob = (index) => {
+    setJobs((prevJobs) => prevJobs.filter((_, i) => i !== index));
   };
 
-  const addJob = (event) => {
-    event.preventDefault();
-    if (jobname.trim() !== "" && company.trim() !== "") {
-      handleAddJob(`${jobname} at ${company}`);
-      setJobName("");
-      setCompany("");
-      setStartDate("");
-      setEndDate("");
-      setJobDescription("");
+  const handleCurrentlyEmployedChange = (event) => {
+    setCurrentlyEmployed(event.target.checked);
+    if (event.target.checked) {
+      setEndDate("current");
+    } else {
+      setEndDate(endDate);
     }
   };
 
@@ -407,7 +460,7 @@ function DetailsContent() {
           </button>
         </form>
 
-        <form onSubmit={handlePersonalDetailsSubmit} className={classes.form}>
+        <form onSubmit={handleWorkHistorySubmit} className={classes.form}>
           <div className={classes.titleimg}>
             <h2>Work History</h2>
             <img src={resume} alt="resume" />
@@ -442,14 +495,35 @@ function DetailsContent() {
               // required
               className={classes.input}
             />
-            <input
-              type="date"
-              placeholder="End Date"
-              value={endDate}
-              onChange={(e) => setEndDate(e.target.value)}
-              // required
-              className={classes.input}
-            />
+            <div className={classes.namesdiv}>
+              <label className={classes.checkboxLabel}>
+                <input
+                  type="checkbox"
+                  checked={currentlyEmployed}
+                  onChange={handleCurrentlyEmployedChange}
+                  className={classes.checkboxInput}
+                />
+                Current
+              </label>
+
+              {!currentlyEmployed ? (
+                <input
+                  type="date"
+                  placeholder="End Date"
+                  value={endDate}
+                  onChange={(e) => setEndDate(e.target.value)}
+                  // required
+                  className={classes.input}
+                />
+              ) : (
+                <input
+                  type="date"
+                  placeholder="End Date"
+                  className={classes.disableEndDate}
+                  disabled
+                />
+              )}
+            </div>
           </div>
           <br />
           <h3>About The Job:</h3>
@@ -470,17 +544,23 @@ function DetailsContent() {
             Add Job
           </button>
           <div className={classes.jobs}>
-            {jobs.map((job) => (
-              <span key={job}>
-                {job}
-                <button
-                  className={classes.closebutton}
-                  onClick={() => handleDeleteJob(job)}
-                >
-                  x
-                </button>
-              </span>
-            ))}
+            {jobs === undefined ? (
+              <p>No jobs yet.</p>
+            ) : (
+              jobs.map((job, index) => (
+                <div key={index}>
+                  <span>
+                    {job.job} at {job.company}
+                    <button
+                      className={classes.closebutton}
+                      onClick={() => handleDeleteJob(index)}
+                    >
+                      x
+                    </button>
+                  </span>
+                </div>
+              ))
+            )}
           </div>
         </form>
       </div>
