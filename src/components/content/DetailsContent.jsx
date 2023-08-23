@@ -215,7 +215,6 @@ function DetailsContent() {
         github: github,
         jobs: jobs,
       };
-      console.log("jobs", jobs);
 
       await setDoc(userDetailsDocRef, details, { merge: true });
 
@@ -288,12 +287,6 @@ function DetailsContent() {
     }
   }, [details]);
 
-  // const handleCollectionTypeChange = (event) => {
-  //   setCollectionType(event.target.value);
-  //   setName("");
-  //   setEmail("");
-  // };
-
   const handleAddSkill = (event) => {
     event.preventDefault();
     if (skill.trim() !== "") {
@@ -353,7 +346,7 @@ function DetailsContent() {
               placeholder="First Name"
               value={firstName}
               onChange={(e) => setFirstName(e.target.value)}
-              // required
+              required
             />
             <input
               className={`${classes.names} ${classes.input}`}
@@ -361,7 +354,7 @@ function DetailsContent() {
               placeholder="Last Name"
               value={lastName}
               onChange={(e) => setLastName(e.target.value)}
-              // required
+              required
             />
           </div>
           <br />
@@ -372,7 +365,7 @@ function DetailsContent() {
               value={email}
               placeholder="Email"
               onChange={(e) => setEmail(e.target.value)}
-              // required
+              required
               className={classes.input}
             />
             <input
@@ -380,7 +373,7 @@ function DetailsContent() {
               placeholder="Phone Number"
               value={phone}
               onChange={(e) => setPhone(e.target.value)}
-              // required
+              required
               className={classes.input}
             />
           </div>
@@ -393,7 +386,7 @@ function DetailsContent() {
             onChange={(e) => setAge(e.target.value)}
             onFocus={() => setAgeFocused(true)}
             onBlur={() => setAgeFocused(false)}
-            // required
+            required
             className={classes.input}
           />
           <input
@@ -401,7 +394,7 @@ function DetailsContent() {
             placeholder="Hometown"
             value={hometown}
             onChange={(e) => setHometown(e.target.value)}
-            // required
+            required
             className={classes.input}
           />
           <textarea
@@ -409,7 +402,7 @@ function DetailsContent() {
             placeholder="A little about yourself"
             value={about}
             onChange={(e) => setAbout(e.target.value)}
-            // required
+            required
             className={classes.input}
           />
           <br />
@@ -442,14 +435,14 @@ function DetailsContent() {
           <br />
           <h3>Links:</h3>
           <input
-            // type="url"
+            type="url"
             placeholder="LinkedIn"
             value={linkedin}
             onChange={(e) => setLinkedin(e.target.value)}
             className={classes.input}
           />
           <input
-            // type="url"
+            type="url"
             placeholder="Github"
             value={github}
             onChange={(e) => setGithub(e.target.value)}
@@ -473,7 +466,7 @@ function DetailsContent() {
               placeholder="Job Title"
               value={jobname}
               onChange={(e) => setJobName(e.target.value)}
-              // required
+              required
             />
             <input
               className={`${classes.names} ${classes.input}`}
@@ -481,7 +474,7 @@ function DetailsContent() {
               placeholder="Company Name"
               value={company}
               onChange={(e) => setCompany(e.target.value)}
-              // required
+              required
             />
           </div>
           <br />
@@ -492,7 +485,7 @@ function DetailsContent() {
               value={startDate}
               placeholder="Start Date"
               onChange={(e) => setStartDate(e.target.value)}
-              // required
+              required
               className={classes.input}
             />
             <div className={classes.namesdiv}>
@@ -512,7 +505,7 @@ function DetailsContent() {
                   placeholder="End Date"
                   value={endDate}
                   onChange={(e) => setEndDate(e.target.value)}
-                  // required
+                  required
                   className={classes.input}
                 />
               ) : (
@@ -532,7 +525,7 @@ function DetailsContent() {
             placeholder="A little about the Job, your responsibilities, and what skills you learned"
             value={jobDescription}
             onChange={(e) => setJobDescription(e.target.value)}
-            // required
+            required
             className={classes.input}
           />
           <br />
@@ -550,7 +543,10 @@ function DetailsContent() {
               jobs.map((job, index) => (
                 <div key={index}>
                   <span>
-                    {job.job} at {job.company}
+                    {job.job} at {job.company} <br />
+                    from
+                    <br />
+                    {job.startDate}---{job.endDate}
                     <button
                       className={classes.closebutton}
                       onClick={() => handleDeleteJob(index)}
