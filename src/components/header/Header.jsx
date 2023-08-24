@@ -20,7 +20,7 @@ function Header() {
 
   return (
     <nav className={classes.navParent}>
-      <h1 className={classes.h1}>CraftMyPortfolio</h1>
+      <h1 className={classes.h1}><span className={classes.craft}>Craft</span>My<span className={classes.portfolio}>Portfolio</span></h1>
       <ul className={classes.menu}>
         <li className={classes.MenuItem}>
           <a href="/" className={classes.a}>
