@@ -543,10 +543,7 @@ function DetailsContent() {
               jobs.map((job, index) => (
                 <div key={index}>
                   <span>
-                    {job.job} at {job.company} <br />
-                    from
-                    <br />
-                    {job.startDate}---{job.endDate}
+                    {job.job} at {job.company}
                     <button
                       className={classes.closebutton}
                       onClick={() => handleDeleteJob(index)}
