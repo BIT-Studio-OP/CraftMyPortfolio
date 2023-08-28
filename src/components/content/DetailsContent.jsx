@@ -77,7 +77,7 @@ const useStyles = createUseStyles({
     "& img": {
       maxWidth: "70px",
       paddingLeft: "1rem",
-    }
+    },
   },
   input: {
     color: "black",
@@ -132,8 +132,31 @@ const useStyles = createUseStyles({
       color: "red",
       transition: "0.5s all ease-in-out",
       transform: "scale(1.1)",
-    }
-  }
+    },
+  },
+  checkboxLabel: {
+    display: "flex",
+    alignItems: "center",
+    fontFamily: "Raleway, sans-serif",
+    fontSize: "1rem",
+    marginTop: "0.5rem",
+    marginBottom: "0.5rem",
+    marginLeft: "1rem",
+    color: "black",
+
+    "& input": {
+      marginRight: "0.5rem",
+    },
+  },
+  disableEndDate: {
+    backgroundColor: "f0f0f0",
+    color: "black",
+    width: "50%",
+    padding: "0.5rem",
+    margin: "0.5rem 0",
+    border: "1px solid #ddd",
+    borderRadius: "10px",
+  },
 });
 
 function DetailsContent() {
@@ -145,23 +168,24 @@ function DetailsContent() {
   const [phone, setPhone] = useState("");
   const [about, setAbout] = useState("");
   const [age, setAge] = useState("");
-  const [hometown , setHometown] = useState("");
+  const [hometown, setHometown] = useState("");
   const [skills, setSkills] = useState([]); // Array of strings
   const [skill, setSkill] = useState(""); // String
   const [jobs, setJobs] = useState([]); // Array of strings
   const [job, setJob] = useState(""); // String
   const [jobname, setJobName] = useState(""); // String
-  const [company , setCompany] = useState(""); // String
-  const [startDate , setStartDate] = useState(""); // String
-  const [endDate , setEndDate] = useState(""); // String
-  const [jobDescription , setJobDescription] = useState(""); // String
+  const [company, setCompany] = useState(""); // String
+  const [startDate, setStartDate] = useState(""); // String
+  const [endDate, setEndDate] = useState(""); // String
+  const [jobDescription, setJobDescription] = useState(""); // String
   const [collectionType, setCollectionType] = useState("personal");
   const [linkedin, setLinkedin] = useState("");
   const [github, setGithub] = useState("");
   const [ageFocused, setAgeFocused] = useState(false);
   const details = useUserDetails(collectionType); // Fetch details based on collection type
+  const [currentlyEmployed, setCurrentlyEmployed] = useState(false);
 
-  const handleSubmit = async (event) => {
+  const handlePersonalDetailsSubmit = async (event) => {
     event.preventDefault();
     const userRef = doc(firestore, "users", auth.currentUser.uid);
 
@@ -176,19 +200,38 @@ function DetailsContent() {
     );
 
     try {
-      await setDoc(
-        userDetailsDocRef,
-        {
-          name: name,
-          email: email.toString(),
+      const details = {
+        name: {
+          first: firstName,
+          last: lastName,
         },
-        { merge: true }
-      );
+        email: email,
+        phone: phone,
+        age: age,
+        hometown: hometown,
+        about: about,
+        skills: skills,
+        linkedin: linkedin,
+        github: github,
+        jobs: jobs,
+      };
+
+      await setDoc(userDetailsDocRef, details, { merge: true });
 
       console.log("User details added or updated");
 
-      setName("");
+      // Clear form fields after submission
+      setFirstName("");
+      setLastName("");
       setEmail("");
+      setPhone("");
+      setAge("");
+      setHometown("");
+      setAbout("");
+      setSkills([]);
+      setLinkedin("");
+      setGithub("");
+      window.location.reload();
     } catch (error) {
       console.error("Error adding or updating user details: ", error);
       console.error("Error code: ", error.code);
@@ -197,18 +240,52 @@ function DetailsContent() {
     }
   };
 
+  const handleWorkHistorySubmit = (event) => {
+    event.preventDefault();
+
+    if (jobname.trim() !== "" && company.trim() !== "") {
+      const newJob = {
+        job: jobname,
+        company: company,
+        startDate: startDate,
+        endDate: endDate,
+        jobDescription: jobDescription,
+      };
+
+      // Check if the job already exists before adding
+      if (
+        !jobs.some(
+          (job) => job.job === newJob.job && job.company === newJob.company
+        )
+      ) {
+        setJobs((prevJobs) => [...prevJobs, newJob]);
+      }
+
+      // Clear job-related fields after adding a job
+      setJobName("");
+      setCompany("");
+      setStartDate("");
+      setEndDate("");
+      setJobDescription("");
+    }
+  };
+
   useEffect(() => {
     if (details) {
-      setName(details.name);
+      setName(details.name.first);
+      setFirstName(details.name.first);
+      setLastName(details.name.last);
       setEmail(details.email);
+      setPhone(details.phone);
+      setAge(details.age);
+      setHometown(details.hometown);
+      setAbout(details.about);
+      setSkills(details.skills);
+      setLinkedin(details.linkedin);
+      setGithub(details.github);
+      setJobs(details.jobs);
     }
   }, [details]);
-
-  const handleCollectionTypeChange = (event) => {
-    setCollectionType(event.target.value);
-    setName("");
-    setEmail("");
-  };
 
   const handleAddSkill = (event) => {
     event.preventDefault();
@@ -222,37 +299,41 @@ function DetailsContent() {
     setSkills(skills.filter((s) => s !== skill));
   };
 
-  const handleAddJob = (job) => {
-    if (job.trim() !== "") {
-      setJobs((prevJobs) => [...prevJobs, job.trim()]);
-      setJob("");
+  const handleAddJob = () => {
+    if (jobname.trim() !== "" && company.trim() !== "") {
+      const newJob = {
+        job: jobname,
+        company: company,
+        startDate: startDate,
+        endDate: endDate,
+        jobDescription: jobDescription,
+      };
+      setJobs((prevJobs) => [...(prevJobs ?? []), newJob]);
     }
   };
 
-  const handleDeleteJob = (job) => {
-    setJobs(jobs.filter((s) => s !== job));
+  const handleDeleteJob = (index) => {
+    setJobs((prevJobs) => prevJobs.filter((_, i) => i !== index));
   };
 
-  const addJob = (event) => {
-    //send title to handleAddJob for list
-    console.log(event)
+  const handleCurrentlyEmployedChange = (event) => {
+    setCurrentlyEmployed(event.target.checked);
+    if (event.target.checked) {
+      setEndDate("current");
+    } else {
+      setEndDate(endDate);
+    }
+  };
 
-    handleAddJob(event);
-    setJobName("");
-    setCompany("");
-    setStartDate("");
-    setEndDate("");
-    setJobDescription("");
-    //create job object in backend
-  }
   return (
     <div className={classes.body}>
-    <h2>Your Details</h2>
-    <h3>Fill in your details here to build your profile to be loaded straight into your templates</h3>
+      <h2>Your Details</h2>
+      <h3>
+        Fill in your details here to build your profile to be loaded straight
+        into your templates
+      </h3>
       <div className={classes.main}>
-        
-        
-        <form onSubmit={handleSubmit} className={classes.form}>
+        <form onSubmit={handlePersonalDetailsSubmit} className={classes.form}>
           <div className={classes.titleimg}>
             <h2>Personal Details </h2>
             <img src={businessCard} alt="business card" />
@@ -299,16 +380,23 @@ function DetailsContent() {
           <br />
           <h3>About you:</h3>
           <input
-  type={ageFocused ? "date" : "text"}
-  placeholder="Age"
-  value={age}
-  onChange={(e) => setAge(e.target.value)}
-  onFocus={() => setAgeFocused(true)}
-  onBlur={() => setAgeFocused(false)}
-  required
-  className={classes.input}
-/>
-          <input type="text" placeholder="Hometown" value={hometown} onChange={(e) => setHometown(e.target.value)} required className={classes.input} />
+            type={ageFocused ? "date" : "text"}
+            placeholder="Age"
+            value={age}
+            onChange={(e) => setAge(e.target.value)}
+            onFocus={() => setAgeFocused(true)}
+            onBlur={() => setAgeFocused(false)}
+            required
+            className={classes.input}
+          />
+          <input
+            type="text"
+            placeholder="Hometown"
+            value={hometown}
+            onChange={(e) => setHometown(e.target.value)}
+            required
+            className={classes.input}
+          />
           <textarea
             type="text"
             placeholder="A little about yourself"
@@ -320,48 +408,53 @@ function DetailsContent() {
           <br />
           <div>
             <h3>Skills:</h3>
-              <input
-                type="text"
-                placeholder="Type a skill"
-                value={skill}
-                onChange={(event) => setSkill(event.target.value)}
-                className={classes.skillinput}
-              />
-              <button type="submit" onClick={handleAddSkill}>
-                Add
-              </button>
-            </div>
+            <input
+              type="text"
+              placeholder="Type a skill"
+              value={skill}
+              onChange={(event) => setSkill(event.target.value)}
+              className={classes.skillinput}
+            />
+            <button type="submit" onClick={handleAddSkill}>
+              Add
+            </button>
+          </div>
           <div className={classes.skills}>
             {skills.map((skill) => (
               <span key={skill}>
                 {skill}
-                <button className={classes.closebutton} onClick={() => handleDeleteSkill(skill)}>x</button>
+                <button
+                  className={classes.closebutton}
+                  onClick={() => handleDeleteSkill(skill)}
+                >
+                  x
+                </button>
               </span>
             ))}
           </div>
           <br />
           <h3>Links:</h3>
-            <input
-              type="url"
-              placeholder="LinkedIn"
-              value={linkedin}
-              onChange={(e) => setLinkedin(e.target.value)}
-              className={classes.input}
-            />
-            <input
-              type="url"
-              placeholder="Github"
-              value={github}
-              onChange={(e) => setGithub(e.target.value)}
-              className={classes.input}
-            />
+          <input
+            type="url"
+            placeholder="LinkedIn"
+            value={linkedin}
+            onChange={(e) => setLinkedin(e.target.value)}
+            className={classes.input}
+          />
+          <input
+            type="url"
+            placeholder="Github"
+            value={github}
+            onChange={(e) => setGithub(e.target.value)}
+            className={classes.input}
+          />
           <button type="submit" className={classes.submitButton}>
             Update
           </button>
         </form>
 
-        <form onSubmit={handleSubmit} className={classes.form}>
-        <div className={classes.titleimg}>
+        <form onSubmit={handleWorkHistorySubmit} className={classes.form}>
+          <div className={classes.titleimg}>
             <h2>Work History</h2>
             <img src={resume} alt="resume" />
           </div>
@@ -395,14 +488,35 @@ function DetailsContent() {
               required
               className={classes.input}
             />
-            <input
-              type="date"
-              placeholder="End Date"
-              value={endDate}
-              onChange={(e) => setEndDate(e.target.value)}
-              required
-              className={classes.input}
-            />
+            <div className={classes.namesdiv}>
+              <label className={classes.checkboxLabel}>
+                <input
+                  type="checkbox"
+                  checked={currentlyEmployed}
+                  onChange={handleCurrentlyEmployedChange}
+                  className={classes.checkboxInput}
+                />
+                Current
+              </label>
+
+              {!currentlyEmployed ? (
+                <input
+                  type="date"
+                  placeholder="End Date"
+                  value={endDate}
+                  onChange={(e) => setEndDate(e.target.value)}
+                  required
+                  className={classes.input}
+                />
+              ) : (
+                <input
+                  type="date"
+                  placeholder="End Date"
+                  className={classes.disableEndDate}
+                  disabled
+                />
+              )}
+            </div>
           </div>
           <br />
           <h3>About The Job:</h3>
@@ -415,16 +529,31 @@ function DetailsContent() {
             className={classes.input}
           />
           <br />
-          <button type="submit" onClick={(e) => addJob(jobname)} className={classes.submitButton}>
+          <button
+            type="button"
+            onClick={handleAddJob}
+            className={classes.submitButton}
+          >
             Add Job
           </button>
           <div className={classes.jobs}>
-            {jobs.map((job) => (
-              <span key={job}>
-                {job}
-                <button className={classes.closebutton} onClick={() => handleDeleteJob(job)}>x</button>
-              </span>
-            ))}
+            {jobs === undefined ? (
+              <p>No jobs yet.</p>
+            ) : (
+              jobs.map((job, index) => (
+                <div key={index}>
+                  <span>
+                    {job.job} at {job.company}
+                    <button
+                      className={classes.closebutton}
+                      onClick={() => handleDeleteJob(index)}
+                    >
+                      x
+                    </button>
+                  </span>
+                </div>
+              ))
+            )}
           </div>
         </form>
       </div>
