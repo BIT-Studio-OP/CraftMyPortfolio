@@ -98,7 +98,7 @@ const useStyles = createUseStyles({
     textDecoration: "none",
     transition: "color 0.2s ease-in-out",
     "&:hover": {
-      color: "#3b82f6",
+      color: "#FE938C",
     },
   },
 });
