@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 import React, { useContext, useState } from "react";
 import {
   getAuth,
@@ -12,16 +11,105 @@ import {
   useCurrentUser,
   AuthContext,
 } from "../../utils/context/AuthContext.jsx";
+import { createUseStyles } from "react-jss";
 
-// eslint-disable-next-line react/prop-types
+const useStyles = createUseStyles({
+  container: {
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+    justifyContent: "center",
+    minHeight: "100vh",
+    padding: "2rem",
+    background: "linear-gradient(to bottom right, #FE938C, #FE9D8E, #FFA48E, #FFAE8E, #FFB88E)",
+  },
+  title: {
+    marginBottom: "2rem",
+    fontSize: "3rem",
+    fontWeight: "bold",
+    textAlign: "center",
+    color: "#fff",
+  },
+  title2: {
+    marginBottom: "2rem",
+    fontSize: "2rem",
+    fontWeight: "bold",
+    textAlign: "center",
+    color: "#fff",
+  },
+  form: {
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+    padding: "2rem",
+    marginBottom: "2rem",
+    borderRadius: "0.5rem",
+    boxShadow: "0 0 1rem rgba(0, 0, 0, 0.5)",
+    background: "rgba(255, 255, 255, 0.1)",
+    
+  },
+  input: {
+    width: "100%",
+    padding: "0.5rem",
+    marginBottom: "1rem",
+    fontSize: "1rem",
+    color: "#161925",
+    border: "none",
+    borderRadius: "0.25rem",
+    boxShadow: "0 0 0.25rem rgba(0, 0, 0, 0.5)",
+    background: "rgba(255, 255, 255, 0.7)",
+    backdropFilter: "blur(2px)",
+    "&:focus": {
+      outline: "none",
+      boxShadow: "0 0 0.5rem rgba(0, 0, 0, 0.5)",
+    },
+  },
+  button: {
+    width: "100%",
+    padding: "0.5rem",
+    fontSize: "1rem",
+    fontWeight: "bold",
+    color: "#fff",
+    background: "#3b82f6",
+    borderRadius: "0.25rem",
+    boxShadow: "0 0 0.25rem rgba(0, 0, 0, 0.5)",
+    transition: "background 0.2s ease-in-out",
+    "&:hover": {
+      background: "#2563eb",
+    },
+    "&:focus": {
+      outline: "none",
+      boxShadow: "0 0 0.5rem rgba(0, 0, 0, 0.5)",
+    },
+  },
+  error: {
+    marginTop: "1rem",
+    fontSize: "0.75rem",
+    color: "#f44336",
+  },
+  link: {
+    marginTop: "2rem",
+    fontSize: "1rem",
+    fontWeight: "bold",
+    color: "#fff",
+    textDecoration: "none",
+    transition: "color 0.2s ease-in-out",
+    "&:hover": {
+      color: "#3b82f6",
+    },
+  },
+});
+
 const SignIn = ({ toggleForm }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
   const [user, setUser] = useState(null);
+  const [ageFocused, setAgeFocused] = useState(false);
 
   const auth = getAuth();
   const Navigate = useNavigate();
+  const classes = useStyles();
 
   const goToSignUp = () => {
     Navigate("/signup");
@@ -60,56 +148,35 @@ const SignIn = ({ toggleForm }) => {
     }
   };
 
-  // const signInWithGoogle = async () => {
-  //   const provider = new GoogleAuthProvider();
-  //   try {
-  //     await signInWithPopup(auth, provider);
-  //   } catch (error) {
-  //     console.error(error);
-  //     setErrorMessage("An error occurred while signing in with Google.");
-  //   }
-  // };
-
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen py-2 ">
-      <p className="mb-6 text-4xl font-bold text-center">Welcome Back 👋</p>
+    <div className={classes.container}>
+      <h1 className={classes.title}>Welcome Back 👋</h1>
 
-      <h1 className="mb-6 text-3xl font-bold text-center">Sign In</h1>
-      <form
-        onSubmit={handleSubmit}
-        className="px-8 pt-6 pb-8 mb-4 rounded shadow-md flex flex-col w-96  filter-blur-2x"
-      >
+      <h2 className={classes.title2}>Sign In</h2>
+      <form onSubmit={handleSubmit} className={classes.form}>
         <input
           type="email"
           placeholder="Email"
+          value={email}
           onChange={(e) => setEmail(e.target.value)}
-          className="w-full px-3 py-2 mb-3 text-sm leading-tight text-white-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline"
+          className={classes.input}
         />
         <input
           type="password"
           placeholder="Password"
           onChange={(e) => setPassword(e.target.value)}
-          className="w-full px-3 py-2 mb-3 text-sm leading-tight text-white-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline"
+          className={classes.input}
         />
-        {errorMessage && (
-          <p className="text-red-500 text-xs italic">{errorMessage}</p>
-        )}
-        <button
-          type="submit"
-          className="w-full px-4 py-2 font-bold text-white bg-blue-500 rounded-full hover:bg-blue-700 focus:outline-none focus:shadow-outline"
-        >
+        {errorMessage && <p className={classes.error}>{errorMessage}</p>}
+        <button type="submit" className={classes.button}>
           Sign In
         </button>
       </form>
-      {/* <button
-        onClick={signInWithGoogle}
-        className="w-full px-4 py-2 font-bold text-white bg-blue-400 rounded-full hover:bg-blue-700 focus:outline-none focus:shadow-outline w-60"
-      >
-        Sign In with Google
-      </button> */}
-      <p className="font-bold text-white w-60 m-7">
-        Don't have an account?
-        <a onClick={goToSignUp}> Sign Up</a>
+      <p>
+        Already have an account?{" "}
+        <a onClick={goToSignUp} className={classes.link}>
+          Sign Up
+        </a>
       </p>
     </div>
   );
