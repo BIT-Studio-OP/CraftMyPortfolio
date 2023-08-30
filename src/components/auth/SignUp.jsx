@@ -11,6 +11,7 @@ import {
 import { useNavigate } from "react-router-dom";
 import { auth, firestore } from "../../utils/Firestore.jsx";
 import { setDoc, doc } from "firebase/firestore";
+import handleSignUp from "./handleSignUp"
 
 // eslint-disable-next-line react/prop-types
 const SignUp = ({ toggleForm }) => {
@@ -28,16 +29,17 @@ const SignUp = ({ toggleForm }) => {
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
-      const userCredential = await createUserWithEmailAndPassword(
-        auth,
-        email,
-        password
-      );
-      await updateProfile(userCredential.user, { displayName: username });
-      await setDoc(doc(firestore, "users", userCredential.user.uid), {
-        email: userCredential.user.email,
-        username,
-      });
+      handleSignUp(email, password, auth);
+      // const userCredential = await createUserWithEmailAndPassword(
+      //   auth,
+      //   email,
+      //   password
+      // );
+      // await updateProfile(userCredential.user, { displayName: username });
+      // await setDoc(doc(firestore, "users", userCredential.user.uid), {
+      //   email: userCredential.user.email,
+      //   username,
+      // });
       Navigate("/");
     } catch (error) {
       console.error(error);

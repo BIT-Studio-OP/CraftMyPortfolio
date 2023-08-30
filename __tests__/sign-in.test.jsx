@@ -1,20 +1,13 @@
 import React from 'react';
 import { render, fireEvent, getByTestId, getAllByAltText } from '@testing-library/react';
 import { MemoryRouter } from 'react-router-dom'; // Import MemoryRouter
-import { auth } from '../src/utils/Firestore'; // Import your auth object here
 import SignUp from '../src/components/auth/SignUp'; // Import your SignUp component
+//import handleSignUp from '../src/components/auth/handleSignUp';
 
-jest.mock('../src/utils/Firestore', () => ({
-  auth: {
-    createUserWithEmailAndPassword: jest.fn(),
-    updateProfile: jest.fn(),
-  },
-}));
+const result = jest.mock('../src/components/auth/handleSignUp');
 
 describe('SignUp component', () => {
   it('submits sign-up form', async () => {
-    auth.createUserWithEmailAndPassword.mockResolvedValueOnce({});
-    auth.updateProfile.mockResolvedValueOnce({});
     
     const { getByPlaceholderText, getByText } = render(
       // Wrap SignUp component with MemoryRouter
@@ -32,6 +25,7 @@ describe('SignUp component', () => {
     fireEvent.change(emailInput, { target: { value: 'test@example.com' } });
     fireEvent.change(passwordInput, { target: { value: 'testpassword' } });
     fireEvent.click(submitButton);
+    console.log(result);
     
     // Add assertions here to check the expected behavior after form submission
   });
