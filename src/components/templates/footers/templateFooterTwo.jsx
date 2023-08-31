@@ -6,8 +6,8 @@ const useStyles = createUseStyles({
   footer: {
     border: "3px solid gray",
     background:
-      "linear-gradient(45deg, #161925 10%, #161925 15%, #FCFCEE 15%, #FCFCEE 100%)",
-    color: "#FCFCEE",
+      "linear-gradient(45deg, #FCFCEE 10%, #FCFCEE 15%, #161925 15%, #161925 100%)",
+    color: "#000",
     fontFamily: "Montserrat, sans-serif",
     fontWeight: "500",
     padding: "1rem 2rem 1rem 2rem",
@@ -69,7 +69,7 @@ const useStyles = createUseStyles({
     display: "flex",
     alignItems: "center",
     flexDirection: "column",
-    color: "#161925",
+    color: "#fff",
     "& p": {
       margin: "0 1rem",
     },
@@ -83,7 +83,7 @@ const useStyles = createUseStyles({
   },
   middleContent: {
     display: "flex",
-    color: "#161925",
+    color: "#fff",
     alignItems: "center",
     flexDirection: "column",
     "& p": {
@@ -98,7 +98,7 @@ const useStyles = createUseStyles({
     },
   },
 });
-function TemplateFooterOne({ detailsType }) {
+function TemplateFooterTwo({ detailsType }) {
   const classes = useStyles();
   const [isEditing, setEditing] = useState(false);
   const details = useUserDetails(detailsType);
@@ -278,4 +278,4 @@ function TemplateFooterOne({ detailsType }) {
   );
 }
 
-export default TemplateFooterOne;
+export default TemplateFooterTwo;

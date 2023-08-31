@@ -1,14 +1,15 @@
 import React, { useState } from "react";
 import Header from "../header/Header";
 import TemplateFooterOne from "./footers/templateFooterOne";
+import TemplateFooterTwo from "./footers/templateFooterTwo";
 import { createUseStyles } from "react-jss";
 
 const useStyles = createUseStyles({
   templatesContainer: {
     fontFamily: "Arial, sans-serif",
-    maxWidth: "800px",
     margin: "0 auto",
     padding: "2rem",
+    alignItems: "center"
   },
   selectContainer: {
     marginBottom: "1rem",
@@ -30,6 +31,11 @@ const useStyles = createUseStyles({
     marginBottom: "2rem",
     color: "var(--primary-colour)",
   },
+  templatesColumn: {
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center"
+  }
 });
 
 function Templates() {
@@ -58,7 +64,11 @@ function Templates() {
             </select>
           </label>
         </div>
+        <div className={classes.templatesColumn}>
         <TemplateFooterOne detailsType={selectedDetailsType} />
+        <TemplateFooterTwo detailsType={selectedDetailsType} />
+        </div>
+
       </div>
     </>
   );
