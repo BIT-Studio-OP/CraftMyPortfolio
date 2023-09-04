@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import React, { useState } from "react";
 import {
   getAuth,
@@ -121,16 +122,16 @@ const SignUp = ({ toggleForm }) => {
     event.preventDefault();
     try {
       handleSignUp(email, password, auth);
-      // const userCredential = await createUserWithEmailAndPassword(
-      //   auth,
-      //   email,
-      //   password
-      // );
-      // await updateProfile(userCredential.user, { displayName: username });
-      // await setDoc(doc(firestore, "users", userCredential.user.uid), {
-      //   email: userCredential.user.email,
-      //   username,
-      // });
+      const userCredential = await createUserWithEmailAndPassword(
+        auth,
+        email,
+        password
+      );
+      await updateProfile(userCredential.user, { displayName: username });
+      await setDoc(doc(firestore, "users", userCredential.user.uid), {
+        email: userCredential.user.email,
+        username,
+      });
       Navigate("/");
     } catch (error) {
       console.error(error);
@@ -189,7 +190,7 @@ const SignUp = ({ toggleForm }) => {
         />
         {errorMessage && <p className={classes.error}>{errorMessage}</p>}
         <button data-testid="signup" type="submit" className={classes.button}>
-          Sign Up Button
+          Sign Up
         </button>
       </form>
       <p>
