@@ -102,6 +102,7 @@ const useStyles = createUseStyles({
     },
   },
 });
+import handleSignUp from "./handleSignUp"
 
 const SignUp = ({ toggleForm }) => {
   const [email, setEmail] = useState("");
@@ -119,16 +120,17 @@ const SignUp = ({ toggleForm }) => {
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
-      const userCredential = await createUserWithEmailAndPassword(
-        auth,
-        email,
-        password
-      );
-      await updateProfile(userCredential.user, { displayName: username });
-      await setDoc(doc(firestore, "users", userCredential.user.uid), {
-        email: userCredential.user.email,
-        username,
-      });
+      handleSignUp(email, password, auth);
+      // const userCredential = await createUserWithEmailAndPassword(
+      //   auth,
+      //   email,
+      //   password
+      // );
+      // await updateProfile(userCredential.user, { displayName: username });
+      // await setDoc(doc(firestore, "users", userCredential.user.uid), {
+      //   email: userCredential.user.email,
+      //   username,
+      // });
       Navigate("/");
     } catch (error) {
       console.error(error);
@@ -186,8 +188,8 @@ const SignUp = ({ toggleForm }) => {
           className={classes.input}
         />
         {errorMessage && <p className={classes.error}>{errorMessage}</p>}
-        <button type="submit" className={classes.button}>
-          Sign Up
+        <button data-testid="signup" type="submit" className={classes.button}>
+          Sign Up Button
         </button>
       </form>
       <p>
