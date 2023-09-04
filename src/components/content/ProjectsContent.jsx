@@ -25,9 +25,9 @@ function ProjectsContent() {
   return (
     <div className={classes.body}>
       <h1>Projects</h1>
-      <Link to="/create-project" className={classes.button}>
+      <button className={classes.button}>
         Create Project
-      </Link>
+      </button>
       <div className={classes.projectList}>
         {projects.map((project, index) => (
           <div key={index} className={classes.project}>
