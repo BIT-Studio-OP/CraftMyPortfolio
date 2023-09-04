@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import Header from "../header/Header";
 import TemplateFooterOne from "./footers/templateFooterOne";
 import TemplateFooterTwo from "./footers/templateFooterTwo";
+import TemplateFooterThree from "./footers/templateFooterThree";
 import { createUseStyles } from "react-jss";
 
 const useStyles = createUseStyles({
@@ -67,6 +68,7 @@ function Templates() {
         <div className={classes.templatesColumn}>
         <TemplateFooterOne detailsType={selectedDetailsType} />
         <TemplateFooterTwo detailsType={selectedDetailsType} />
+        <TemplateFooterThree detailsType={selectedDetailsType} />
         </div>
 
       </div>
