@@ -41,7 +41,7 @@ function Header() {
           </a>
         </li>
         <li className={`${classes.MenuItem} projects-button`}>
-          <a className={classes.a}>My Projects</a>
+          <a href= "/projects" className={classes.a}>My Projects</a>
         </li>
         <li className={classes.MenuItem} onClick={signOutUser}>
           <a className={classes.a}>Log Out</a>
@@ -79,7 +79,7 @@ function Header() {
             </a>
           </li>
           <li className={`${classes.MenuItem} projects-button`}>
-            <a className={classes.a}>My Projects</a>
+            <a href= "/projects" className={classes.a}>My Projects</a>
           </li>
           <li className={classes.MenuItem} onClick={signOutUser}>
             <a className={classes.a}>Log Out</a>
