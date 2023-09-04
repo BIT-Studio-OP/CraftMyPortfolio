@@ -271,9 +271,6 @@ function TemplateFooterTwo({ detailsType }) {
           <p>{rightContent.userThree}</p>
         )}
       </div>
-      <button onClick={() => setEditing(!isEditing)}>
-        {isEditing ? "Save" : "Edit"}
-      </button>
     </footer>
   );
 }
