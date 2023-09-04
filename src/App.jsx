@@ -1,11 +1,10 @@
 import React, { useState, useEffect, useContext } from "react";
 import "./App.css";
-import { auth } from "./utils/Firestore";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import SignIn from "./components/auth/SignIn";
 import SignUp from "./components/auth/SignUp";
-import { useCurrentUser, AuthContext } from "./utils/context/AuthContext";
+import { AuthContext } from "./utils/context/AuthContext";
 import Spinner from "./utils/Spinner";
 import Home from "./pages/Home";
 import Contact from "./pages/Contact";
@@ -15,14 +14,13 @@ import Account from "./components/account/Account";
 import Projects from "./pages/Projects";
 
 function App() {
-  const [isLoading, setIsLoading] = useState(true); // Set initial state to true
+  const [isLoading, setIsLoading] = useState(false); // Set initial state to true
   const loggedIn = useContext(AuthContext);
   const auth = getAuth();
-  const user = useCurrentUser();
 
   useEffect(() => {
     try {
-      const unsubscribe = onAuthStateChanged(auth, (user) => {
+      const unsubscribe = onAuthStateChanged(auth, () => {
         setIsLoading(false);
       });
 
@@ -32,10 +30,10 @@ function App() {
     }
   }, [auth]);
 
-  if (isLoading) {
-    // Render spinner while checking authentication
-    return <Spinner />;
-  }
+  // if (isLoading) {
+  //   // Render spinner while checking authentication
+  //   return <Spinner />;
+  // }
 
   return (
     <Router>

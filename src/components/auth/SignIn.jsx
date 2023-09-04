@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import React, { useContext, useState } from "react";
 import {
   getAuth,
@@ -168,7 +169,7 @@ const SignIn = ({ toggleForm }) => {
           className={classes.input}
         />
         {errorMessage && <p className={classes.error}>{errorMessage}</p>}
-        <button type="submit" className={classes.button}>
+        <button data-testid="signin" type="submit" className={classes.button}>
           Sign In
         </button>
       </form>

@@ -1,11 +1,7 @@
 /* eslint-disable no-unused-vars */
 import React, { useState } from "react";
 import {
-  getAuth,
   createUserWithEmailAndPassword,
-  signInWithEmailAndPassword,
-  GoogleAuthProvider,
-  signInWithPopup,
   updateProfile,
 } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
