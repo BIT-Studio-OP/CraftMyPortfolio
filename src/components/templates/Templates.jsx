@@ -33,9 +33,8 @@ const useStyles = createUseStyles({
     color: "var(--primary-colour)",
   },
   templatesColumn: {
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "center"
+    display: "grid",
+    gridTemplateColumns: "1fr 1fr"
   }
 });
 
