@@ -45,6 +45,7 @@ function App() {
             <>
               <Route path="/" element={<Home />} />
               <Route path="/templates" element={<Templates />} />
+              <Route path="/templates/:templateId" element={<Templates />} />
               <Route path="/details" element={<Details />} />
               <Route path="/contact" element={<Contact />} />
 

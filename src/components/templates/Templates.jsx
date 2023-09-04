@@ -10,7 +10,7 @@ const useStyles = createUseStyles({
     fontFamily: "Arial, sans-serif",
     margin: "0 auto",
     padding: "2rem",
-    alignItems: "center"
+    alignItems: "center",
   },
   selectContainer: {
     marginBottom: "1rem",
@@ -34,8 +34,8 @@ const useStyles = createUseStyles({
   },
   templatesColumn: {
     display: "grid",
-    gridTemplateColumns: "1fr 1fr"
-  }
+    gridTemplateColumns: "1fr 1fr",
+  },
 });
 
 function Templates() {
@@ -65,11 +65,14 @@ function Templates() {
           </label>
         </div>
         <div className={classes.templatesColumn}>
-        <TemplateFooterOne detailsType={selectedDetailsType} />
-        <TemplateFooterTwo detailsType={selectedDetailsType} />
-        <TemplateFooterThree detailsType={selectedDetailsType} />
-        </div>
+          <a href="/templates/1">
+            {" "}
+            <TemplateFooterOne detailsType={selectedDetailsType} />
+          </a>
 
+          <TemplateFooterTwo detailsType={selectedDetailsType} />
+          <TemplateFooterThree detailsType={selectedDetailsType} />
+        </div>
       </div>
     </>
   );
