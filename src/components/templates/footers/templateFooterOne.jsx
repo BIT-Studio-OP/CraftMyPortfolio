@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { createUseStyles } from "react-jss";
-import { useUserDetails } from "../../getDetails/getDetails";
+import AutoFillButton from "../autoFill/autoFillButton";
+import { useParams } from "react-router-dom";
 
 const useStyles = createUseStyles({
   footer: {
@@ -99,29 +100,28 @@ const useStyles = createUseStyles({
   },
 });
 
-function TemplateFooterOne({ detailsType }) {
+function TemplateFooterOne() {
   const classes = useStyles();
   const [isEditing, setEditing] = useState(false);
-  const details = useUserDetails(detailsType);
+  const { templateId } = useParams();
 
-  const [leftContent, setLeftContent] = useState({
+  const [details, setDetails] = useState({
     instagram: "Instagram",
     facebook: "Facebook",
     linkedIn: "LinkedIn",
   });
 
+  const [leftContent, setLeftContent] = useState(details);
   const [middleContent, setMiddleContent] = useState({
     copyright: "@2023 CraftMyPortfolio",
     contactEmail: "CraftMyPortfolio@gmail.com",
   });
-
   const [rightContent, setRightContent] = useState({
     userOne: "UserOne",
     userTwo: "UserTwo",
     userThree: "UserThree",
   });
 
-  // Function to update the content for each section
   const handleLeftContentChange = (e) => {
     setLeftContent({
       ...leftContent,
@@ -142,137 +142,152 @@ function TemplateFooterOne({ detailsType }) {
       [e.target.name]: e.target.value,
     });
   };
-  useEffect(() => {
-    if (details) {
-      setLeftContent({
-        instagram: details.name,
-        facebook: details.facebook,
-        linkedIn: details.linkedIn,
-      });
 
-      setRightContent({
-        userOne: details.name,
-        userTwo: details.email,
-        userThree: details.portfolio,
-      });
-    }
-  }, [details]);
+  const handleAutoFill = (userDetails) => {
+    setDetails({
+      instagram: userDetails.name.first || "Instagram",
+      facebook: userDetails.facebook || "Facebook",
+      linkedIn: userDetails.linkedIn || "LinkedIn",
+    });
 
+    setLeftContent({
+      instagram: userDetails.name.first || "Instagram",
+      facebook: userDetails.facebook || "Facebook",
+      linkedIn: userDetails.linkedIn || "LinkedIn",
+    });
+
+    setRightContent({
+      userOne: userDetails.name.first || "UserOne",
+      userTwo: userDetails.email || "UserTwo",
+      userThree: userDetails.portfolio || "UserThree",
+    });
+    setMiddleContent({
+      ...middleContent,
+      contactEmail: userDetails.email || "CraftMyPortfolio@gmail.com",
+    });
+  };
+
+
+  const showAutoFillButton = templateId !== undefined;
   return (
-    <footer className={classes.footer}>
-      <div className={classes.leftContent}>
-        <p>Follow us:</p>
-        {isEditing ? (
-          <input
-            type="text"
-            name="instagram"
-            value={leftContent.instagram}
-            onChange={handleLeftContentChange}
-            style={{
-              background: isEditing ? "rgba(182,130,148)" : "transparent",
-            }}
-          />
-        ) : (
-          <p>{leftContent.instagram}</p>
-        )}
-        {isEditing ? (
-          <input
-            type="text"
-            name="facebook"
-            value={leftContent.facebook}
-            onChange={handleLeftContentChange}
-            style={{
-              background: isEditing ? "rgba(182,130,148)" : "transparent",
-            }}
-          />
-        ) : (
-          <p>{leftContent.facebook}</p>
-        )}
-        {isEditing ? (
-          <input
-            type="text"
-            name="linkedIn"
-            value={leftContent.linkedIn}
-            onChange={handleLeftContentChange}
-            style={{
-              background: isEditing ? "rgba(182,130,148)" : "transparent",
-            }}
-          />
-        ) : (
-          <p>{leftContent.linkedIn}</p>
-        )}
-      </div>
-      <div className={classes.middleContent}>
-        {isEditing ? (
-          <input
-            type="text"
-            name="copyright"
-            value={middleContent.copyright}
-            onChange={handleMiddleContentChange}
-            style={{
-              background: isEditing ? "rgba(182,130,148)" : "transparent",
-            }}
-          />
-        ) : (
-          <p>{middleContent.copyright}</p>
-        )}
-        {isEditing ? (
-          <input
-            type="text"
-            name="contactEmail"
-            value={middleContent.contactEmail}
-            onChange={handleMiddleContentChange}
-            style={{
-              background: isEditing ? "rgba(182,130,148)" : "transparent",
-            }}
-          />
-        ) : (
-          <p>{middleContent.contactEmail}</p>
-        )}
-      </div>
-      <div className={classes.rightContent}>
-        <p>The Team:</p>
-        {isEditing ? (
-          <input
-            type="text"
-            name="userOne"
-            value={rightContent.userOne}
-            onChange={handleRightContentChange}
-            style={{
-              background: isEditing ? "rgba(182,130,148)" : "transparent",
-            }}
-          />
-        ) : (
-          <p>{rightContent.userOne}</p>
-        )}
-        {isEditing ? (
-          <input
-            type="text"
-            name="userTwo"
-            value={rightContent.userTwo}
-            onChange={handleRightContentChange}
-            style={{
-              background: isEditing ? "rgba(182,130,148)" : "transparent",
-            }}
-          />
-        ) : (
-          <p>{rightContent.userTwo}</p>
-        )}
-        {isEditing ? (
-          <input
-            type="text"
-            name="userThree"
-            value={rightContent.userThree}
-            onChange={handleRightContentChange}
-            style={{
-              background: isEditing ? "rgba(182,130,148)" : "transparent",
-            }}
-          />
-        ) : (
-          <p>{rightContent.userThree}</p>
-        )}
-      </div>
-    </footer>
+    <>
+      {showAutoFillButton && <AutoFillButton onAutoFill={handleAutoFill} />}
+
+      <footer className={classes.footer}>
+        <div className={classes.leftContent}>
+          <p>Follow us:</p>
+          {isEditing ? (
+            <input
+              type="text"
+              name="instagram"
+              value={leftContent.instagram}
+              onChange={handleLeftContentChange}
+              style={{
+                background: isEditing ? "rgba(182,130,148)" : "transparent",
+              }}
+            />
+          ) : (
+            <p>{leftContent.instagram}</p>
+          )}
+          {isEditing ? (
+            <input
+              type="text"
+              name="facebook"
+              value={leftContent.facebook}
+              onChange={handleLeftContentChange}
+              style={{
+                background: isEditing ? "rgba(182,130,148)" : "transparent",
+              }}
+            />
+          ) : (
+            <p>{leftContent.facebook}</p>
+          )}
+          {isEditing ? (
+            <input
+              type="text"
+              name="linkedIn"
+              value={leftContent.linkedIn}
+              onChange={handleLeftContentChange}
+              style={{
+                background: isEditing ? "rgba(182,130,148)" : "transparent",
+              }}
+            />
+          ) : (
+            <p>{leftContent.linkedIn}</p>
+          )}
+        </div>
+        <div className={classes.middleContent}>
+          {isEditing ? (
+            <input
+              type="text"
+              name="copyright"
+              value={middleContent.copyright}
+              onChange={handleMiddleContentChange}
+              style={{
+                background: isEditing ? "rgba(182,130,148)" : "transparent",
+              }}
+            />
+          ) : (
+            <p>{middleContent.copyright}</p>
+          )}
+          {isEditing ? (
+            <input
+              type="text"
+              name="contactEmail"
+              value={middleContent.contactEmail}
+              onChange={handleMiddleContentChange}
+              style={{
+                background: isEditing ? "rgba(182,130,148)" : "transparent",
+              }}
+            />
+          ) : (
+            <p>{middleContent.contactEmail}</p>
+          )}
+        </div>
+        <div className={classes.rightContent}>
+          <p>The Team:</p>
+          {isEditing ? (
+            <input
+              type="text"
+              name="userOne"
+              value={rightContent.userOne}
+              onChange={handleRightContentChange}
+              style={{
+                background: isEditing ? "rgba(182,130,148)" : "transparent",
+              }}
+            />
+          ) : (
+            <p>{rightContent.userOne}</p>
+          )}
+          {isEditing ? (
+            <input
+              type="text"
+              name="userTwo"
+              value={rightContent.userTwo}
+              onChange={handleRightContentChange}
+              style={{
+                background: isEditing ? "rgba(182,130,148)" : "transparent",
+              }}
+            />
+          ) : (
+            <p>{rightContent.userTwo}</p>
+          )}
+          {isEditing ? (
+            <input
+              type="text"
+              name="userThree"
+              value={rightContent.userThree}
+              onChange={handleRightContentChange}
+              style={{
+                background: isEditing ? "rgba(182,130,148)" : "transparent",
+              }}
+            />
+          ) : (
+            <p>{rightContent.userThree}</p>
+          )}
+        </div>
+      </footer>
+    </>
   );
 }
 

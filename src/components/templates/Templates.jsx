@@ -4,6 +4,7 @@ import TemplateFooterOne from "./footers/templateFooterOne";
 import TemplateFooterTwo from "./footers/templateFooterTwo";
 import TemplateFooterThree from "./footers/templateFooterThree";
 import { createUseStyles } from "react-jss";
+import { useParams } from "react-router-dom";
 
 const useStyles = createUseStyles({
   templatesContainer: {
@@ -38,44 +39,33 @@ const useStyles = createUseStyles({
   },
 });
 
-function Templates() {
+const Templates = () => {
   const classes = useStyles();
-  const [selectedDetailsType, setSelectedDetailsType] = useState(); // Default to personal
-  const myList = [1, 2, 3, 4];
-
-  const handleDetailsTypeChange = (event) => {
-    setSelectedDetailsType(event.target.value);
-  };
+  const { templateId } = useParams();
+  console.log("templateId", templateId);
 
   return (
     <>
       <Header />
       <div className={classes.templatesContainer}>
         <h1 className={classes.heading}>Templates</h1>
-        <div className={classes.selectContainer}>
-          <label className={classes.selectLabel}>
-            Select Details Type: &nbsp;
-            <select
-              value={selectedDetailsType}
-              onChange={handleDetailsTypeChange}
-              className={classes.select}
-            >
-              <option value="personal">Personal</option>
-              <option value="work">Work</option>
-            </select>
-          </label>
-        </div>
         <div className={classes.templatesColumn}>
           <a href="/templates/1">
             {" "}
-            <TemplateFooterOne detailsType={selectedDetailsType} />
+            <TemplateFooterOne />
           </a>
-          <TemplateFooterTwo detailsType={selectedDetailsType} />
-          <TemplateFooterThree detailsType={selectedDetailsType} />
+          <a href="/templates/2">
+            {" "}
+            <TemplateFooterTwo />
+          </a>
+          <a href="/templates/3">
+            {" "}
+            <TemplateFooterThree />
+          </a>
         </div>
       </div>
     </>
   );
-}
+};
 
 export default Templates;

@@ -2,6 +2,9 @@ import React, { useState } from "react";
 import Header from "../header/Header";
 import TemplateFooterOne from "./footers/templateFooterOne";
 import { createUseStyles } from "react-jss";
+import { useParams } from "react-router-dom";
+import TemplateFooterTwo from "./footers/templateFooterTwo";
+import TemplateFooterThree from "./footers/templateFooterThree";
 
 const useStyles = createUseStyles({
   templatesContainer: {
@@ -38,31 +41,16 @@ const useStyles = createUseStyles({
 
 function TemplateEditor() {
   const classes = useStyles();
-  const [selectedDetailsType, setSelectedDetailsType] = useState(); // Default to personal
-
-  const handleDetailsTypeChange = (event) => {
-    setSelectedDetailsType(event.target.value);
-  };
+  const { templateId } = useParams();
 
   return (
     <>
       <Header />
       <div className={classes.templatesContainer}>
-        <h1 className={classes.heading}>Templates</h1>
-        <div className={classes.selectContainer}>
-          <label className={classes.selectLabel}>
-            Select Details Type: &nbsp;
-            <select
-              value={selectedDetailsType}
-              onChange={handleDetailsTypeChange}
-              className={classes.select}
-            >
-              <option value="personal">Personal</option>
-              <option value="work">Work</option>
-            </select>
-          </label>
-        </div>
-        <TemplateFooterOne detailsType={selectedDetailsType} />
+        <h1 className={classes.heading}>Template {templateId}</h1>
+        {templateId === "1" && <TemplateFooterOne />}
+        {templateId === "2" && <TemplateFooterTwo />}
+        {templateId === "3" && <TemplateFooterThree />}
       </div>
     </>
   );
