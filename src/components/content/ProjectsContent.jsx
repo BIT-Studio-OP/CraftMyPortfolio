@@ -2,6 +2,8 @@ import { createUseStyles } from "react-jss";
 import { Link } from "react-router-dom";
 import edit from "../../assets/edit.svg";
 import deleteicon from "../../assets/delete.svg";
+import firestore, { auth } from "../../utils/Firestore";
+import { getDoc, setDoc, doc, addDoc, collection } from "firebase/firestore";
 
 function ProjectsContent() {
   const classes = useStyles();
@@ -22,10 +24,18 @@ function ProjectsContent() {
     },
   ];
 
+  const createProject = async () => {
+    // Create a new project document in the database with a unique ID
+    await addDoc(collection(firestore, `users/${auth.currentUser.uid}/projects`), {
+      name: "New Project",
+      creationDate: new Date().toISOString().slice(0, 10),
+    });
+  };
+
   return (
     <div className={classes.body}>
       <h1>Projects</h1>
-      <button className={classes.button}>
+      <button className={classes.button} onClick={createProject}>
         Create Project
       </button>
       <div className={classes.projectList}>

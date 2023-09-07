@@ -1,5 +1,6 @@
 import { createUseStyles } from 'react-jss';
 import "../../fonts.css";
+import Fade from 'react-reveal/Fade';
 
 const useStyles = createUseStyles({
   container: {
@@ -102,21 +103,27 @@ const HomeContent = () => {
       </header>
 
       <section className={classes.section}>
+        <Fade left>
         <div>
           <img src="https://images.pexels.com/photos/3888151/pexels-photo-3888151.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="Random" />
           <h2>Modern Design</h2>
           <p>Choose from a wide array of cutting-edge templates that will make your portfolio stand out.</p>
         </div>
+        </Fade>
+        <Fade bottom>
         <div>
           <img src="https://images.pexels.com/photos/879109/pexels-photo-879109.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="Random" />
           <h2>Easy to Customize</h2>
           <p>With our intuitive interface, you can personalize your portfolio to match your style.</p>
         </div>
+        </Fade>
+        <Fade right>
         <div>
           <img src="https://images.pexels.com/photos/1921326/pexels-photo-1921326.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="Random" />
           <h2>Share Everywhere</h2>
           <p>CraftMyPortfolio allows you to easily share your portfolio on your preferred social media platforms or personal website.</p>
         </div>
+        </Fade>
       </section>
 
     </div>

@@ -60,7 +60,7 @@ function Footer() {
         <a href="/contact">Contact Form</a>
       </li>
       </ul>
-      <p>We're open source! <a href="https://github.com/BIT-Studio-OP/CraftMyPortfolio">Checkout our repo here</a></p>
+      <p>We&rsquo;re open source! <a href="https://github.com/BIT-Studio-OP/CraftMyPortfolio">Checkout our repo here</a></p>
     <br />
       <p>&copy; 2023 CraftMyPortfolio All rights reserved.</p>
     </div>
