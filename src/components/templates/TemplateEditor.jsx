@@ -1,8 +1,6 @@
 import React, { useState } from "react";
 import Header from "../header/Header";
 import TemplateFooterOne from "./footers/templateFooterOne";
-import TemplateFooterTwo from "./footers/templateFooterTwo";
-import TemplateFooterThree from "./footers/templateFooterThree";
 import { createUseStyles } from "react-jss";
 
 const useStyles = createUseStyles({
@@ -38,10 +36,9 @@ const useStyles = createUseStyles({
   },
 });
 
-function Templates() {
+function TemplateEditor() {
   const classes = useStyles();
   const [selectedDetailsType, setSelectedDetailsType] = useState(); // Default to personal
-  const myList = [1, 2, 3, 4];
 
   const handleDetailsTypeChange = (event) => {
     setSelectedDetailsType(event.target.value);
@@ -65,17 +62,10 @@ function Templates() {
             </select>
           </label>
         </div>
-        <div className={classes.templatesColumn}>
-          <a href="/templates/1">
-            {" "}
-            <TemplateFooterOne detailsType={selectedDetailsType} />
-          </a>
-          <TemplateFooterTwo detailsType={selectedDetailsType} />
-          <TemplateFooterThree detailsType={selectedDetailsType} />
-        </div>
+        <TemplateFooterOne detailsType={selectedDetailsType} />
       </div>
     </>
   );
 }
 
-export default Templates;
+export default TemplateEditor;

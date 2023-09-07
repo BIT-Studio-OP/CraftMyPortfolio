@@ -98,6 +98,7 @@ const useStyles = createUseStyles({
     },
   },
 });
+
 function TemplateFooterOne({ detailsType }) {
   const classes = useStyles();
   const [isEditing, setEditing] = useState(false);
