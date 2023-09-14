@@ -103,7 +103,7 @@ const HomeContent = () => {
       </header>
 
       <section className={classes.section}>
-        <Fade left>
+        <Fade bottom>
         <div>
           <img src="https://images.pexels.com/photos/3888151/pexels-photo-3888151.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="Random" />
           <h2>Modern Design</h2>
@@ -117,7 +117,7 @@ const HomeContent = () => {
           <p>With our intuitive interface, you can personalize your portfolio to match your style.</p>
         </div>
         </Fade>
-        <Fade right>
+        <Fade bottom>
         <div>
           <img src="https://images.pexels.com/photos/1921326/pexels-photo-1921326.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="Random" />
           <h2>Share Everywhere</h2>
