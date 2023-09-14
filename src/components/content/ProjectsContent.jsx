@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import edit from "../../assets/edit.svg";
 import deleteicon from "../../assets/delete.svg";
 import firestore, { auth } from "../../utils/Firestore";
+import Fade from 'react-reveal/Fade';
 import {
   getDoc,
   setDoc,
@@ -16,6 +17,7 @@ import {
   getDocs,
 } from "firebase/firestore";
 import { useEffect, useState } from "react";
+import { useRef } from "react";
 
 function ProjectsContent() {
   const classes = useStyles();
@@ -24,7 +26,7 @@ function ProjectsContent() {
   const [showForm, setShowForm] = useState(false);
   const [projectName, setProjectName] = useState("");
   const [buttonDisabled, setButtonDisabled] = useState(false);
-
+ const formRef = useRef(null);
   useEffect(() => {
     const userRef = doc(firestore, "users", auth.currentUser.uid);
     const projectsRef = collection(userRef, "projects");
@@ -53,6 +55,7 @@ function ProjectsContent() {
     setShowForm(true);
     setProjectName("");
     setButtonDisabled(true);
+    const form = document.querySelector("form").id= "active";
   };
 
   const handleProjectNameChange = (event) => {
@@ -83,7 +86,6 @@ function ProjectsContent() {
 
         // Reset the form and hide it
         setProjectName("");
-        setShowForm(false);
         setButtonDisabled(false);
       }
     }
@@ -102,7 +104,6 @@ function ProjectsContent() {
       <button className={classes.button} onClick={createProject}>
         Create Project
       </button>
-      {showForm && (
         <form className={classes.form} onSubmit={handleSubmit}>
           <label className={classes.label}>
             Project Name:
@@ -118,28 +119,29 @@ function ProjectsContent() {
             <button onClick={() => setShowForm(false)}>Cancel</button>
           </div>
         </form>
-      )}
       <div className={classes.projectList}>
         {projects.map((project) => (
-          <div key={project.id} className={classes.project}>
-            <div className={classes.text}>
-              <h2>{project.name}</h2>
-              <p>Created on {project.creationDate}</p>
-            </div>
+            <Fade bottom key={project.id}>
+              <div className={classes.project}>
+                <div className={classes.text}>
+                  <h2>{project.name}</h2>
+                  <p>Created on {project.creationDate}</p>
+                </div>
 
-            <div>
-              <button className={classes.editButton}>
-                <img src={edit} style={{ fill: "#fff !important" }} />
-              </button>
-              <button
-                className={classes.deleteButton}
-                onClick={() => deleteProject(project.id)}
-              >
-                <img src={deleteicon} style={{ fill: "#fff" }} />
-              </button>
-            </div>
-          </div>
-        ))}
+                <div>
+                  <button className={classes.editButton}>
+                    <img src={edit} style={{ fill: "#fff !important" }} />
+                  </button>
+                  <button
+                    className={classes.deleteButton}
+                    onClick={() => deleteProject(project.id)}
+                  >
+                    <img src={deleteicon} style={{ fill: "#fff" }} />
+                  </button>
+                </div>
+              </div>
+            </Fade>
+          ))}
       </div>
     </div>
   );
@@ -284,11 +286,14 @@ const useStyles = createUseStyles({
     alignItems: "center",
     justifyContent: "center",
     marginTop: "1rem",
+    position: "relative",
+    opacity: 0,
+    top: "-5rem !important",
     padding: "1rem",
     border: "1px solid #ccc",
     borderRadius: "0.5rem",
     boxShadow: "0 0 0.5rem rgba(0, 0, 0, 0.5)",
-    transition: "opacity 0.2s ease-in-out",
+    transition: "opacity 0.2s ease-in-out, top 0.2s ease-in-out",
     "& label": {
       display: "flex",
       flexDirection: "column",
@@ -330,5 +335,9 @@ const useStyles = createUseStyles({
       opacity: 0,
       pointerEvents: "none",
     },
+  },
+  "active": {
+    opacity: 1,
+    top: 0,
   },
 });
