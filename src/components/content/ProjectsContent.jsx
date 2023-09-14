@@ -3,33 +3,97 @@ import { Link } from "react-router-dom";
 import edit from "../../assets/edit.svg";
 import deleteicon from "../../assets/delete.svg";
 import firestore, { auth } from "../../utils/Firestore";
-import { getDoc, setDoc, doc, addDoc, collection } from "firebase/firestore";
+import {
+  getDoc,
+  setDoc,
+  doc,
+  addDoc,
+  collection,
+  deleteDoc,
+  onSnapshot,
+  query,
+  where,
+  getDocs,
+} from "firebase/firestore";
+import { useEffect, useState } from "react";
 
 function ProjectsContent() {
   const classes = useStyles();
 
-  // Sample project data
-  const projects = [
-    {
-      name: "Project 1",
-      creationDate: "2022-01-01",
-    },
-    {
-      name: "Project 2",
-      creationDate: "2022-01-02",
-    },
-    {
-      name: "Project 3",
-      creationDate: "2022-01-03",
-    },
-  ];
+  const [projects, setProjects] = useState([]);
+  const [showForm, setShowForm] = useState(false);
+  const [projectName, setProjectName] = useState("");
+  const [buttonDisabled, setButtonDisabled] = useState(false);
+
+  useEffect(() => {
+    const userRef = doc(firestore, "users", auth.currentUser.uid);
+    const projectsRef = collection(userRef, "projects");
+
+    try {
+      const unsubscribe = onSnapshot(projectsRef, (snapshot) => {
+        const projectsData = snapshot.docs.map((doc) => ({
+          id: doc.id,
+          ...doc.data(),
+        }));
+        setProjects(projectsData);
+      });
+
+      return () => {
+        unsubscribe();
+      };
+    } catch (error) {
+      console.error("Error getting projects: ", error);
+      console.error("Error code: ", error.code);
+      console.error("Error message: ", error.message);
+      console.error("Error stack: ", error.stack);
+    }
+  }, []);
 
   const createProject = async () => {
-    // Create a new project document in the database with a unique ID
-    await addDoc(collection(firestore, `users/${auth.currentUser.uid}/projects`), {
-      name: "New Project",
-      creationDate: new Date().toISOString().slice(0, 10),
-    });
+    setShowForm(true);
+    setProjectName("");
+    setButtonDisabled(true);
+  };
+
+  const handleProjectNameChange = (event) => {
+    setProjectName(event.target.value);
+  };
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+
+    if (projectName) {
+      // Check if a project with the same name already exists
+      const projectsRef = collection(
+        firestore,
+        `users/${auth.currentUser.uid}/projects`
+      );
+      const querySnapshot = await getDocs(
+        query(projectsRef, where("name", "==", projectName))
+      );
+
+      if (querySnapshot.size > 0) {
+        alert("A project with the same name already exists.");
+      } else {
+        // Create a new project document in the database with a unique ID
+        await addDoc(projectsRef, {
+          name: projectName,
+          creationDate: new Date().toISOString().slice(0, 10),
+        });
+
+        // Reset the form and hide it
+        setProjectName("");
+        setShowForm(false);
+        setButtonDisabled(false);
+      }
+    }
+  };
+
+  const deleteProject = async (projectId) => {
+    // Delete the project document from the database
+    await deleteDoc(
+      doc(firestore, `users/${auth.currentUser.uid}/projects`, projectId)
+    );
   };
 
   return (
@@ -38,19 +102,39 @@ function ProjectsContent() {
       <button className={classes.button} onClick={createProject}>
         Create Project
       </button>
+      {showForm && (
+        <form className={classes.form} onSubmit={handleSubmit}>
+          <label className={classes.label}>
+            Project Name:
+            <input
+              className={classes.input}
+              type="text"
+              value={projectName}
+              onChange={handleProjectNameChange}
+            />
+          </label>
+          <div>
+            <button type="submit">Create</button>
+            <button onClick={() => setShowForm(false)}>Cancel</button>
+          </div>
+        </form>
+      )}
       <div className={classes.projectList}>
-        {projects.map((project, index) => (
-          <div key={index} className={classes.project}>
+        {projects.map((project) => (
+          <div key={project.id} className={classes.project}>
             <div className={classes.text}>
               <h2>{project.name}</h2>
               <p>Created on {project.creationDate}</p>
             </div>
-            
+
             <div>
               <button className={classes.editButton}>
                 <img src={edit} style={{ fill: "#fff !important" }} />
               </button>
-              <button className={classes.deleteButton}>
+              <button
+                className={classes.deleteButton}
+                onClick={() => deleteProject(project.id)}
+              >
                 <img src={deleteicon} style={{ fill: "#fff" }} />
               </button>
             </div>
@@ -68,13 +152,33 @@ const useStyles = createUseStyles({
     display: "flex",
     flexDirection: "column",
     alignItems: "center",
-    justifyContent: "center",
+    minHeight: "calc(50vh - 2rem)",
     padding: "2rem",
     "& h1": {
       color: "#161925",
       fontFamily: "Delicious Handrawn, cursive",
       fontSize: "3rem",
     },
+  },
+  input: {
+    marginTop: "0.5rem",
+    padding: "0.25rem",
+    fontSize: "1rem",
+    border: "1px solid #ccc",
+    borderRadius: "0.25rem",
+    backgroundColor: "#fff",
+    "&:focus": {
+      outline: "none",
+      boxShadow: "0 0 0.25rem rgba(0, 0, 0, 0.5)",
+    },
+  },
+  label: {
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+    justifyContent: "center",
+    marginBottom: "0.5rem",
+    color: "black",
   },
   text: {
     "& h2": {
@@ -88,7 +192,7 @@ const useStyles = createUseStyles({
       fontFamily: "Raleway, sans-serif",
       fontWeight: "300",
       color: "#161925",
-    }
+    },
   },
   button: {
     display: "inline-block",
@@ -172,6 +276,59 @@ const useStyles = createUseStyles({
     "&:focus": {
       outline: "none",
       boxShadow: "0 0 0.5rem rgba(0, 0, 0, 0.5)",
+    },
+  },
+  form: {
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+    justifyContent: "center",
+    marginTop: "1rem",
+    padding: "1rem",
+    border: "1px solid #ccc",
+    borderRadius: "0.5rem",
+    boxShadow: "0 0 0.5rem rgba(0, 0, 0, 0.5)",
+    transition: "opacity 0.2s ease-in-out",
+    "& label": {
+      display: "flex",
+      flexDirection: "column",
+      alignItems: "center",
+      justifyContent: "center",
+      marginBottom: "0.5rem",
+      "& input": {
+        marginTop: "0.5rem",
+        padding: "0.25rem",
+        fontSize: "1rem",
+        border: "1px solid #ccc",
+        borderRadius: "0.25rem",
+        "&:focus": {
+          outline: "none",
+          boxShadow: "0 0 0.25rem rgba(0, 0, 0, 0.5)",
+        },
+      },
+    },
+    "& button": {
+      padding: "0.5rem 1rem",
+      marginTop: "0.5rem",
+      fontSize: "1rem",
+      fontWeight: "bold",
+      color: "#fff",
+      background: "#3b82f6",
+      borderRadius: "0.25rem",
+      boxShadow: "0 0 0.25rem rgba(0, 0, 0, 0.5)",
+      transition: "background 0.2s ease-in-out",
+      textDecoration: "none",
+      "&:hover": {
+        background: "#2563eb",
+      },
+      "&:focus": {
+        outline: "none",
+        boxShadow: "0 0 0.5rem rgba(0, 0, 0, 0.5)",
+      },
+    },
+    "&.hidden": {
+      opacity: 0,
+      pointerEvents: "none",
     },
   },
 });
