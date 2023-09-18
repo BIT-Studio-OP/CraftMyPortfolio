@@ -51,12 +51,13 @@ function ProjectsContent() {
     }
   }, []);
 
-  const createProject = async () => {
+  const createProject = () => {
     setShowForm(true);
     setProjectName("");
-    setButtonDisabled(true);
-    const form = document.querySelector("form").id= "active";
+    setButtonDisabled(false);
   };
+
+  
 
   const handleProjectNameChange = (event) => {
     setProjectName(event.target.value);
@@ -104,7 +105,8 @@ function ProjectsContent() {
       <button className={classes.button} onClick={createProject}>
         Create Project
       </button>
-        <form className={classes.form} onSubmit={handleSubmit}>
+      <Fade top when={showForm}>
+        <form className={showForm ? classes.activeForm : classes.form} onSubmit={handleSubmit}>
           <label className={classes.label}>
             Project Name:
             <input
@@ -119,6 +121,7 @@ function ProjectsContent() {
             <button onClick={() => setShowForm(false)}>Cancel</button>
           </div>
         </form>
+      </Fade>
       <div className={classes.projectList}>
         {projects.map((project) => (
             <Fade bottom key={project.id}>
@@ -199,6 +202,7 @@ const useStyles = createUseStyles({
   button: {
     display: "inline-block",
     padding: "0.5rem 1rem",
+    zIndex: 1,
     marginTop: "1rem",
     fontSize: "1rem",
     fontWeight: "bold",
@@ -336,8 +340,58 @@ const useStyles = createUseStyles({
       pointerEvents: "none",
     },
   },
-  "active": {
-    opacity: 1,
-    top: 0,
+  activeForm: {
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+    justifyContent: "center",
+    marginTop: "1rem",
+    position: "relative",
+    padding: "1rem",
+    border: "1px solid #ccc",
+    borderRadius: "0.5rem",
+    boxShadow: "0 0 0.5rem rgba(0, 0, 0, 0.5)",
+    transition: "opacity 0.2s ease-in-out, top 0.2s ease-in-out",
+    "& label": {
+      display: "flex",
+      flexDirection: "column",
+      alignItems: "center",
+      justifyContent: "center",
+      marginBottom: "0.5rem",
+      "& input": {
+        marginTop: "0.5rem",
+        padding: "0.25rem",
+        fontSize: "1rem",
+        border: "1px solid #ccc",
+        borderRadius: "0.25rem",
+        "&:focus": {
+          outline: "none",
+          boxShadow: "0 0 0.25rem rgba(0, 0, 0, 0.5)",
+        },
+      },
+    },
+    "& button": {
+      padding: "0.5rem 1rem",
+      marginTop: "0.5rem",
+      fontSize: "1rem",
+      fontWeight: "bold",
+      color: "#fff",
+      background: "#3b82f6",
+      borderRadius: "0.25rem",
+      boxShadow: "0 0 0.25rem rgba(0, 0, 0, 0.5)",
+      transition: "background 0.2s ease-in-out",
+      textDecoration: "none",
+      "&:hover": {
+        background: "#2563eb",
+      },
+      "&:focus": {
+        outline: "none",
+        boxShadow: "0 0 0.5rem rgba(0, 0, 0, 0.5)",
+      },
+    },
+    "&.hidden": {
+      opacity: 0,
+      pointerEvents: "none",
+    },
   },
 });
