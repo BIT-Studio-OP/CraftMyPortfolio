@@ -1,7 +1,6 @@
 /* eslint-disable no-undef */
 import React from "react";
 import { render, screen, waitFor, debug } from "@testing-library/react";
-import AuthProvider from "../src/utils/context/AuthContext";
 import "@testing-library/jest-dom/extend-expect";
 
 import App from "../src/App";
