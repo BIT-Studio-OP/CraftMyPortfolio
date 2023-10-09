@@ -14,7 +14,7 @@ import Account from "./components/account/Account";
 import Projects from "./pages/Projects";
 
 function App() {
-  const [isLoading, setIsLoading] = useState(false); // Set initial state to true
+  const [isLoading, setIsLoading] = useState(true); // Set initial state to true
   const loggedIn = useContext(AuthContext);
   const auth = getAuth();
 
@@ -30,10 +30,10 @@ function App() {
     }
   }, [auth]);
 
-  // if (isLoading) {
-  //   // Render spinner while checking authentication
-  //   return <Spinner />;
-  // }
+  if (isLoading) {
+    // Render spinner while checking authentication
+    return <Spinner />;
+  }
 
   return (
     <Router>
