@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import edit from "../../assets/edit.svg";
 import deleteicon from "../../assets/delete.svg";
 import firestore, { auth } from "../../utils/Firestore";
-import Fade from 'react-reveal/Fade';
+import Fade from "react-reveal/Fade";
 import {
   getDoc,
   setDoc,
@@ -26,7 +26,7 @@ function ProjectsContent() {
   const [showForm, setShowForm] = useState(false);
   const [projectName, setProjectName] = useState("");
   const [buttonDisabled, setButtonDisabled] = useState(false);
- const formRef = useRef(null);
+  const formRef = useRef(null);
   useEffect(() => {
     const userRef = doc(firestore, "users", auth.currentUser.uid);
     const projectsRef = collection(userRef, "projects");
@@ -56,8 +56,6 @@ function ProjectsContent() {
     setProjectName("");
     setButtonDisabled(false);
   };
-
-  
 
   const handleProjectNameChange = (event) => {
     setProjectName(event.target.value);
@@ -106,7 +104,10 @@ function ProjectsContent() {
         Create Project
       </button>
       <Fade top when={showForm}>
-        <form className={showForm ? classes.activeForm : classes.form} onSubmit={handleSubmit}>
+        <form
+          className={showForm ? classes.activeForm : classes.form}
+          onSubmit={handleSubmit}
+        >
           <label className={classes.label}>
             Project Name:
             <input
@@ -124,27 +125,29 @@ function ProjectsContent() {
       </Fade>
       <div className={classes.projectList}>
         {projects.map((project) => (
-            <Fade bottom key={project.id}>
-              <div className={classes.project}>
-                <div className={classes.text}>
-                  <h2>{project.name}</h2>
-                  <p>Created on {project.creationDate}</p>
-                </div>
-
-                <div>
-                  <button className={classes.editButton}>
-                    <img src={edit} style={{ fill: "#fff !important" }} />
-                  </button>
-                  <button
-                    className={classes.deleteButton}
-                    onClick={() => deleteProject(project.id)}
-                  >
-                    <img src={deleteicon} style={{ fill: "#fff" }} />
-                  </button>
-                </div>
+          <Fade bottom key={project.id}>
+            <div className={classes.project}>
+              <div className={classes.text}>
+                <h2>{project.name}</h2>
+                <p>Created on {project.creationDate}</p>
               </div>
-            </Fade>
-          ))}
+
+              <div>
+                <button className={classes.editButton}>
+                  <a href={`/projects/${project.name}`}>
+                    <img src={edit} style={{ fill: "#fff !important" }} />
+                  </a>
+                </button>
+                <button
+                  className={classes.deleteButton}
+                  onClick={() => deleteProject(project.id)}
+                >
+                  <img src={deleteicon} style={{ fill: "#fff" }} />
+                </button>
+              </div>
+            </div>
+          </Fade>
+        ))}
       </div>
     </div>
   );

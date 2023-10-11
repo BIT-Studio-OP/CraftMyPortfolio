@@ -13,6 +13,7 @@ import Templates from "./components/templates/Templates";
 import Details from "./pages/Details";
 import Account from "./components/account/Account";
 import Projects from "./pages/Projects";
+import ProjectEdit from "./pages/ProjectEdit";
 
 function App() {
   const [isLoading, setIsLoading] = useState(true); // Set initial state to true
@@ -50,6 +51,7 @@ function App() {
 
               <Route path="/account" element={<Account />} />
               <Route path="/projects" element={<Projects />} />
+              <Route path="/projects/:id" element={<ProjectEdit />} />
             </>
           ) : (
             <>
