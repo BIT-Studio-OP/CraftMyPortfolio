@@ -6,7 +6,7 @@ import { useParams } from "react-router-dom";
 const useStyles = createUseStyles({
   footer: {
   border: "3px solid gray",
-  backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' version='1.1' xmlns:xlink='http://www.w3.org/1999/xlink' xmlns:svgjs='http://svgjs.dev/svgjs' width='1080' height='100' preserveAspectRatio='none' viewBox='0 0 1080 100'%3E%3Cg mask='url(%22%23SvgjsMask1026%22)' fill='none'%3E%3Crect width='1080' height='100' x='0' y='0' fill='%230e2a47'%3E%3C/rect%3E%3Cpath d='M 0,24 C 43.2,25.8 129.6,37.6 216,33 C 302.4,28.4 345.6,-1.6 432,1 C 518.4,3.6 561.6,45 648,46 C 734.4,47 777.6,8.2 864,6 C 950.4,3.8 1036.8,29.2 1080,35L1080 100L0 100z' fill='%23184a7e'%3E%3C/path%3E%3Cpath d='M 0,89 C 72,83.8 216,65.4 360,63 C 504,60.6 576,78 720,77 C 864,76 1008,61.8 1080,58L1080 100L0 100z' fill='%232264ab'%3E%3C/path%3E%3C/g%3E%3Cdefs%3E%3Cmask id='SvgjsMask1026'%3E%3Crect width='1080' height='100' fill='%23ffffff'%3E%3C/rect%3E%3C/mask%3E%3C/defs%3E%3C/svg%3E")`,
+  backgroundImage: `url("data:image/svg+xml,%3Csvg id='visual' viewBox='0 0 1080 100' width='1080' height='100' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' version='1.1'%3E%3Crect x='0' y='0' width='1080' height='100' fill='%23001220'%3E%3C/rect%3E%3Cdefs%3E%3ClinearGradient id='grad1_0' x1='90.7%' y1='0%' x2='100%' y2='100%'%3E%3Cstop offset='-166%' stop-color='%23001220' stop-opacity='1'%3E%3C/stop%3E%3Cstop offset='266.0000000000001%' stop-color='%23001220' stop-opacity='1'%3E%3C/stop%3E%3C/linearGradient%3E%3C/defs%3E%3Cdefs%3E%3ClinearGradient id='grad2_0' x1='0%' y1='0%' x2='9.3%' y2='100%'%3E%3Cstop offset='-166%' stop-color='%23001220' stop-opacity='1'%3E%3C/stop%3E%3Cstop offset='266.0000000000001%' stop-color='%23001220' stop-opacity='1'%3E%3C/stop%3E%3C/linearGradient%3E%3C/defs%3E%3Cg transform='translate(1080, 0)'%3E%3Cpath d='M0 100C-6.7 100.2 -13.4 100.3 -19.5 98.1C-25.6 95.8 -31 -91.2 -36 -86.8C-40.9 82.5 -45.5 78.6 -50 74.8C-54.5 71.1 -59.1 67.6 -64.3 64.3C-69.6 61 -75.5 57.9 -79.8 53.3C-84.1 48.8 -86.9 42.8 -88.7 36.7C-90.5 30.7 -91.4 24.7 -93.2 18.5C-94.9 12.4 -97.5 6.2 -100 0L0 0Z' fill='%23FBAE3C'%3E%3C/path%3E%3C/g%3E%3Cg transform='translate(0, 100)'%3E%3Cpath d='M0 -100C6.9 -100.6 13.8 -101.2 19.5 -98.1C25.2 -95 29.8 -88.2 34.8 -84.1C39.9 -79.9 45.4 -78.4 50.6 -75.7C55.7 -73 60.5 -69.1 65.1 -65.1C69.6 -61 73.8 -56.8 78.2 -52.2C82.5 -47.6 87.1 -42.6 88.7 -36.7C90.3 -30.9 88.8 -24.2 90.2 -17.9C91.6 -11.7 95.8 -5.8 100 0L0 0Z' fill='%23FBAE3C'%3E%3C/path%3E%3C/g%3E%3C/svg%3E")`,
   backgroundRepeat: "no-repeat",
   backgroundSize: "cover",
   color: "#fff",
@@ -105,7 +105,8 @@ const useStyles = createUseStyles({
     },
   },
 });
-function TemplateFooterThree() {
+
+function TemplateFooterSix() {
   const classes = useStyles();
   const [isEditing, setEditing] = useState(false);
   const { templateId } = useParams();
@@ -296,4 +297,4 @@ function TemplateFooterThree() {
   );
 }
 
-export default TemplateFooterThree;
+export default TemplateFooterSix;

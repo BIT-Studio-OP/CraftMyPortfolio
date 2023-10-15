@@ -3,6 +3,9 @@ import Header from "../header/Header";
 import TemplateFooterOne from "./footers/templateFooterOne";
 import TemplateFooterTwo from "./footers/templateFooterTwo";
 import TemplateFooterThree from "./footers/templateFooterThree";
+import TemplateFooterFour from "./footers/templateFooterFour";
+import TemplateFooterFive from "./footers/templateFooterFive";
+import TemplateFooterSix from "./footers/templateFooterSix";
 import { createUseStyles } from "react-jss";
 import { useParams } from "react-router-dom";
 
@@ -49,6 +52,7 @@ const Templates = () => {
       <Header />
       <div className={classes.templatesContainer}>
         <h1 className={classes.heading}>Templates</h1>
+        <h1 className={classes.heading}>Footers</h1>
         <div className={classes.templatesColumn}>
           <a href="/templates/1">
             {" "}
@@ -62,7 +66,20 @@ const Templates = () => {
             {" "}
             <TemplateFooterThree />
           </a>
+          <a href="/templates/4">
+            {" "}
+            <TemplateFooterFour />
+          </a>
+          <a href="/templates/5">
+            {" "}
+            <TemplateFooterFive />
+          </a>
+          <a href="/templates/6">
+            {" "}
+            <TemplateFooterSix />
+          </a>
         </div>
+        <h1 className={classes.heading}>Headers</h1>
       </div>
     </>
   );

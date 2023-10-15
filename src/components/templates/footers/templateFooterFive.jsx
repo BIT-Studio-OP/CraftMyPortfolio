@@ -6,7 +6,7 @@ import { useParams } from "react-router-dom";
 const useStyles = createUseStyles({
   footer: {
   border: "3px solid gray",
-  backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' version='1.1' xmlns:xlink='http://www.w3.org/1999/xlink' xmlns:svgjs='http://svgjs.dev/svgjs' width='1080' height='100' preserveAspectRatio='none' viewBox='0 0 1080 100'%3E%3Cg mask='url(%22%23SvgjsMask1026%22)' fill='none'%3E%3Crect width='1080' height='100' x='0' y='0' fill='%230e2a47'%3E%3C/rect%3E%3Cpath d='M 0,24 C 43.2,25.8 129.6,37.6 216,33 C 302.4,28.4 345.6,-1.6 432,1 C 518.4,3.6 561.6,45 648,46 C 734.4,47 777.6,8.2 864,6 C 950.4,3.8 1036.8,29.2 1080,35L1080 100L0 100z' fill='%23184a7e'%3E%3C/path%3E%3Cpath d='M 0,89 C 72,83.8 216,65.4 360,63 C 504,60.6 576,78 720,77 C 864,76 1008,61.8 1080,58L1080 100L0 100z' fill='%232264ab'%3E%3C/path%3E%3C/g%3E%3Cdefs%3E%3Cmask id='SvgjsMask1026'%3E%3Crect width='1080' height='100' fill='%23ffffff'%3E%3C/rect%3E%3C/mask%3E%3C/defs%3E%3C/svg%3E")`,
+  backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1080' height='100' viewBox='0 0 1080 100'%3E%3Crect width='1080' height='100' fill='%23140021'%3E%3C/rect%3E%3Cpath d='M0 57L154 57L154 42L309 42L309 45L463 45L463 47L617 47L617 42L771 42L771 51L926 51L926 39L1080 39L1080 44L1080 101L1080 101L926 101L926 101L771 101L771 101L617 101L617 101L463 101L463 101L309 101L309 101L154 101L154 101L0 101Z' fill='%239900ff'%3E%3C/path%3E%3Cpath d='M0 63L154 63L154 56L309 56L309 63L463 63L463 53L617 53L617 52L771 52L771 61L926 61L926 66L1080 66L1080 58L1080 101L1080 101L926 101L926 101L771 101L771 101L617 101L617 101L463 101L463 101L309 101L309 101L154 101L154 101L0 101Z' fill='%238800e2'%3E%3C/path%3E%3Cpath d='M0 67L154 67L154 71L309 71L309 69L463 69L463 72L617 72L617 72L771 72L771 70L926 70L926 66L1080 66L1080 66L1080 101L1080 101L926 101L926 101L771 101L771 101L617 101L617 101L463 101L463 101L309 101L309 101L154 101L154 101L0 101Z' fill='%237700c6'%3E%3C/path%3E%3Cpath d='M0 82L154 82L154 82L309 82L309 80L463 80L463 79L617 79L617 74L771 74L771 79L926 79L926 82L1080 82L1080 76L1080 101L1080 101L926 101L926 101L771 101L771 101L617 101L617 101L463 101L463 101L309 101L309 101L154 101L154 101L0 101Z' fill='%236600ab'%3E%3C/path%3E%3Cpath d='M0 85L154 85L154 89L309 89L309 90L463 90L463 93L617 93L617 85L771 85L771 84L926 84L926 93L1080 93L1080 86L1080 101L1080 101L926 101L926 101L771 101L771 101L617 101L617 101L463 101L463 101L309 101L309 101L154 101L154 101L0 101Z' fill='%23560090'%3E%3C/path%3E%3C/svg%3E")`,
   backgroundRepeat: "no-repeat",
   backgroundSize: "cover",
   color: "#fff",
@@ -105,7 +105,8 @@ const useStyles = createUseStyles({
     },
   },
 });
-function TemplateFooterThree() {
+
+function TemplateFooterFive() {
   const classes = useStyles();
   const [isEditing, setEditing] = useState(false);
   const { templateId } = useParams();
@@ -296,4 +297,4 @@ function TemplateFooterThree() {
   );
 }
 
-export default TemplateFooterThree;
+export default TemplateFooterFive;
