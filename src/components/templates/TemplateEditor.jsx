@@ -1,10 +1,18 @@
 import React, { useState } from "react";
 import Header from "../header/Header";
-import TemplateFooterOne from "./footers/templateFooterOne";
 import { createUseStyles } from "react-jss";
 import { useParams } from "react-router-dom";
+import TemplateFooterOne from "./footers/templateFooterOne";
 import TemplateFooterTwo from "./footers/templateFooterTwo";
 import TemplateFooterThree from "./footers/templateFooterThree";
+import TemplateFooterFour from "./footers/templateFooterFour";
+import TemplateFooterFive from "./footers/templateFooterFive";
+import TemplateFooterSix from "./footers/templateFooterSix";
+import TemplateHeaderOne from "./headers/templateHeaderOne";
+import TemplateHeaderTwo from "./headers/templateHeaderTwo";
+import TemplateHeaderThree from "./headers/templateHeaderThree";
+import TemplateHeaderFour from "./headers/templateHeaderFour";
+import TemplateHeaderFive from "./headers/templateHeaderFive";
 
 const useStyles = createUseStyles({
   templatesContainer: {
@@ -51,6 +59,14 @@ function TemplateEditor() {
         {templateId === "1" && <TemplateFooterOne />}
         {templateId === "2" && <TemplateFooterTwo />}
         {templateId === "3" && <TemplateFooterThree />}
+        {templateId === "4" && <TemplateFooterFour />}
+        {templateId === "5" && <TemplateFooterFive />}
+        {templateId === "6" && <TemplateFooterSix />}
+        {templateId === "7" && <TemplateHeaderOne />}
+        {templateId === "8" && <TemplateHeaderTwo />}
+        {templateId === "9" && <TemplateHeaderThree />}
+        {templateId === "10" && <TemplateHeaderFour />}
+        {templateId === "11" && <TemplateHeaderFive />}
       </div>
     </>
   );

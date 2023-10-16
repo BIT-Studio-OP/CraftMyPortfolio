@@ -40,7 +40,7 @@ const useStyles = createUseStyles({
     textAlign: "center",
     marginBottom: "2rem",
     color: "var(--primary-colour)",
-  },
+  }
   templatesFooterColumn: {
     display: "grid",
     gridTemplateColumns: "1fr 1fr",
