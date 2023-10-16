@@ -226,16 +226,13 @@ const ProjectEdit = () => {
         console.log("templateName", templateName);
         switch (templateName) {
           case "HeaderTemplate":
-            console.log("Hello");
             return ReactDOMServer.renderToString(<NavbarTemplate />);
           // Add more cases as needed
           default:
-            console.log("defailt case hit");
             return "";
         }
       })
       .join("");
-    console.log("headerContent", headerContent);
 
     // Render the selected footer templates
     const footerContent = selectedFooterTemplates
