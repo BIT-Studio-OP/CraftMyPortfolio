@@ -53,5 +53,4 @@ export const useStyles = createUseStyles({
   resMenuHide: {
     display: "none",
   },
-  // Add responsive styles here
 });

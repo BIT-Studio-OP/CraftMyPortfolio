@@ -1,11 +1,9 @@
 import React, { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBars } from "@fortawesome/free-solid-svg-icons";
-import { useStyles } from "./NavbarTemplateStyles";
 
 function NavbarTemplate() {
   const [showMenu, setShowMenu] = useState(false);
-  const classes = useStyles();
 
   const handleIconClick = () => {
     setShowMenu(!showMenu);
@@ -13,74 +11,313 @@ function NavbarTemplate() {
 
   return (
     <>
-      <nav className={classes.navParent}>
-        <h1 className={classes.h1}>
-          <span className={classes.craft}>YourTitle</span>
+      <nav
+        style={{
+          backgroundColor: "gray",
+          display: "flex",
+          justifyContent: "space-between",
+          alignItems: "center",
+          padding: "1rem",
+        }}
+      >
+        <h1
+          style={{
+            fontSize: "48px !important",
+            fontWeight: 600,
+            color: "white",
+            fontFamily: "Delicious Handrawn, cursive",
+          }}
+        >
+          <span style={{ fontFamily: "Delicious Handrawn, cursive" }}>
+            YourTitle
+          </span>
         </h1>
-        <ul className={classes.menu}>
+        <ul
+          style={{
+            display: "flex",
+            justifyContent: "space-between",
+            gap: "1rem",
+            listStyle: "none",
+            alignItems: "center",
+          }}
+        >
           {/* Editable menu items */}
-          <li className={classes.MenuItem}>
-            <a href="" className={classes.a}>
+          <li
+            style={
+              {
+                // Add your menu item styles here
+              }
+            }
+          >
+            <a
+              href=""
+              style={{
+                textDecoration: "none",
+                color: "white",
+                fontSize: "1.2rem",
+                fontWeight: 600,
+                transition: "all 0.1s ease-in-out",
+                borderRadius: "0.5rem",
+                cursor: "pointer",
+              }}
+            >
               Home
             </a>
           </li>
-          <li className={classes.MenuItem}>
-            <a href="" className={classes.a}>
+          <li
+            style={
+              {
+                // Add your menu item styles here
+              }
+            }
+          >
+            <a
+              href=""
+              style={{
+                textDecoration: "none",
+                color: "white",
+                fontSize: "1.2rem",
+                fontWeight: 600,
+                transition: "all 0.1s ease-in-out",
+                borderRadius: "0.5rem",
+                cursor: "pointer",
+              }}
+            >
               Templates
             </a>
           </li>
-          <li className={classes.MenuItem}>
-            <a className={classes.a}>Account</a>
+          <li
+            style={
+              {
+                // Add your menu item styles here
+              }
+            }
+          >
+            <a
+              style={{
+                textDecoration: "none",
+                color: "white",
+                fontSize: "1.2rem",
+                fontWeight: 600,
+                transition: "all 0.1s ease-in-out",
+                borderRadius: "0.5rem",
+                cursor: "pointer",
+              }}
+            >
+              Account
+            </a>
           </li>
-          <li className={classes.MenuItem}>
-            <a href="" className={classes.a}>
+          <li
+            style={
+              {
+                // Add your menu item styles here
+              }
+            }
+          >
+            <a
+              href=""
+              style={{
+                textDecoration: "none",
+                color: "white",
+                fontSize: "1.2rem",
+                fontWeight: 600,
+                transition: "all 0.1s ease-in-out",
+                borderRadius: "0.5rem",
+                cursor: "pointer",
+              }}
+            >
               Details
             </a>
           </li>
-          <li className={`${classes.MenuItem} projects-button`}>
-            <a href="" className={classes.a}>
+          <li
+            className="projects-button"
+            style={
+              {
+                // Add your menu item styles here
+              }
+            }
+          >
+            <a
+              href=""
+              style={{
+                textDecoration: "none",
+                color: "white",
+                fontSize: "1.2rem",
+                fontWeight: 600,
+                transition: "all 0.1s ease-in-out",
+                borderRadius: "0.5rem",
+                cursor: "pointer",
+              }}
+            >
               My Projects
             </a>
           </li>
           {/* End of editable menu items */}
-          <li className={classes.MenuItem}>
-            <a className={classes.a}>Log Out</a>
+          <li
+            style={
+              {
+                // Add your menu item styles here
+              }
+            }
+          >
+            <a
+              style={{
+                textDecoration: "none",
+                color: "white",
+                fontSize: "1.2rem",
+                fontWeight: 600,
+                transition: "all 0.1s ease-in-out",
+                borderRadius: "0.5rem",
+                cursor: "pointer",
+              }}
+            >
+              Log Out
+            </a>
           </li>
         </ul>
-        <div className={classes.resMenuParent}>
+        <div style={{ display: "none" }}>
           <FontAwesomeIcon
-            className={classes.bars}
             icon={faBars}
             onClick={handleIconClick}
+            style={{ display: "none" }}
           />
-          <ul className={showMenu ? classes.resMenu : classes.resMenuHide}>
+          <ul
+            style={{
+              display: "none",
+            }}
+          >
             {/* Editable responsive menu items */}
-            <li className={classes.MenuItem}>
-              <a href="" className={classes.a}>
+            <li
+              style={
+                {
+                  // Add your menu item styles here
+                }
+              }
+            >
+              <a
+                href=""
+                style={{
+                  textDecoration: "none",
+                  color: "white",
+                  fontSize: "1.2rem",
+                  fontWeight: 600,
+                  transition: "all 0.1s ease-in-out",
+                  borderRadius: "0.5rem",
+                  cursor: "pointer",
+                }}
+              >
                 Home
               </a>
             </li>
-            <li className={classes.MenuItem}>
-              <a href="" className={classes.a}>
+            <li
+              style={
+                {
+                  // Add your menu item styles here
+                }
+              }
+            >
+              <a
+                href=""
+                style={{
+                  textDecoration: "none",
+                  color: "white",
+                  fontSize: "1.2rem",
+                  fontWeight: 600,
+                  transition: "all 0.1s ease-in-out",
+                  borderRadius: "0.5rem",
+                  cursor: "pointer",
+                }}
+              >
                 Templates
               </a>
             </li>
-            <li className={classes.MenuItem}>
-              <a href="" className={classes.a}>
+            <li
+              style={
+                {
+                  // Add your menu item styles here
+                }
+              }
+            >
+              <a
+                href=""
+                style={{
+                  textDecoration: "none",
+                  color: "white",
+                  fontSize: "1.2rem",
+                  fontWeight: 600,
+                  transition: "all 0.1s ease-in-out",
+                  borderRadius: "0.5rem",
+                  cursor: "pointer",
+                }}
+              >
                 Details
               </a>
             </li>
-            <li className={classes.MenuItem}>
-              <a className={classes.a}>Account</a>
+            <li
+              style={
+                {
+                  // Add your menu item styles here
+                }
+              }
+            >
+              <a
+                style={{
+                  textDecoration: "none",
+                  color: "white",
+                  fontSize: "1.2rem",
+                  fontWeight: 600,
+                  transition: "all 0.1s ease-in-out",
+                  borderRadius: "0.5rem",
+                  cursor: "pointer",
+                }}
+              >
+                Account
+              </a>
             </li>
-            <li className={`${classes.MenuItem} projects-button`}>
-              <a href="" className={classes.a}>
+            <li
+              className="projects-button"
+              style={
+                {
+                  // Add your menu item styles here
+                }
+              }
+            >
+              <a
+                href=""
+                style={{
+                  textDecoration: "none",
+                  color: "white",
+                  fontSize: "1.2rem",
+                  fontWeight: 600,
+                  transition: "all 0.1s ease-in-out",
+                  borderRadius: "0.5rem",
+                  cursor: "pointer",
+                }}
+              >
                 My Projects
               </a>
             </li>
             {/* End of editable responsive menu items */}
-            <li className={classes.MenuItem}>
-              <a className={classes.a}>Log Out</a>
+            <li
+              style={
+                {
+                  // Add your menu item styles here
+                }
+              }
+            >
+              <a
+                style={{
+                  textDecoration: "none",
+                  color: "white",
+                  fontSize: "1.2rem",
+                  fontWeight: 600,
+                  transition: "all 0.1s ease-in-out",
+                  borderRadius: "0.5rem",
+                  cursor: "pointer",
+                }}
+              >
+                Log Out
+              </a>
             </li>
           </ul>
         </div>

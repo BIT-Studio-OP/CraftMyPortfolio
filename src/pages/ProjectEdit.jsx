@@ -219,23 +219,29 @@ const ProjectEdit = () => {
 
   const generateHTML = () => {
     // Render the selected header templates
+
+    // not triggering
     const headerContent = selectedHeaderTemplates
       .map((templateName) => {
+        console.log("templateName", templateName);
         switch (templateName) {
-          case "HeaderTemplateOne":
+          case "HeaderTemplate":
+            console.log("Hello");
             return ReactDOMServer.renderToString(<NavbarTemplate />);
           // Add more cases as needed
           default:
+            console.log("defailt case hit");
             return "";
         }
       })
       .join("");
+    console.log("headerContent", headerContent);
 
     // Render the selected footer templates
     const footerContent = selectedFooterTemplates
       .map((templateName) => {
         switch (templateName) {
-          case "FooterTemplateOne":
+          case "FooterTemplate":
             return ReactDOMServer.renderToString(<TemplateFooterOne />);
           // Add more cases as needed
           default:
@@ -250,8 +256,8 @@ const ProjectEdit = () => {
       <head>
         <style>
           /* Add your CSS styles here */
-          .header { background-color: lightblue; padding: 10px; border-bottom: 1px solid #ccc; }
-          .footer { background-color: lightgray; padding: 10px; border-top: 1px solid #ccc; }
+          .header { padding: 10px; border-bottom: 1px solid #ccc; }
+          .footer { padding: 10px; border-top: 1px solid #ccc; }
           /* ...other styles... */
           </style>
           </head>
