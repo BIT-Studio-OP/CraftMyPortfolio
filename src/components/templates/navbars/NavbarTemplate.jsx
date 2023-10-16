@@ -18,6 +18,7 @@ function NavbarTemplate() {
           justifyContent: "space-between",
           alignItems: "center",
           padding: "1rem",
+          margin: "0 !important",
         }}
       >
         <h1
@@ -25,10 +26,10 @@ function NavbarTemplate() {
             fontSize: "48px !important",
             fontWeight: 600,
             color: "white",
-            fontFamily: "Delicious Handrawn, cursive",
+            fontFamily: "Montserrat, sans-serif",
           }}
         >
-          <span style={{ fontFamily: "Delicious Handrawn, cursive" }}>
+          <span style={{ fontFamily: "Montserrat, sans-serif" }}>
             YourTitle
           </span>
         </h1>
