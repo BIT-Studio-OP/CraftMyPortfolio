@@ -1,8 +1,107 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { createUseStyles } from "react-jss";
 import AutoFillButton from "../autoFill/autoFillButton";
 import { useParams } from "react-router-dom";
 
-function TemplateFooterFive() {
+const useStyles = createUseStyles({
+  footer: {
+    border: "3px solid gray",
+    background:
+      "linear-gradient(45deg, #161925 10%, #161925 15%, #FCFCEE 15%, #FCFCEE 100%)",
+    color: "#FCFCEE",
+    fontFamily: "Montserrat, sans-serif",
+    fontWeight: "500",
+    padding: "1rem 2rem 1rem 2rem",
+    bottom: "-1",
+    left: "5vw",
+    minWidth: "90%",
+    width: "90%",
+    display: "flex",
+    marginBottom: "2rem",
+    justifyContent: "space-between",
+    alignItems: "center",
+    fontSize: "1vw",
+    "@media (max-width: 500px)": {
+      flexDirection: "column",
+      fontSize: "4vw",
+      fontFamily: "Arial, sans-serif",
+      fontWeight: "400",
+    },
+    "@media (max-width: 680px)": {
+      flexDirection: "column",
+      fontSize: "2vw",
+      fontFamily: "Arial, sans-serif",
+      fontWeight: "400",
+    },
+    "@media (max-width: 1500px)": {
+      background:
+        "linear-gradient(45deg, #161925 10%, #161925 25%, #FCFCEE 5%, #FCFCEE 100%)",
+    },
+    "@media (max-width: 800px)": {
+      background:
+        "linear-gradient(45deg, #161925 10%, #161925 29%, #FCFCEE 1%, #FCFCEE 100%)",
+    },
+    "@media (max-width: 750px)": {
+      background: "#FCFCEE",
+    },
+  },
+  leftContent: {
+    display: "flex",
+    alignItems: "center",
+    flexDirection: "column",
+    "& p": {
+      margin: "0 1rem",
+      "@media (max-width: 750px)": {
+        color: "#161925",
+      },
+    },
+    "& > a": {
+      textDecoration: "none",
+      color: "#FCFCEE",
+      "@media (max-width: 750px)": {
+        color: "#161925",
+      },
+    },
+    "@media (max-width: 500px)": {
+      paddingBottom: "1rem",
+    },
+  },
+  rightContent: {
+    display: "flex",
+    alignItems: "center",
+    flexDirection: "column",
+    color: "#161925",
+    "& p": {
+      margin: "0 1rem",
+    },
+    "& > a": {
+      textDecoration: "none",
+      color: "#161925",
+    },
+    "@media (max-width: 500px)": {
+      paddingBottom: "1rem",
+    },
+  },
+  middleContent: {
+    display: "flex",
+    color: "#161925",
+    alignItems: "center",
+    flexDirection: "column",
+    "& p": {
+      margin: "0 1rem",
+    },
+    "& > a": {
+      textDecoration: "none",
+      color: "#161925",
+    },
+    "@media (max-width: 500px)": {
+      paddingBottom: "1rem",
+    },
+  },
+});
+
+function TemplateBodyOne() {
+  const classes = useStyles();
   const [isEditing, setEditing] = useState(false);
   const { templateId } = useParams();
 
@@ -68,41 +167,14 @@ function TemplateFooterFive() {
     });
   };
 
-  const showAutoFillButton = templateId !== undefined;
 
+  const showAutoFillButton = templateId !== undefined;
   return (
     <>
       {showAutoFillButton && <AutoFillButton onAutoFill={handleAutoFill} />}
 
-      <footer
-        style={{
-          border: "3px solid gray",
-          backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1080' height='100' viewBox='0 0 1080 100'%3E%3Crect width='1080' height='100' fill='%23140021'%3E%3C/rect%3E%3Cpath d='M0 57L154 57L154 42L309 42L309 45L463 45L463 47L617 47L617 42L771 42L771 51L926 51L926 39L1080 39L1080 44L1080 101L1080 101L926 101L926 101L771 101L771 101L617 101L617 101L463 101L463 101L309 101L309 101L154 101L154 101L0 101Z' fill='%239900ff'%3E%3C/path%3E%3Cpath d='M0 63L154 63L154 56L309 56L309 63L463 63L463 53L617 53L617 52L771 52L771 61L926 61L926 66L1080 66L1080 58L1080 101L1080 101L926 101L926 101L771 101L771 101L617 101L617 101L463 101L463 101L309 101L309 101L154 101L154 101L0 101Z' fill='%238800e2'%3E%3C/path%3E%3Cpath d='M0 67L154 67L154 71L309 71L309 69L463 69L463 72L617 72L617 72L771 72L771 70L926 70L926 66L1080 66L1080 66L1080 101L1080 101L926 101L926 101L771 101L771 101L617 101L617 101L463 101L463 101L309 101L309 101L154 101L154 101L0 101Z' fill='%237700c6'%3E%3C/path%3E%3Cpath d='M0 82L154 82L154 82L309 82L309 80L463 80L463 79L617 79L617 74L771 74L771 79L926 79L926 82L1080 82L1080 76L1080 101L1080 101L926 101L926 101L771 101L771 101L617 101L617 101L463 101L463 101L309 101L309 101L154 101L154 101L0 101Z' fill='%236600ab'%3E%3C/path%3E%3Cpath d='M0 85L154 85L154 89L309 89L309 90L463 90L463 93L617 93L617 85L771 85L771 84L926 84L926 93L1080 93L1080 86L1080 101L1080 101L926 101L926 101L771 101L771 101L617 101L617 101L463 101L463 101L309 101L309 101L154 101L154 101L0 101Z' fill='%23560090'%3E%3C/path%3E%3C/svg%3E")`,
-          backgroundRepeat: "no-repeat",
-          backgroundSize: "cover",
-          color: "#fff",
-          fontFamily: "Montserrat, sans-serif",
-          fontWeight: "500",
-          padding: "1rem 2rem 1rem 2rem",
-          bottom: "-1",
-          left: "5vw",
-          minWidth: "90%",
-          width: "90%",
-          display: "flex",
-          marginBottom: "2rem",
-          justifyContent: "space-between",
-          alignItems: "center",
-          fontSize: "1vw",
-        }}
-      >
-        <div
-          style={{
-            display: "flex",
-            alignItems: "center",
-            flexDirection: "column",
-            color: "white",
-          }}
-        >
+      <footer className={classes.footer}>
+        <div className={classes.leftContent}>
           <p>Follow us:</p>
           {isEditing ? (
             <input
@@ -144,14 +216,7 @@ function TemplateFooterFive() {
             <p>{leftContent.linkedIn}</p>
           )}
         </div>
-        <div
-          style={{
-            display: "flex",
-            color: "#fff",
-            alignItems: "center",
-            flexDirection: "column",
-          }}
-        >
+        <div className={classes.middleContent}>
           {isEditing ? (
             <input
               type="text"
@@ -179,14 +244,7 @@ function TemplateFooterFive() {
             <p>{middleContent.contactEmail}</p>
           )}
         </div>
-        <div
-          style={{
-            display: "flex",
-            color: "#fff",
-            alignItems: "center",
-            flexDirection: "column",
-          }}
-        >
+        <div className={classes.rightContent}>
           <p>The Team:</p>
           {isEditing ? (
             <input
@@ -233,4 +291,4 @@ function TemplateFooterFive() {
   );
 }
 
-export default TemplateFooterFive;
+export default TemplateBodyOne;

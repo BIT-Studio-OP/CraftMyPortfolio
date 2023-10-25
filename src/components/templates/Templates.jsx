@@ -111,6 +111,7 @@ const Templates = () => {
             <TemplateHeaderFive />
           </a>
         </div>
+        <h1 className={classes.heading}>Bodys</h1>
       </div>
     </>
   );

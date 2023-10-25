@@ -1,107 +1,8 @@
 import React, { useState, useEffect } from "react";
-import { createUseStyles } from "react-jss";
 import AutoFillButton from "../autoFill/autoFillButton";
 import { useParams } from "react-router-dom";
 
-const useStyles = createUseStyles({
-  footer: {
-    border: "3px solid gray",
-    background:
-      "linear-gradient(45deg, #161925 10%, #161925 15%, #FCFCEE 15%, #FCFCEE 100%)",
-    color: "#FCFCEE",
-    fontFamily: "Montserrat, sans-serif",
-    fontWeight: "500",
-    padding: "1rem 2rem 1rem 2rem",
-    bottom: "-1",
-    left: "5vw",
-    minWidth: "90%",
-    width: "90%",
-    display: "flex",
-    marginBottom: "2rem",
-    justifyContent: "space-between",
-    alignItems: "center",
-    fontSize: "1vw",
-    "@media (max-width: 500px)": {
-      flexDirection: "column",
-      fontSize: "4vw",
-      fontFamily: "Arial, sans-serif",
-      fontWeight: "400",
-    },
-    "@media (max-width: 680px)": {
-      flexDirection: "column",
-      fontSize: "2vw",
-      fontFamily: "Arial, sans-serif",
-      fontWeight: "400",
-    },
-    "@media (max-width: 1500px)": {
-      background:
-        "linear-gradient(45deg, #161925 10%, #161925 25%, #FCFCEE 5%, #FCFCEE 100%)",
-    },
-    "@media (max-width: 800px)": {
-      background:
-        "linear-gradient(45deg, #161925 10%, #161925 29%, #FCFCEE 1%, #FCFCEE 100%)",
-    },
-    "@media (max-width: 750px)": {
-      background: "#FCFCEE",
-    },
-  },
-  leftContent: {
-    display: "flex",
-    alignItems: "center",
-    flexDirection: "column",
-    "& p": {
-      margin: "0 1rem",
-      "@media (max-width: 750px)": {
-        color: "#161925",
-      },
-    },
-    "& > a": {
-      textDecoration: "none",
-      color: "#FCFCEE",
-      "@media (max-width: 750px)": {
-        color: "#161925",
-      },
-    },
-    "@media (max-width: 500px)": {
-      paddingBottom: "1rem",
-    },
-  },
-  rightContent: {
-    display: "flex",
-    alignItems: "center",
-    flexDirection: "column",
-    color: "#161925",
-    "& p": {
-      margin: "0 1rem",
-    },
-    "& > a": {
-      textDecoration: "none",
-      color: "#161925",
-    },
-    "@media (max-width: 500px)": {
-      paddingBottom: "1rem",
-    },
-  },
-  middleContent: {
-    display: "flex",
-    color: "#161925",
-    alignItems: "center",
-    flexDirection: "column",
-    "& p": {
-      margin: "0 1rem",
-    },
-    "& > a": {
-      textDecoration: "none",
-      color: "#161925",
-    },
-    "@media (max-width: 500px)": {
-      paddingBottom: "1rem",
-    },
-  },
-});
-
 function TemplateFooterOne() {
-  const classes = useStyles();
   const [isEditing, setEditing] = useState(false);
   const { templateId } = useParams();
 
@@ -167,14 +68,38 @@ function TemplateFooterOne() {
     });
   };
 
-
   const showAutoFillButton = templateId !== undefined;
+
   return (
     <>
       {showAutoFillButton && <AutoFillButton onAutoFill={handleAutoFill} />}
 
-      <footer className={classes.footer}>
-        <div className={classes.leftContent}>
+      <footer
+        style={{
+          border: "3px solid gray",
+          background: "linear-gradient(45deg, #161925 10%, #161925 15%, #FCFCEE 15%, #FCFCEE 100%)",
+          color: "#FCFCEE",
+          fontFamily: "Montserrat, sans-serif",
+          fontWeight: "500",
+          padding: "1rem 2rem 1rem 2rem",
+          bottom: "-1",
+          left: "5vw",
+          minWidth: "90%",
+          width: "90%",
+          display: "flex",
+          marginBottom: "2rem",
+          justifyContent: "space-between",
+          alignItems: "center",
+          fontSize: "1vw",
+        }}
+      >
+        <div
+          style={{
+            display: "flex",
+            alignItems: "center",
+            flexDirection: "column",
+          }}
+        >
           <p>Follow us:</p>
           {isEditing ? (
             <input
@@ -216,7 +141,14 @@ function TemplateFooterOne() {
             <p>{leftContent.linkedIn}</p>
           )}
         </div>
-        <div className={classes.middleContent}>
+        <div
+          style={{
+            display: "flex",
+            alignItems: "center",
+            flexDirection: "column",
+            color: "#161925",
+          }}
+        >
           {isEditing ? (
             <input
               type="text"
@@ -244,7 +176,14 @@ function TemplateFooterOne() {
             <p>{middleContent.contactEmail}</p>
           )}
         </div>
-        <div className={classes.rightContent}>
+        <div
+          style={{
+            display: "flex",
+            alignItems: "center",
+            flexDirection: "column",
+            color: "#161925",
+          }}
+        >
           <p>The Team:</p>
           {isEditing ? (
             <input
