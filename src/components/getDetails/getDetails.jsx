@@ -3,35 +3,28 @@ import { doc, getDoc } from "firebase/firestore";
 import { firestore } from "../../utils/Firestore";
 import { getAuth } from "firebase/auth";
 
-export function useUserDetails(collectionType) {
+export function useUserDetails() {
   const [details, setDetails] = useState(null);
-  const auth = getAuth();
+    const auth = getAuth();
 
   useEffect(() => {
     const fetchDetails = async () => {
-      const userRef = doc(firestore, "users", auth.currentUser.uid);
+      const collectionPath = `users/${auth.currentUser.uid}/DetailsPersonal/${auth.currentUser.uid}`;
+      const userRef = doc(firestore, ...collectionPath.split("/"));
 
-      // Determine the collection to use based on the collectionType parameter
-      const detailsCollection =
-        collectionType === "personal" ? "DetailsPersonal" : "DetailsWork";
-
-      const userDetailsDocRef = doc(
-        userRef,
-        detailsCollection,
-        auth.currentUser.uid
-      );
-
-      const docSnap = await getDoc(userDetailsDocRef);
+      const docSnap = await getDoc(userRef);
+      console.log("fetchDetails", docSnap.data());
 
       if (docSnap.exists()) {
         setDetails(docSnap.data());
       } else {
         console.log("No such document!");
+        setDetails("");
       }
     };
 
     fetchDetails();
-  }, [collectionType]);
+  }, []);
 
   return details;
 }

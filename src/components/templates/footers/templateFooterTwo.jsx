@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import AutoFillButton from "../autoFill/autoFillButton";
 import { useParams } from "react-router-dom";
 
-function TemplateFooterOne() {
+function TemplateFooterTwo() {
   const [isEditing, setEditing] = useState(false);
   const { templateId } = useParams();
 
@@ -73,12 +73,11 @@ function TemplateFooterOne() {
   return (
     <>
       {showAutoFillButton && <AutoFillButton onAutoFill={handleAutoFill} />}
-
       <footer
         style={{
           border: "3px solid gray",
-          background: "linear-gradient(45deg, #161925 10%, #161925 15%, #FCFCEE 15%, #FCFCEE 100%)",
-          color: "#FCFCEE",
+          background: "linear-gradient(45deg, #FCFCED 10%, #FCFCEE 15%, #161925 15%, #161925 100%)",
+          color: "#000",
           fontFamily: "Montserrat, sans-serif",
           fontWeight: "500",
           padding: "1rem 2rem 1rem 2rem",
@@ -181,7 +180,7 @@ function TemplateFooterOne() {
             display: "flex",
             alignItems: "center",
             flexDirection: "column",
-            color: "#161925",
+            color: "#fff",
           }}
         >
           <p>The Team:</p>
@@ -230,4 +229,4 @@ function TemplateFooterOne() {
   );
 }
 
-export default TemplateFooterOne;
+export default TemplateFooterTwo;

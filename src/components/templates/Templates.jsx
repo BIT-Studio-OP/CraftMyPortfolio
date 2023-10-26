@@ -2,15 +2,26 @@ import React, { useState } from "react";
 import Header from "../header/Header";
 import Footer from "../footer/Footer";
 import TemplateFooterOne from "./footers/templateFooterOne";
+import TemplateFooterTwo from "./footers/templateFooterTwo";
+import TemplateFooterThree from "./footers/templateFooterThree";
+import TemplateFooterFour from "./footers/templateFooterFour";
+import TemplateFooterFive from "./footers/templateFooterFive";
+import TemplateFooterSix from "./footers/templateFooterSix";
+import TemplateHeaderOne from "./headers/templateHeaderOne";
+import TemplateHeaderTwo from "./headers/templateHeaderTwo";
+import TemplateHeaderThree from "./headers/templateHeaderThree";
+import TemplateHeaderFour from "./headers/templateHeaderFour";
+import TemplateHeaderFive from "./headers/templateHeaderFive";
 import { createUseStyles } from "react-jss";
+import { useParams } from "react-router-dom";
 
 const useStyles = createUseStyles({
   templatesContainer: {
     fontFamily: "Arial, sans-serif",
-    maxWidth: "800px",
     margin: "0 auto",
     height: "60vh", //change this to 100% when we have enough content
     padding: "2rem",
+    alignItems: "center",
   },
   selectContainer: {
     marginBottom: "1rem",
@@ -32,39 +43,81 @@ const useStyles = createUseStyles({
     marginBottom: "2rem",
     color: "var(--primary-colour)",
   },
+  templatesFooterColumn: {
+    display: "grid",
+    gridTemplateColumns: "1fr 1fr",
+  },
+  templatesHeaderColumn: {
+    display: "grid",
+    gridTemplateColumns: "1fr",
+    gap: "2rem",
+  },
 });
 
-function Templates() {
+const Templates = () => {
   const classes = useStyles();
-  const [selectedDetailsType, setSelectedDetailsType] = useState("personal"); // Default to personal
-
-  const handleDetailsTypeChange = (event) => {
-    setSelectedDetailsType(event.target.value);
-  };
+  const { templateId } = useParams();
 
   return (
     <>
       <Header />
       <div className={classes.templatesContainer}>
         <h1 className={classes.heading}>Templates</h1>
-        <div className={classes.selectContainer}>
-          <label className={classes.selectLabel}>
-            Select Details Type: &nbsp;
-            <select
-              value={selectedDetailsType}
-              onChange={handleDetailsTypeChange}
-              className={classes.select}
-            >
-              <option value="personal">Personal</option>
-              <option value="work">Work</option>
-            </select>
-          </label>
+        <h1 className={classes.heading}>Footers</h1>
+        <div className={classes.templatesFooterColumn}>
+          <a href="/templates/1">
+            {" "}
+            <TemplateFooterOne />
+          </a>
+          <a href="/templates/2">
+            {" "}
+            <TemplateFooterTwo />
+          </a>
+          <a href="/templates/3">
+            {" "}
+            <TemplateFooterThree />
+          </a>
+          <a href="/templates/4">
+            {" "}
+            <TemplateFooterFour />
+          </a>
+          <a href="/templates/5">
+            {" "}
+            <TemplateFooterFive />
+          </a>
+          <a href="/templates/6">
+            {" "}
+            <TemplateFooterSix />
+          </a>
         </div>
-        <TemplateFooterOne detailsType={selectedDetailsType} />
+        <h1 className={classes.heading}>Headers</h1>
+        <div className={classes.templatesHeaderColumn}>
+          <a href="/templates/7">
+            {" "}
+            <TemplateHeaderOne />
+          </a>
+          <a href="/templates/8">
+            {" "}
+            <TemplateHeaderTwo />
+          </a>
+          <a href="/templates/9">
+            {" "}
+            <TemplateHeaderThree />
+          </a>
+          <a href="/templates/10">
+            {" "}
+            <TemplateHeaderFour />
+          </a>
+          <a href="/templates/11">
+            {" "}
+            <TemplateHeaderFive />
+          </a>
+        </div>
+        <h1 className={classes.heading}>Bodys</h1>
       </div>
       <Footer />
     </>
   );
-}
+};
 
 export default Templates;
