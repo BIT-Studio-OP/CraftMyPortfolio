@@ -14,6 +14,7 @@ import Details from "./pages/Details";
 import Account from "./components/account/Account";
 import TemplateEditor from "./components/templates/TemplateEditor";
 import Projects from "./pages/Projects";
+import ProjectEdit from "./pages/ProjectEdit";
 
 
 function App() {
@@ -53,6 +54,7 @@ function App() {
 
               <Route path="/account" element={<Account />} />
               <Route path="/projects" element={<Projects />} />
+              <Route path="/projects/:id" element={<ProjectEdit />} />
             </>
           ) : (
             <>

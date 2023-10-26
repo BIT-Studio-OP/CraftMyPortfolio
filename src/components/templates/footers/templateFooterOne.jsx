@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from "react";
+import { useUserDetails } from "../../getDetails/getDetails";
 import AutoFillButton from "../autoFill/autoFillButton";
 import { useParams } from "react-router-dom";
 
-function TemplateFooterOne() {
+function TemplateFooterOne({ detailsType }) {
   const [isEditing, setEditing] = useState(false);
   const { templateId } = useParams();
 
