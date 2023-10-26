@@ -2,10 +2,15 @@ import React, { useState, useRef } from "react";
 import { createUseStyles } from "react-jss";
 import Footer from "../components/footer/Footer";
 import Header from "../components/header/Header";
-import TemplateFooterOne from "../components/templates/footers/templateFooterOne";
+TemplateFooterThree;
 import NavbarTemplate from "../components/templates/navbars/NavbarTemplate";
 import { useStyles as useNavbarStyles } from "../components/templates/navbars/NavbarTemplateStyles";
 import ReactDOMServer from "react-dom/server";
+import TemplateFooterOne from "../components/templates/footers/templateFooterOne";
+import TemplateFooterTwo from "../components/templates/footers/templateFooterTwo";
+import TemplateFooterThree from "../components/templates/footers/TemplateFooterThree";
+import TemplateFooterFour from "../components/templates/footers/templateFooterFour";
+import TemplateFooterFive from "../components/templates/footers/templateFooterFive";
 
 const useStyles = createUseStyles({
   container: {
@@ -214,6 +219,23 @@ const ProjectEdit = () => {
     }
   };
 
+  const getTemplateComponent = (templateName) => {
+    switch (templateName) {
+      case "TemplateFooterOne":
+        return TemplateFooterOne;
+      case "TemplateFooterTwo":
+        return TemplateFooterTwo;
+      case "TemplateFooterThree":
+        return TemplateFooterThree;
+      case "TemplateFooterFour":
+        return TemplateFooterFour;
+      case "TemplateFooterFive":
+        return TemplateFooterFive;
+      default:
+        return null;
+    }
+  };
+
   const handleGridColsChange = (e) => {
     setGridCols(parseInt(e.target.value, 10));
   };
@@ -238,10 +260,18 @@ const ProjectEdit = () => {
     // Render the selected footer templates
     const footerContent = selectedFooterTemplates
       .map((templateName) => {
+        console.log("selectedFooterTemplates", selectedFooterTemplates);
         switch (templateName) {
-          case "FooterTemplate":
+          case "TemplateFooterOne":
             return ReactDOMServer.renderToString(<TemplateFooterOne />);
-          // Add more cases as needed
+          case "TemplateFooterTwo":
+            return ReactDOMServer.renderToString(<TemplateFooterTwo />);
+          case "TemplateFooterThree":
+            return ReactDOMServer.renderToString(<TemplateFooterThree />);
+          case "TemplateFooterFour":
+            return ReactDOMServer.renderToString(<TemplateFooterFour />);
+          case "TemplateFooterFive":
+            return ReactDOMServer.renderToString(<TemplateFooterFive />);
           default:
             return "";
         }
@@ -355,7 +385,11 @@ const ProjectEdit = () => {
             className={classes.select}
           >
             <option value="none">Select a footer template...</option>
-            <option value="FooterTemplate">Footer Template</option>
+            <option value="TemplateFooterOne">Footer Template 1</option>
+            <option value="TemplateFooterTwo">Footer Template 2</option>
+            <option value="TemplateFooterThree">Footer Template 3</option>
+            <option value="TemplateFooterFour">Footer Template 4</option>
+            <option value="TemplateFooterFive">Footer Template 5</option>
           </select>
         </div>
         <div className={classes.leftEditor}>
@@ -405,13 +439,23 @@ const ProjectEdit = () => {
               </div>
               <div className={classes.text}>Footer Templates Goes Here</div>
               <div className={classes.dropArea}>
-                {selectedFooterTemplates.map((templateName) => (
-                  <TemplateFooterOne
-                    key={templateName}
-                    templateName={templateName}
-                    removeTemplate={removeFooterTemplate}
-                  />
-                ))}
+                {selectedFooterTemplates.map((templateName, index) => {
+                  const TemplateComponent = getTemplateComponent(templateName);
+
+                  if (TemplateComponent) {
+                    return (
+                      <TemplateComponent
+                        key={index}
+                        templateName={templateName}
+                        removeTemplate={() =>
+                          removeFooterTemplate(templateName)
+                        }
+                      />
+                    );
+                  } else {
+                    return null;
+                  }
+                })}
               </div>
             </div>
           </div>
