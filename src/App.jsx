@@ -12,7 +12,9 @@ import Contact from "./pages/Contact";
 import Templates from "./components/templates/Templates";
 import Details from "./pages/Details";
 import Account from "./components/account/Account";
+import TemplateEditor from "./components/templates/TemplateEditor";
 import Projects from "./pages/Projects";
+
 
 function App() {
   const [isLoading, setIsLoading] = useState(true); // Set initial state to true
@@ -45,6 +47,7 @@ function App() {
             <>
               <Route path="/" element={<Home />} />
               <Route path="/templates" element={<Templates />} />
+              <Route path="/templates/:templateId" element={<TemplateEditor />} />
               <Route path="/details" element={<Details />} />
               <Route path="/contact" element={<Contact />} />
 
