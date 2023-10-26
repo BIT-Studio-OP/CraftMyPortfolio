@@ -92,10 +92,10 @@ const Contact = () => {
 
   emailjs
     .send(
-      "service_zwj4s46",
-      "template_au6br5e",
+      import.meta.env.VITE_EMAILJS_SERVICE_ID,
+      import.meta.env.VITE_EMAILJS_TEMPLATE_ID,
       messageBody,
-      "UX-Cw1EUvjb_NGAeQ"
+      import.meta.env.VITE_EMAILJS_USER_ID
     )
     .then(
       (result) => {
