@@ -19,8 +19,9 @@ const useStyles = createUseStyles({
   templatesContainer: {
     fontFamily: "Arial, sans-serif",
     margin: "0 auto",
-    height: "60vh", //change this to 100% when we have enough content
+    height: "100%", //change this to 100% when we have enough content
     padding: "2rem",
+    justifyContent: "space-between",
     alignItems: "center",
   },
   selectContainer: {

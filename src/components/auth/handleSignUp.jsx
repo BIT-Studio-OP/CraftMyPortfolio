@@ -11,7 +11,7 @@ import { setDoc, doc } from "firebase/firestore";
 
 import { firestore } from "../../utils/Firestore.jsx";
 
-export default handleSignUp = async (email, password, auth ) => {
+const handleSignUp = async (email, password, auth ) => {
     const userCredential = await createUserWithEmailAndPassword(
         auth,
         email,
@@ -23,3 +23,5 @@ export default handleSignUp = async (email, password, auth ) => {
         username,
       });
 }
+
+export default handleSignUp;
