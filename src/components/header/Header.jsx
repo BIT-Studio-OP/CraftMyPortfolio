@@ -33,9 +33,6 @@ function Header() {
           </a>
         </li>
         <li className={classes.MenuItem}>
-          <a className={classes.a}>Account</a>
-        </li>
-        <li className={classes.MenuItem}>
           <a href="/details" className={classes.a}>
             Details
           </a>
@@ -66,14 +63,6 @@ function Header() {
             </a>
           </li>
           <li className={classes.MenuItem}>
-            <a href="/details" className={classes.a}>
-              Details
-            </a>
-          </li>
-          <li className={classes.MenuItem}>
-            <a className={classes.a}>Account</a>
-          </li>
-          <li className={`${classes.MenuItem} projects-button`}>
             <a href="/details" className={classes.a}>
               Details
             </a>
