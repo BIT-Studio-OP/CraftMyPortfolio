@@ -133,7 +133,8 @@ const useStyles = createUseStyles({
     borderRadius: "5px",
   },
   button: {
-    width: "100%",
+    width: "15%",
+    alignSelf: "center",
     padding: "0.5rem",
     fontSize: "1rem",
     fontWeight: "bold",
@@ -253,8 +254,10 @@ const ProjectEdit = () => {
       <head>
         <style>
           /* Add your CSS styles here */
-          .header { padding: 10px; border-bottom: 1px solid #ccc; }
-          .footer { padding: 10px; border-top: 1px solid #ccc; }
+          @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;900&display=swap');
+          .header {  border-bottom: 1px solid #ccc; }
+          .footer {  border-top: 1px solid #ccc; }
+          body { font-family: 'Montserrat', sans-serif; margin: 0 !important;}
           /* ...other styles... */
           </style>
           </head>
@@ -317,14 +320,7 @@ const ProjectEdit = () => {
             <option value="HeaderTemplate">Header Template</option>
             {/* Add more header templates as needed */}
           </select>
-          <h3>Select Footer Templates</h3>
-          <select
-            onChange={handleFooterTemplateSelect}
-            className={classes.select}
-          >
-            <option value="none">Select a footer template...</option>
-            <option value="FooterTemplate">Footer Template</option>
-          </select>
+
           <h3>Select Body Options</h3>
           <select onChange={handleBodyOptionSelect} className={classes.select}>
             <option value="blank">Blank Body</option>
@@ -332,6 +328,7 @@ const ProjectEdit = () => {
             <option value="carousel">Carousel</option>
             {/* Add more body options as needed */}
           </select>
+
           {selectedBodyOption === "grid" && (
             <>
               <label>Number of Rows:</label>
@@ -352,6 +349,14 @@ const ProjectEdit = () => {
               />
             </>
           )}
+          <h3>Select Footer Templates</h3>
+          <select
+            onChange={handleFooterTemplateSelect}
+            className={classes.select}
+          >
+            <option value="none">Select a footer template...</option>
+            <option value="FooterTemplate">Footer Template</option>
+          </select>
         </div>
         <div className={classes.leftEditor}>
           <div className={classes.footer}>
