@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import Header from "../header/Header";
+import Footer from "../footer/Footer";
 import TemplateFooterOne from "./footers/templateFooterOne";
 import TemplateFooterTwo from "./footers/templateFooterTwo";
 import TemplateFooterThree from "./footers/templateFooterThree";
@@ -18,6 +19,7 @@ const useStyles = createUseStyles({
   templatesContainer: {
     fontFamily: "Arial, sans-serif",
     margin: "0 auto",
+    height: "60vh", //change this to 100% when we have enough content
     padding: "2rem",
     alignItems: "center",
   },
@@ -113,6 +115,7 @@ const Templates = () => {
         </div>
         <h1 className={classes.heading}>Bodys</h1>
       </div>
+      <Footer />
     </>
   );
 };

@@ -6,6 +6,7 @@ import {
 } from "firebase/firestore";
 import { getAuth, connectAuthEmulator } from "firebase/auth";
 import firebaseJson from "../../firebase.json";
+import firebase from "@firebase/app"; 
 
 const firebaseConfig = {
   apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
