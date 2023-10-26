@@ -29,7 +29,7 @@ const Spinner = () => {
   const classes = useStyles();
 
   return (
-    <div className={classes.spinnerOuter}>
+    <div className={classes.spinnerOuter} data-testid="spinner">
   <div className={classes.spinner}></div>
   </div>
   );

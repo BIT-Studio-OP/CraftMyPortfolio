@@ -1,0 +1,87 @@
+|   .bablerc
+|   .eslintrc.cjs
+|   .firebaserc
+|   .gitignore
+|   babel.config.json
+|   firebase.json
+|   firestore.indexes.json
+|   firestore.rules
+|   index.html
+|   LICENSE
+|   list.txt
+|   package-lock.json
+|   package.json
+|   postcss.config.js
+|   README.md
+|   tailwind.config.js
+|   TestPlan.md
+|   vite.config.js
+|   webpack.config.js
+|   
++---.firebase
+|       hosting.ZGlzdA.cache
+|       
++---dist
+|   |   index.html
+|   |   vite.svg
+|   |   
+|   \---assets
+|           index-327945de.js
+|           index-ed95b669.css
++---public
+|       vite.svg
+|       
++---src
+|   |   App.css
+|   |   App.jsx
+|   |   index.css
+|   |   main.jsx
+|   |   
+|   +---assets
+|   |       react.svg
+|   |       
+|   +---components
+|   |   +---account
+|   |   |       Account.css
+|   |   |       Account.jsx
+|   |   |       
+|   |   +---auth
+|   |   |       SignIn.jsx
+|   |   |       SignOut.jsx
+|   |   |       SignUp.jsx
+|   |   |       
+|   |   +---content
+|   |   |       Body.jsx
+|   |   |       
+|   |   +---footer
+|   |   |       Footer.jsx
+|   |   |       
+|   |   +---header
+|   |   |       Header.jsx
+|   |   |       nav.css
+|   |   |       
+|   |   +---home
+|   |   |       Home.jsx
+|   |   |       
+|   |   +---projects
+|   |   |       Projects.css
+|   |   |       Projects.jsx
+|   |   |       
+|   |   \---templates
+|   |           Templates.css
+|   |           Templates.jsx
+|   |           
+|   \---utils
+|       |   Firestore.jsx
+|       |   Spinner.jsx
+|       |   
+|       \---context
+|               AuthContext.jsx
+|               
++---__mocks__
+|       fileMock.js
+|       styleMock.js
+|       
+\---__tests__
+        App.test.jsx
+        
