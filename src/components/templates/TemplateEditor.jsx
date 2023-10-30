@@ -13,6 +13,10 @@ import TemplateHeaderTwo from "./headers/templateHeaderTwo";
 import TemplateHeaderThree from "./headers/templateHeaderThree";
 import TemplateHeaderFour from "./headers/templateHeaderFour";
 import TemplateHeaderFive from "./headers/templateHeaderFive";
+import ReactDOMServer from "react-dom/server";
+import firestore from "../../utils/Firestore";
+import { setDoc, doc, addDoc, collection } from "firebase/firestore";
+import { getAuth } from "firebase/auth";
 
 const useStyles = createUseStyles({
   templatesContainer: {
@@ -51,6 +55,111 @@ function TemplateEditor() {
   const classes = useStyles();
   const { templateId } = useParams();
 
+  // useEffect(() => {
+  //   const fetchDetails = async () => {
+  //     const collectionPath = `users/${auth.currentUser.uid}/DetailsPersonal/${auth.currentUser.uid}`;
+  //     const userRef = doc(firestore, ...collectionPath.split("/"));
+
+  //     const docSnap = await getDoc(userRef);
+  //     console.log("fetchDetails", docSnap.data());
+
+  //     if (docSnap.exists()) {
+  //       setDetails(docSnap.data());
+  //     } else {
+  //       console.log("No such document!");
+  //       setDetails("");
+  //     }
+  //   };
+
+  //   fetchDetails();
+  // }, []);
+
+  const addToProjects = async (htmlString) => {
+    const auth = getAuth();
+    const userRef = doc(firestore, "users", auth.currentUser.uid);
+    const userTemplatesCollectionRef = collection(
+      userRef,
+      "Templates",
+    );
+
+    try {
+      const template = {
+        html: htmlString,
+        createdAt: new Date(),
+      };
+
+      await addDoc(userTemplatesCollectionRef, template);
+
+      console.log("Template added");
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const exportToProjects = (templateId) => {
+    console.log(templateId);
+    let htmlString = "";
+    switch (templateId) {
+      case "1":
+        htmlString = ReactDOMServer.renderToString(<TemplateFooterOne />);
+        console.log(htmlString);
+        addToProjects(htmlString);
+        break;
+      case "2":
+        htmlString = ReactDOMServer.renderToString(<TemplateFooterTwo />);
+        console.log(htmlString);
+        addToProjects(htmlString);
+        break;
+      case "3":
+        htmlString = ReactDOMServer.renderToString(<TemplateFooterThree />);
+        console.log(htmlString);
+        addToProjects(htmlString);
+        break;
+      case "4":
+        htmlString = ReactDOMServer.renderToString(<TemplateFooterFour />);
+        console.log(htmlString);
+        addToProjects(htmlString);
+        break;
+      case "5":
+        htmlString = ReactDOMServer.renderToString(<TemplateFooterFive />);
+        console.log(htmlString);
+        addToProjects(htmlString);
+        break;
+      case "6":
+        htmlString = ReactDOMServer.renderToString(<TemplateFooterSix />);
+        console.log(htmlString);
+        addToProjects(htmlString);
+        break;
+      case "7":
+        htmlString = ReactDOMServer.renderToString(<TemplateHeaderOne />);
+        console.log(htmlString);
+        addToProjects(htmlString);
+        break;
+      case "8":
+        htmlString = ReactDOMServer.renderToString(<TemplateHeaderTwo />);
+        console.log(htmlString);
+        addToProjects(htmlString);
+        break;
+      case "9":
+        htmlString = ReactDOMServer.renderToString(<TemplateHeaderThree />);
+        console.log(htmlString);
+        addToProjects(htmlString);
+        break;
+      case "10":
+        htmlString = ReactDOMServer.renderToString(<TemplateHeaderFour />);
+        console.log(htmlString);
+        addToProjects(htmlString);
+        break;
+      case "11":
+        htmlString = ReactDOMServer.renderToString(<TemplateHeaderFive />);
+        console.log(htmlString);
+        addToProjects(htmlString);
+        break;
+      default:
+        return <div>Invalid template ID</div>;
+    }
+  };
+
   return (
     <>
       <Header />
@@ -68,6 +177,9 @@ function TemplateEditor() {
         {templateId === "10" && <TemplateHeaderFour />}
         {templateId === "11" && <TemplateHeaderFive />}
       </div>
+      <button onClick={() => exportToProjects(templateId)} className="btn btn-primary">
+        Export to Projects
+      </button>
     </>
   );
 }

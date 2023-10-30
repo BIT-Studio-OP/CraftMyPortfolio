@@ -11,6 +11,10 @@ import TemplateFooterTwo from "../components/templates/footers/templateFooterTwo
 import TemplateFooterThree from "../components/templates/footers/TemplateFooterThree";
 import TemplateFooterFour from "../components/templates/footers/templateFooterFour";
 import TemplateFooterFive from "../components/templates/footers/templateFooterFive";
+import { getAuth } from "firebase/auth";
+import { getDocs, doc, collection } from "firebase/firestore";
+import firestore from "../utils/Firestore";
+
 
 const useStyles = createUseStyles({
   container: {
@@ -170,6 +174,7 @@ const ProjectEdit = () => {
   const [selectedBodyOption, setSelectedBodyOption] = useState("blank");
   const [gridRows, setGridRows] = useState(3);
   const [gridCols, setGridCols] = useState(1);
+  const [templates, setTemplates] = useState([]);
   const [gridDescriptions, setGridDescriptions] = useState(
     Array.from({ length: gridRows * gridCols }, () => "")
   );
@@ -216,6 +221,23 @@ const ProjectEdit = () => {
           () => ""
         ),
       ]);
+    }
+  };
+
+  const importTemplate = async () => {
+    const auth = getAuth();
+    const userRef = doc(firestore, "users", auth.currentUser.uid);
+    const userTemplatesCollectionRef = collection(userRef, "Templates");
+
+    try {
+      const templatesSnapshot = await getDocs(userTemplatesCollectionRef);
+      templatesSnapshot.forEach((doc) => {
+        setTemplates((templates) => [...templates, doc.data()]);
+      });
+
+      console.log("Templates loaded:", templates);
+    } catch (error) {
+      console.log(error);
     }
   };
 

@@ -75,7 +75,7 @@ function TemplateFooterTwo() {
       {showAutoFillButton && <AutoFillButton onAutoFill={handleAutoFill} />}
       <footer
         style={{
-          border: "3px solid gray",
+          border: "2px solid gray",
           background: "linear-gradient(45deg, #FCFCED 10%, #FCFCEE 15%, #161925 15%, #161925 100%)",
           color: "#000",
           fontFamily: "Montserrat, sans-serif",
