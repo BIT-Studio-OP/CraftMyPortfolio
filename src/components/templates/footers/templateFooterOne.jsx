@@ -86,7 +86,6 @@ function TemplateFooterOne({ detailsType }) {
           bottom: "-1",
           left: "5vw",
           minWidth: "90%",
-          width: "90%",
           display: "flex",
           marginBottom: "2rem",
           justifyContent: "space-between",

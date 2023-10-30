@@ -47,6 +47,7 @@ const useStyles = createUseStyles({
   templatesFooterColumn: {
     display: "grid",
     gridTemplateColumns: "1fr 1fr",
+    gap: "2rem",
   },
   templatesHeaderColumn: {
     display: "grid",
