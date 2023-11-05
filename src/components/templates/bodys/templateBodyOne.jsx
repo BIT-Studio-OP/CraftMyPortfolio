@@ -1,293 +1,128 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { createUseStyles } from "react-jss";
-import AutoFillButton from "../autoFill/autoFillButton";
-import { useParams } from "react-router-dom";
+import { doc, getDoc } from "firebase/firestore";
+import { firestore } from "../../../utils/Firestore";
+import { getAuth } from "firebase/auth";
+
+const auth = getAuth();
 
 const useStyles = createUseStyles({
-  footer: {
-    border: "3px solid gray",
-    background:
-      "linear-gradient(45deg, #161925 10%, #161925 15%, #FCFCEE 15%, #FCFCEE 100%)",
-    color: "#FCFCEE",
-    fontFamily: "Montserrat, sans-serif",
-    fontWeight: "500",
-    padding: "1rem 2rem 1rem 2rem",
-    bottom: "-1",
-    left: "5vw",
-    minWidth: "90%",
-    width: "90%",
+  userDetailsContainer: {
     display: "flex",
-    marginBottom: "2rem",
-    justifyContent: "space-between",
-    alignItems: "center",
-    fontSize: "1vw",
-    "@media (max-width: 500px)": {
-      flexDirection: "column",
-      fontSize: "4vw",
-      fontFamily: "Arial, sans-serif",
-      fontWeight: "400",
-    },
-    "@media (max-width: 680px)": {
-      flexDirection: "column",
-      fontSize: "2vw",
-      fontFamily: "Arial, sans-serif",
-      fontWeight: "400",
-    },
-    "@media (max-width: 1500px)": {
-      background:
-        "linear-gradient(45deg, #161925 10%, #161925 25%, #FCFCEE 5%, #FCFCEE 100%)",
-    },
-    "@media (max-width: 800px)": {
-      background:
-        "linear-gradient(45deg, #161925 10%, #161925 29%, #FCFCEE 1%, #FCFCEE 100%)",
-    },
-    "@media (max-width: 750px)": {
-      background: "#FCFCEE",
-    },
+    flexWrap: "wrap",
+    width: "100%",
+    height: "100vh",
+    padding: "20px",
+    backgroundImage: `url("data:image/svg+xml,%3Csvg id='visual' viewBox='0 0 1080 100' width='1080' height='100' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' version='1.1'%3E%3Cg stroke-width='1' stroke-linejoin='bevel'%3E%3Cpath d='M532 0L341 0L564 100Z' fill='%231b4965' stroke='%231b4965'%3E%3C/path%3E%3Cpath d='M341 0L269 100L564 100Z' fill='%2300101c' stroke='%2300101c'%3E%3C/path%3E%3Cpath d='M564 100L783 100L532 0Z' fill='%23236385' stroke='%23236385'%3E%3C/path%3E%3Cpath d='M783 100L837 0L532 0Z' fill='%23297ea6' stroke='%23297ea6'%3E%3C/path%3E%3Cpath d='M0 0L0 100L269 100Z' fill='%23173d55' stroke='%23173d55'%3E%3C/path%3E%3Cpath d='M341 0L0 0L269 100Z' fill='%23123146' stroke='%23123146'%3E%3C/path%3E%3Cpath d='M783 100L1080 100L837 0Z' fill='%230d2637' stroke='%230d2637'%3E%3C/path%3E%3Cpath d='M1080 100L1080 0L837 0Z' fill='%230d2637' stroke='%230d2637'%3E%3C/path%3E%3C/g%3E%3C/svg%3E")`,
+    backgroundRepeat: "no-repeat",
+    backgroundSize: "cover",
+    color: "white",
+    fontFamily: "Arial, sans-serif",
   },
-  leftContent: {
-    display: "flex",
-    alignItems: "center",
-    flexDirection: "column",
-    "& p": {
-      margin: "0 1rem",
-      "@media (max-width: 750px)": {
-        color: "#161925",
-      },
-    },
-    "& > a": {
-      textDecoration: "none",
-      color: "#FCFCEE",
-      "@media (max-width: 750px)": {
-        color: "#161925",
-      },
-    },
-    "@media (max-width: 500px)": {
-      paddingBottom: "1rem",
-    },
+  userDetailItem: {
+    width: "50%", // Two columns per row
+    padding: "10px",
+    boxSizing: "border-box",
   },
-  rightContent: {
-    display: "flex",
-    alignItems: "center",
-    flexDirection: "column",
-    color: "#161925",
-    "& p": {
-      margin: "0 1rem",
-    },
-    "& > a": {
-      textDecoration: "none",
-      color: "#161925",
-    },
-    "@media (max-width: 500px)": {
-      paddingBottom: "1rem",
-    },
+  label: {
+    fontSize: "16px",
+    fontWeight: "bold",
+    marginBottom: "5px",
   },
-  middleContent: {
-    display: "flex",
-    color: "#161925",
-    alignItems: "center",
-    flexDirection: "column",
-    "& p": {
-      margin: "0 1rem",
-    },
-    "& > a": {
-      textDecoration: "none",
-      color: "#161925",
-    },
-    "@media (max-width: 500px)": {
-      paddingBottom: "1rem",
-    },
+  value: {
+    fontSize: "16px",
   },
 });
 
 function TemplateBodyOne() {
   const classes = useStyles();
-  const [isEditing, setEditing] = useState(false);
-  const { templateId } = useParams();
-
-  const [details, setDetails] = useState({
-    instagram: "Instagram",
-    facebook: "Facebook",
-    linkedIn: "LinkedIn",
+  const [userDetails, setUserDetails] = useState({
+    firstName: "",
+    lastName: "",
+    email: "",
+    phone: "",
+    age: "",
+    hometown: "",
+    about: "",
+    skills: [],
+    linkedin: "",
+    github: "",
+    jobs: [],
   });
 
-  const [leftContent, setLeftContent] = useState(details);
-  const [middleContent, setMiddleContent] = useState({
-    copyright: "@2023 CraftMyPortfolio",
-    contactEmail: "CraftMyPortfolio@gmail.com",
-  });
-  const [rightContent, setRightContent] = useState({
-    userOne: "UserOne",
-    userTwo: "UserTwo",
-    userThree: "UserThree",
-  });
+  const collectionType = "personal";
 
-  const handleLeftContentChange = (e) => {
-    setLeftContent({
-      ...leftContent,
-      [e.target.name]: e.target.value,
-    });
-  };
+  useEffect(() => {
+    const fetchUserDetails = async () => {
+      if (auth.currentUser) {
+        const userRef = doc(firestore, "users", auth.currentUser.uid);
+        const detailsCollection =
+          collectionType === "personal" ? "DetailsPersonal" : "DetailsWork";
 
-  const handleMiddleContentChange = (e) => {
-    setMiddleContent({
-      ...middleContent,
-      [e.target.name]: e.target.value,
-    });
-  };
+        const userDetailsDocRef = doc(userRef, detailsCollection, auth.currentUser.uid);
 
-  const handleRightContentChange = (e) => {
-    setRightContent({
-      ...rightContent,
-      [e.target.name]: e.target.value,
-    });
-  };
+        try {
+          const userDetailsSnapshot = await getDoc(userDetailsDocRef);
+          if (userDetailsSnapshot.exists()) {
+            const data = userDetailsSnapshot.data();
+            setUserDetails(data);
+          }
+        } catch (error) {
+          console.error("Error fetching user details:", error);
+        }
+      }
+    };
 
-  const handleAutoFill = (userDetails) => {
-    setDetails({
-      instagram: userDetails.name.first || "Instagram",
-      facebook: userDetails.facebook || "Facebook",
-      linkedIn: userDetails.linkedIn || "LinkedIn",
-    });
+    fetchUserDetails();
+  }, []);
 
-    setLeftContent({
-      instagram: userDetails.name.first || "Instagram",
-      facebook: userDetails.facebook || "Facebook",
-      linkedIn: userDetails.linkedIn || "LinkedIn",
-    });
+  console.log(userDetails.name)
 
-    setRightContent({
-      userOne: userDetails.name.first || "UserOne",
-      userTwo: userDetails.email || "UserTwo",
-      userThree: userDetails.portfolio || "UserThree",
-    });
-    setMiddleContent({
-      ...middleContent,
-      contactEmail: userDetails.email || "CraftMyPortfolio@gmail.com",
-    });
-  };
-
-
-  const showAutoFillButton = templateId !== undefined;
   return (
-    <>
-      {showAutoFillButton && <AutoFillButton onAutoFill={handleAutoFill} />}
-
-      <footer className={classes.footer}>
-        <div className={classes.leftContent}>
-          <p>Follow us:</p>
-          {isEditing ? (
-            <input
-              type="text"
-              name="instagram"
-              value={leftContent.instagram}
-              onChange={handleLeftContentChange}
-              style={{
-                background: isEditing ? "rgba(182,130,148)" : "transparent",
-              }}
-            />
-          ) : (
-            <p>{leftContent.instagram}</p>
-          )}
-          {isEditing ? (
-            <input
-              type="text"
-              name="facebook"
-              value={leftContent.facebook}
-              onChange={handleLeftContentChange}
-              style={{
-                background: isEditing ? "rgba(182,130,148)" : "transparent",
-              }}
-            />
-          ) : (
-            <p>{leftContent.facebook}</p>
-          )}
-          {isEditing ? (
-            <input
-              type="text"
-              name="linkedIn"
-              value={leftContent.linkedIn}
-              onChange={handleLeftContentChange}
-              style={{
-                background: isEditing ? "rgba(182,130,148)" : "transparent",
-              }}
-            />
-          ) : (
-            <p>{leftContent.linkedIn}</p>
-          )}
+    <div className={classes.userDetailsContainer}>
+      <div className={classes.userDetailItem}>
+        <div className={classes.label}>Name:</div>
+        <div className={classes.value}>
+          {userDetails.firstName} {userDetails.lastName}
         </div>
-        <div className={classes.middleContent}>
-          {isEditing ? (
-            <input
-              type="text"
-              name="copyright"
-              value={middleContent.copyright}
-              onChange={handleMiddleContentChange}
-              style={{
-                background: isEditing ? "rgba(182,130,148)" : "transparent",
-              }}
-            />
-          ) : (
-            <p>{middleContent.copyright}</p>
-          )}
-          {isEditing ? (
-            <input
-              type="text"
-              name="contactEmail"
-              value={middleContent.contactEmail}
-              onChange={handleMiddleContentChange}
-              style={{
-                background: isEditing ? "rgba(182,130,148)" : "transparent",
-              }}
-            />
-          ) : (
-            <p>{middleContent.contactEmail}</p>
-          )}
-        </div>
-        <div className={classes.rightContent}>
-          <p>The Team:</p>
-          {isEditing ? (
-            <input
-              type="text"
-              name="userOne"
-              value={rightContent.userOne}
-              onChange={handleRightContentChange}
-              style={{
-                background: isEditing ? "rgba(182,130,148)" : "transparent",
-              }}
-            />
-          ) : (
-            <p>{rightContent.userOne}</p>
-          )}
-          {isEditing ? (
-            <input
-              type="text"
-              name="userTwo"
-              value={rightContent.userTwo}
-              onChange={handleRightContentChange}
-              style={{
-                background: isEditing ? "rgba(182,130,148)" : "transparent",
-              }}
-            />
-          ) : (
-            <p>{rightContent.userTwo}</p>
-          )}
-          {isEditing ? (
-            <input
-              type="text"
-              name="userThree"
-              value={rightContent.userThree}
-              onChange={handleRightContentChange}
-              style={{
-                background: isEditing ? "rgba(182,130,148)" : "transparent",
-              }}
-            />
-          ) : (
-            <p>{rightContent.userThree}</p>
-          )}
-        </div>
-      </footer>
-    </>
+      </div>
+      <div className={classes.userDetailItem}>
+        <div className={classes.label}>Email:</div>
+        <div className={classes.value}>{userDetails.email}</div>
+      </div>
+      <div className={classes.userDetailItem}>
+        <div className={classes.label}>Phone:</div>
+        <div className={classes.value}>{userDetails.phone}</div>
+      </div>
+      <div className={classes.userDetailItem}>
+        <div className={classes.label}>Age:</div>
+        <div className={classes.value}>{userDetails.age}</div>
+      </div>
+      <div className={classes.userDetailItem}>
+        <div className={classes.label}>Hometown:</div>
+        <div className={classes.value}>{userDetails.hometown}</div>
+      </div>
+      <div className={classes.userDetailItem}>
+        <div className={classes.label}>About:</div>
+        <div className={classes.value}>{userDetails.about}</div>
+      </div>
+      <div className={classes.userDetailItem}>
+        <div className={classes.label}>Skills:</div>
+        <div className={classes.value}>{userDetails.skills.join(", ")}</div>
+      </div>
+      <div className={classes.userDetailItem}>
+        <div className={classes.label}>LinkedIn:</div>
+        <div className={classes.value}>{userDetails.linkedin}</div>
+      </div>
+      <div className={classes.userDetailItem}>
+        <div className={classes.label}>GitHub:</div>
+        <div className={classes.value}>{userDetails.github}</div>
+      </div>
+      <div className={classes.userDetailItem}>
+        <div className={classes.label}>Jobs:</div>
+        <div className={classes.value}>{userDetails.jobs.join(", ")}</div>
+      </div>
+    </div>
   );
 }
 
