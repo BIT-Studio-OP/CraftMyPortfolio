@@ -12,6 +12,7 @@ import TemplateHeaderTwo from "./headers/templateHeaderTwo";
 import TemplateHeaderThree from "./headers/templateHeaderThree";
 import TemplateHeaderFour from "./headers/templateHeaderFour";
 import TemplateHeaderFive from "./headers/templateHeaderFive";
+import TemplateBodyOne from "./bodys/templateBodyOne";
 import { createUseStyles } from "react-jss";
 import { useParams } from "react-router-dom";
 
@@ -116,6 +117,13 @@ const Templates = () => {
           </a>
         </div>
         <h1 className={classes.heading}>Bodys</h1>
+        <div className={classes.templatesHeaderColumn}>
+          <a href="/templates/12">
+            {" "}
+            <TemplateBodyOne />
+          </a>
+
+        </div>
       </div>
       <Footer />
     </>
